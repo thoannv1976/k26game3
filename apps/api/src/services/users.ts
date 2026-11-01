@@ -36,11 +36,13 @@ export function newUserDoc(uid: string, tenantId: string, u: { email: string; di
     ...(u.studentCode ? { studentCode: u.studentCode } : {}),
     courseIds: u.courseIds ?? [],
     level: u.level ?? 'B1',
+    avatar: null,
     xp: 0,
-    detectivePoints: 0,
-    completedCaseIds: [],
-    bestPercent: {},
-    achievements: [],
+    badges: [],
+    streak: { days: 0, lastDay: null },
+    completedQuestIds: [],
+    bestScores: {},
+    recordingConsentAt: null,
     locale: 'vi',
     disabled: false,
     createdAt: now.toISOString(),
@@ -153,12 +155,16 @@ function splitCsvLine(line: string): string[] {
 /** Deletes a user's learning data, audio and account (right to erasure, per school policy). */
 export async function deleteUserData(deps: Deps, tenantId: string, uid: string): Promise<{ sessions: number }> {
   const p = paths(deps.db);
-  const sessions = await p.sessions(tenantId).where('uid', '==', uid).get();
+  const sessions = await p.attempts(tenantId).where('uid', '==', uid).get();
   for (const s of sessions.docs) {
     await deps.db.recursiveDelete(s.ref);
     await p.assessment(tenantId, s.id).delete();
-    await paths(deps.db).report(tenantId, s.id).delete();
   }
+  await deps.blobs.deletePrefix(`tenants/${tenantId}/recordings/${uid}/`);
+  await deps.db.recursiveDelete(p.user(tenantId, uid).collection('coach_messages'));
+  await p.profile(tenantId, uid).delete();
+  const champs = await p.championships(tenantId).get();
+  for (const c of champs.docs) await p.entry(tenantId, c.id, uid).delete();
   const courses = await p.courses(tenantId).get();
   for (const c of courses.docs) {
     const d = c.data() as CourseDoc;

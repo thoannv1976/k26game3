@@ -11,8 +11,8 @@ import { getTenant } from '../tenants.js';
 import { audit } from '../audit.js';
 import { monthKey, recordUsage } from '../quota.js';
 import { NewUserSchema, deleteUserData, parseUserCsv, provisionUser } from '../services/users.js';
-import { approveCase, generateCase, getCaseAdmin, listCasesAdmin, saveCaseDraft, seedBuiltinCases, setCaseArchived } from '../services/cases.js';
-import { CaseRequestSchema } from '@vq/ai';
+import { approveContent, checkContent, generateItem, getContentAdmin, listContent, saveDraft, seedBuiltinContent, setArchived } from '../services/content.js';
+import { ItemRequestSchema } from '@vq/ai';
 
 const ADMIN = ['school_admin'] as const;
 const CONTENT_EDITORS = ['teacher', 'school_admin'] as const;
@@ -180,57 +180,74 @@ export async function adminRoutes(app: FastifyInstance, deps: Deps) {
     return { ok: true };
   });
 
-  /* ---------------- case bank ---------------- */
-  app.get('/api/admin/cases', async (req) => {
+  /* ---------------- content bank: items, quests, mock exams ---------------- */
+  const Kind = z.enum(['item', 'quest', 'exam']);
+  const kindOf = (req: { params: unknown }) => parseBody(Kind, (req.params as { kind: string }).kind);
+  const cid = (req: { params: unknown }) => parseBody(z.string().regex(/^[A-Za-z0-9_]{2,60}$/), (req.params as { id: string }).id);
+
+  app.get('/api/admin/content/:kind', async (req) => {
     const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
-    return { cases: await listCasesAdmin(deps, m.tenantId) };
+    return { items: await listContent(deps, m.tenantId, kindOf(req)) };
   });
 
-  app.get('/api/admin/cases/:id', async (req) => {
+  app.get('/api/admin/content/:kind/:id', async (req) => {
     const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
-    return getCaseAdmin(deps, m.tenantId, (req.params as { id: string }).id);
+    return getContentAdmin(deps, m.tenantId, kindOf(req), cid(req));
   });
 
-  app.put('/api/admin/cases/:id', async (req) => {
+  /** Dry-run consistency check without saving. */
+  app.post('/api/admin/content/:kind/check', async (req) => {
     const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
-    const body = parseBody(z.object({ dossier: z.unknown(), note: z.string().max(500).default('') }), req.body);
-    const id = (req.params as { id: string }).id;
-    const r = await saveCaseDraft(deps, m.tenantId, id, body.dossier, m.uid, body.note);
-    await audit(deps, m, m.tenantId, 'case.draft', id, { version: r.version, ok: r.check.ok });
+    const body = parseBody(z.object({ content: z.unknown() }), req.body);
+    const c = await checkContent(deps, m.tenantId, kindOf(req), body.content);
+    return { ok: c.ok, errors: c.errors, warnings: c.warnings };
+  });
+
+  app.put('/api/admin/content/:kind/:id', async (req) => {
+    const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
+    const body = parseBody(z.object({ content: z.unknown(), note: z.string().max(500).default('') }), req.body);
+    const kind = kindOf(req);
+    const id = cid(req);
+    const r = await saveDraft(deps, m.tenantId, kind, id, body.content, m.uid, body.note);
+    await audit(deps, m, m.tenantId, 'content.draft', `${kind}:${id}`, { version: r.version, ok: r.check.ok });
     return r;
   });
 
-  app.post('/api/admin/cases/:id/approve', async (req) => {
-    const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
+  /** Approval: teachers approve items and quests; mock exams need a school admin (expert sign-off). */
+  app.post('/api/admin/content/:kind/:id/approve', async (req) => {
+    const kind = kindOf(req);
+    const m = requireTenantMember(req.authUser, kind === 'exam' ? [...ADMIN] : [...CONTENT_EDITORS]);
     const body = parseBody(z.object({ version: z.number().int().min(1) }), req.body);
-    const id = (req.params as { id: string }).id;
-    const r = await approveCase(deps, m.tenantId, id, body.version, m.uid);
-    await audit(deps, m, m.tenantId, 'case.approve', id, r);
+    const id = cid(req);
+    const r = await approveContent(deps, m.tenantId, kind, id, body.version, m.uid);
+    await audit(deps, m, m.tenantId, 'content.approve', `${kind}:${id}`, r);
     return r;
   });
 
-  app.post('/api/admin/cases/:id/archive', async (req) => {
+  app.post('/api/admin/content/:kind/:id/archive', async (req) => {
     const m = requireTenantMember(req.authUser, [...ADMIN]);
     const body = parseBody(z.object({ archived: z.boolean() }), req.body);
-    const id = (req.params as { id: string }).id;
-    const r = await setCaseArchived(deps, m.tenantId, id, body.archived);
-    await audit(deps, m, m.tenantId, 'case.archive', id, r);
+    const kind = kindOf(req);
+    const id = cid(req);
+    const r = await setArchived(deps, m.tenantId, kind, id, body.archived);
+    await audit(deps, m, m.tenantId, 'content.archive', `${kind}:${id}`, r);
     return r;
   });
 
-  app.post('/api/admin/cases/seed', async (req) => {
+  app.post('/api/admin/content/seed', async (req) => {
     const m = requireTenantMember(req.authUser, [...ADMIN]);
-    const r = await seedBuiltinCases(deps, m.tenantId);
-    await audit(deps, m, m.tenantId, 'case.seed', 'builtin', r);
+    const body = parseBody(z.object({ approve: z.boolean().default(true), approveExams: z.boolean().default(false) }), req.body ?? {});
+    const r = await seedBuiltinContent(deps, m.tenantId, { approvedBy: body.approve ? m.uid : undefined, approveExams: body.approveExams });
+    await audit(deps, m, m.tenantId, 'content.seed', 'builtin', r);
     return r;
   });
 
-  /** AI Case Generator: creates a DRAFT for teacher review (never published automatically). */
-  app.post('/api/admin/cases/generate', async (req) => {
+  /** AI Question Generator: creates a DRAFT item for teacher review (never published automatically). */
+  app.post('/api/admin/content/generate', async (req) => {
     const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
-    const body = parseBody(CaseRequestSchema, req.body);
-    const r = await generateCase(deps, m, body);
-    await audit(deps, m, m.tenantId, 'case.generate', body.caseId, { topic: body.topic, ok: r.check.ok });
+    const body = parseBody(ItemRequestSchema, req.body);
+    const r = await generateItem(deps, m, body);
+    await audit(deps, m, m.tenantId, 'content.generate', body.id, { topic: body.topic, ok: r.check.ok });
     return r;
   });
 
@@ -346,19 +363,26 @@ export async function adminRoutes(app: FastifyInstance, deps: Deps) {
 
   app.get('/api/admin/reports/overview', async (req) => {
     const m = requireTenantMember(req.authUser, [...ADMIN]);
-    const [users, sessions, assessments] = await Promise.all([
+    const [users, attempts, assessments] = await Promise.all([
       p.users(m.tenantId).count().get(),
-      p.sessions(m.tenantId).count().get(),
+      p.attempts(m.tenantId).count().get(),
       p.assessments(m.tenantId).orderBy('createdAt', 'desc').limit(500).get(),
     ]);
-    const list = assessments.docs.map((d) => d.data() as { caseId: string; finalPercent: number; solved: boolean; teacherReview: unknown });
-    const byCase: Record<string, { reports: number; solved: number; avgPercent: number }> = {};
+    const list = assessments.docs.map((d) => d.data() as { mode: string; refId: string; score: number | null; passed: boolean; pendingReview: boolean; teacherReview: unknown });
+    const byRef: Record<string, { mode: string; results: number; passed: number; avgScore: number | null }> = {};
     for (const a of list) {
-      const b = (byCase[a.caseId] ??= { reports: 0, solved: 0, avgPercent: 0 });
-      b.avgPercent = (b.avgPercent * b.reports + a.finalPercent) / (b.reports + 1);
-      b.reports++;
-      if (a.solved) b.solved++;
+      const b = (byRef[a.refId] ??= { mode: a.mode, results: 0, passed: 0, avgScore: null });
+      if (a.score !== null) b.avgScore = Math.round(((b.avgScore ?? 0) * b.results + a.score) / (b.results + 1));
+      b.results++;
+      if (a.passed) b.passed++;
     }
-    return { users: users.data().count, sessions: sessions.data().count, recentReports: list.length, reviewed: list.filter((a) => a.teacherReview).length, byCase };
+    return {
+      users: users.data().count,
+      attempts: attempts.data().count,
+      recentResults: list.length,
+      pendingReview: list.filter((a) => a.pendingReview && !a.teacherReview).length,
+      reviewed: list.filter((a) => a.teacherReview).length,
+      byRef,
+    };
   });
 }

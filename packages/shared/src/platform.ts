@@ -164,3 +164,11 @@ export const ApiErrorCodes = [
   'INTERNAL',
 ] as const;
 export type ApiErrorCode = (typeof ApiErrorCodes)[number];
+
+/** Timing measured from speech-to-text word offsets (fluency is computed from this, not by the AI). */
+export interface SpeechMetrics {
+  words: number;
+  speechSeconds: number;
+  longPauses: number;
+  confidence: number;
+}

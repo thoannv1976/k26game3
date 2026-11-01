@@ -8,7 +8,7 @@ import { ApiError, notFound } from '../errors.js';
 import { paths } from '../paths.js';
 import { audit } from '../audit.js';
 import { provisionUser } from '../services/users.js';
-import { seedBuiltinCases } from '../services/cases.js';
+import { seedBuiltinContent } from '../services/content.js';
 
 /**
  * Platform administration: create and manage schools (tenants).
@@ -39,7 +39,7 @@ export async function platformRoutes(app: FastifyInstance, deps: Deps) {
         allowedEmailDomains: z.array(z.string().regex(/^[a-z0-9.-]+\.[a-z]{2,}$/)).max(10).default([]),
         adminEmail: z.email(),
         adminName: z.string().trim().min(1).max(120),
-        seedCases: z.boolean().default(true),
+        seedContent: z.boolean().default(true),
       }),
       req.body,
     );
@@ -55,8 +55,9 @@ export async function platformRoutes(app: FastifyInstance, deps: Deps) {
       createdAt: deps.now().toISOString(),
     };
     await ref.set(tenant);
-    // Cases are seeded as drafts: teachers must review and approve them before students see them.
-    if (body.seedCases) await seedBuiltinCases(deps, body.id);
+    // Built-in quests are approved (reviewed with the product); the mock exam stays a draft until a school admin
+    // with VSTEP-format expertise approves it.
+    if (body.seedContent) await seedBuiltinContent(deps, body.id, { approvedBy: `platform:${u.uid}` });
     const admin = await provisionUser(deps, tenant, { email: body.adminEmail.toLowerCase(), displayName: body.adminName, role: 'school_admin', level: 'B1', courseIds: [] });
     await audit(deps, u, null, 'tenant.create', body.id, { adminEmail: body.adminEmail });
     return { tenant, admin: { uid: admin.uid, temporaryPassword: admin.password } };

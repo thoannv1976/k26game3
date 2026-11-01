@@ -6,7 +6,7 @@ import { buildApp } from '../src/app.js';
 import { loadConfig } from '../src/config.js';
 import { createDeps, type Deps } from '../src/deps.js';
 import { paths } from '../src/paths.js';
-import { seedBuiltinCases } from '../src/services/cases.js';
+import { seedBuiltinContent } from '../src/services/content.js';
 import { provisionUser } from '../src/services/users.js';
 
 const AUTH_HOST = process.env.FIREBASE_AUTH_EMULATOR_HOST;
@@ -20,27 +20,27 @@ export interface TestCtx {
   ai: FakeAiProvider;
 }
 
-export async function makeApp(): Promise<TestCtx> {
-  const config = loadConfig({ env: 'test', projectId: process.env.GCLOUD_PROJECT ?? 'demo-ed', aiProvider: 'fake', aiMaxRetries: 1, aiTimeoutMs: 2000, gradingTimeoutMs: 3000, rateLimitPerMinute: 100000 });
+export async function makeApp(o: Partial<Deps> = {}, cfg: Partial<ReturnType<typeof loadConfig>> = {}): Promise<TestCtx> {
+  const config = loadConfig({ env: 'test', projectId: process.env.GCLOUD_PROJECT ?? 'demo-vq', blobStore: 'memory', aiProvider: 'fake', aiMaxRetries: 1, aiTimeoutMs: 2000, gradingTimeoutMs: 3000, rateLimitPerMinute: 100000, ...cfg });
   const ai = new FakeAiProvider();
-  const deps = createDeps(config, { ai });
+  const deps = createDeps(config, { ai, ...o });
   const app = await buildApp(deps, { logger: false });
   return { app, deps, ai };
 }
 
-export async function createTenant(deps: Deps, opts: { approve?: boolean; quotas?: Partial<TenantDoc['quotas']>; id?: string } = {}): Promise<TenantDoc> {
+export async function createTenant(deps: Deps, opts: { approve?: boolean; approveExams?: boolean; quotas?: Partial<TenantDoc['quotas']>; id?: string } = {}): Promise<TenantDoc> {
   const id = opts.id ?? `t-${randomUUID().slice(0, 8)}`;
   const tenant: TenantDoc = {
     id,
     name: `Test University ${id}`,
     allowedEmailDomains: [],
-    quotas: { ...DEFAULT_QUOTAS, attemptsPerCasePerDay: 100, ...opts.quotas },
+    quotas: { ...DEFAULT_QUOTAS, attemptsPerQuestPerDay: 100, mockExamsPerStudentPerMonth: 100, ...opts.quotas },
     aiConfig: DEFAULT_AI_CONFIG,
     active: true,
     createdAt: new Date().toISOString(),
   };
   await paths(deps.db).tenant(id).set(tenant);
-  await seedBuiltinCases(deps, id, opts.approve === false ? {} : { approvedBy: 'test' });
+  await seedBuiltinContent(deps, id, opts.approve === false ? {} : { approvedBy: 'test', approveExams: opts.approveExams ?? true });
   return tenant;
 }
 
@@ -102,3 +102,42 @@ export async function api<T = any>(ctx: TestCtx, user: TestUser | null, method: 
 }
 
 export const uuid = () => randomUUID();
+
+/** 16 kHz mono 16-bit WAV with a tone (the fake STT returns a slice of the sample answer). */
+export function wav(seconds: number): Buffer {
+  const rate = 16000;
+  const pcm = Buffer.alloc(Math.round(seconds * rate) * 2);
+  for (let i = 0; i < pcm.length / 2; i++) pcm.writeInt16LE(Math.round(Math.sin(i / 8) * 8000), i * 2);
+  const h = Buffer.alloc(44);
+  h.write('RIFF', 0);
+  h.writeUInt32LE(36 + pcm.length, 4);
+  h.write('WAVE', 8);
+  h.write('fmt ', 12);
+  h.writeUInt32LE(16, 16);
+  h.writeUInt16LE(1, 20);
+  h.writeUInt16LE(1, 22);
+  h.writeUInt32LE(rate, 24);
+  h.writeUInt32LE(rate * 2, 28);
+  h.writeUInt16LE(2, 32);
+  h.writeUInt16LE(16, 34);
+  h.write('data', 36);
+  h.writeUInt32LE(pcm.length, 40);
+  return Buffer.concat([h, pcm]);
+}
+
+/** Multipart body with one WAV file field. */
+export function multipart(file: Buffer) {
+  const boundary = `----vq${randomUUID().slice(0, 8)}`;
+  const body = Buffer.concat([
+    Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="audio"; filename="take.wav"\r\nContent-Type: audio/wav\r\n\r\n`),
+    file,
+    Buffer.from(`\r\n--${boundary}--\r\n`),
+  ]);
+  return { body, headers: { 'content-type': `multipart/form-data; boundary=${boundary}` } };
+}
+
+export async function upload(ctx: TestCtx, user: TestUser, url: string, file: Buffer) {
+  const m = multipart(file);
+  const res = await ctx.app.inject({ method: 'POST', url, headers: { authorization: `Bearer ${user.token}`, ...m.headers }, payload: m.body });
+  return { status: res.statusCode, body: res.json() as any };
+}

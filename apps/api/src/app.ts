@@ -1,6 +1,7 @@
 import Fastify, { type FastifyInstance } from 'fastify';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
+import multipart from '@fastify/multipart';
 import { ZodError, type ZodType } from 'zod';
 import { authenticate } from './auth.js';
 import type { Deps } from './deps.js';
@@ -10,6 +11,7 @@ import { teacherRoutes } from './routes/teacher.js';
 import { adminRoutes } from './routes/admin.js';
 import { platformRoutes } from './routes/platform.js';
 import { lmsRoutes } from './routes/lms.js';
+import { internalRoutes } from './routes/internal.js';
 
 export function parseBody<T>(schema: ZodType<T>, data: unknown): T {
   const r = schema.safeParse(data);
@@ -32,6 +34,8 @@ export async function buildApp(deps: Deps, opts: { logger?: boolean } = {}): Pro
     timeWindow: '1 minute',
     keyGenerator: (req) => (req.headers.authorization ? req.headers.authorization.slice(-32) : req.ip),
   });
+  // Speaking recordings: one 16 kHz mono WAV per request (≈32 KB/s; 240 s ≈ 7.7 MB).
+  await app.register(multipart, { limits: { fileSize: 8 * 1024 * 1024, files: 1, fields: 5 } });
   app.addContentTypeParser('text/csv', { parseAs: 'string' }, (_req, body, done) => done(null, body));
 
   app.setErrorHandler((err, req, reply) => {
@@ -41,6 +45,10 @@ export async function buildApp(deps: Deps, opts: { logger?: boolean } = {}): Pro
     if (err instanceof ZodError) {
       return reply.status(400).send({ error: { code: 'VALIDATION', message: 'Invalid request', details: err.issues } });
     }
+    // Firestore transaction aborted after its retries (heavy contention on one attempt): safe for the client to retry.
+    if ((err as { code?: unknown }).code === 10) {
+      return reply.status(409).send({ error: { code: 'REQUEST_IN_PROGRESS', message: 'Another request is updating this. Please try again.' } });
+    }
     const status = (err as { statusCode?: number }).statusCode;
     if (status && status < 500) {
       return reply.status(status).send({ error: { code: status === 429 ? 'QUOTA_EXCEEDED' : 'VALIDATION', message: err.message } });
@@ -49,7 +57,7 @@ export async function buildApp(deps: Deps, opts: { logger?: boolean } = {}): Pro
     return reply.status(500).send({ error: { code: 'INTERNAL', message: 'Internal server error' } });
   });
 
-  app.get('/api/health', async () => ({ ok: true, app: 'english-detective', ai: deps.ai.name, database: deps.config.firestoreDatabase, env: deps.config.env }));
+  app.get('/api/health', async () => ({ ok: true, app: 'vstep-quest', ai: deps.ai.name, database: deps.config.firestoreDatabase, env: deps.config.env }));
 
   // Authenticate every other /api route.
   app.addHook('preHandler', async (req) => {
@@ -62,5 +70,6 @@ export async function buildApp(deps: Deps, opts: { logger?: boolean } = {}): Pro
   await app.register(async (r) => adminRoutes(r, deps));
   await app.register(async (r) => platformRoutes(r, deps));
   await app.register(async (r) => lmsRoutes(r, deps));
+  await app.register(async (r) => internalRoutes(r, deps));
   return app;
 }

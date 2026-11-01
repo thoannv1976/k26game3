@@ -78,8 +78,11 @@ async function writeVersion(deps: Deps, tenantId: string, kind: ContentKind, id:
   return version;
 }
 
-/** Seeds built-in items, quests and the mock exam. Drafts unless `approvedBy` is given. Renders listening audio for approved items. */
-export async function seedBuiltinContent(deps: Deps, tenantId: string, opts: { approvedBy?: string; overwrite?: boolean } = {}) {
+/**
+ * Seeds built-in items, quests and the mock exam. Items/quests are drafts unless `approvedBy` is given; the mock exam
+ * stays a draft (VSTEP-format experts approve it) unless `approveExams` is set. Renders audio for approved listening items.
+ */
+export async function seedBuiltinContent(deps: Deps, tenantId: string, opts: { approvedBy?: string; approveExams?: boolean; overwrite?: boolean } = {}) {
   const p = paths(deps.db);
   let created = 0;
   const approve = Boolean(opts.approvedBy);
@@ -97,7 +100,7 @@ export async function seedBuiltinContent(deps: Deps, tenantId: string, opts: { a
   }
   for (const e of BUILTIN_EXAMS) {
     if ((await p.contentDoc(tenantId, 'exam', e.id).get()).exists && !opts.overwrite) continue;
-    await writeVersion(deps, tenantId, 'exam', e.id, { exam: e, blueprint: BUILTIN_BLUEPRINT }, 'builtin', actor, approve, 'Built-in mock exam (requires expert approval)');
+    await writeVersion(deps, tenantId, 'exam', e.id, { exam: e, blueprint: BUILTIN_BLUEPRINT }, 'builtin', actor, approve && Boolean(opts.approveExams), 'Built-in mock exam (requires expert approval)');
     created++;
   }
   return { created };

@@ -5,7 +5,7 @@
     "prod": "k26game1-prod"
   },
   "targets": {
-    "k26game1": { "hosting": { "detective": ["k26-detective"] } },
-    "k26game1-prod": { "hosting": { "detective": ["k26-detective-prod"] } }
+    "k26game1": { "hosting": { "vstep": ["k26-vstep"] } },
+    "k26game1-prod": { "hosting": { "vstep": ["k26-vstep-prod"] } }
   }
 }

@@ -31,6 +31,33 @@ export interface AttemptDoc {
   gradingAttempts: number;
   /** Exams: answers and explanations visible to the student only after the teacher releases them. */
   answersReleased: boolean;
+  /** AI explanations/coach allowed during this attempt (quests: yes; exams: no; championships: per settings). */
+  helpAllowed: boolean;
+}
+
+/** .../game_sessions/{id}/explanations/{item__question} */
+export interface ExplanationDoc {
+  key: string;
+  status: 'processing' | 'done' | 'failed';
+  source: 'ai' | 'teacher_note';
+  explanation: string;
+  whyStudentAnswer: string;
+  quote: string;
+  vocabulary: { term: string; meaning: string }[];
+  tip: string;
+  createdAt: string;
+}
+
+/** tenants/{t}/users/{uid}/coach_messages/{clientMessageId} */
+export interface CoachMessageDoc {
+  id: string;
+  status: 'processing' | 'done' | 'failed';
+  question: string;
+  answer: string;
+  kind: string;
+  suggestedQuestIds: string[];
+  blocked: string | null;
+  createdAt: string;
 }
 
 export interface WritingDoc {
@@ -70,7 +97,10 @@ export interface AssessmentDoc {
   level: Level | 'B1-B2';
   championshipId: string | null;
   courseId: string | null;
+  /** Final item results (teacher scores applied). */
   items: ItemResult[];
+  /** Item results as produced by the machine/AI, before any teacher review. */
+  aiItems: ItemResult[];
   feedback: Record<string, ItemFeedback>;
   skills: SkillResult[];
   overall: number | null;
@@ -79,6 +109,8 @@ export interface AssessmentDoc {
   aiStatus: 'ok' | 'partial' | 'failed' | 'skipped' | 'not_needed';
   /** Writing/speaking criteria still need a teacher (e.g. pronunciation, or AI unavailable). */
   pendingReview: boolean;
+  /** Quest/championship: main skill score; exam: overall (null while not available). */
+  score: number | null;
   passed: boolean;
   xpAwarded: number;
   newBadges: string[];
