@@ -1,13 +1,14 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { wordCount as serverWordCount } from '../../../../packages/game-engine/src/text';
+import { wordCount as serverWordCount } from '@vq/game-engine/core';
 import { parseBlocks, parseMarkdownTable, segmentText, splitLineIntoSentences, splitSentences, wordCount, wordTarget } from './text';
 
-const casesDir = join(__dirname, '../../../../content/cases');
-const cases = readdirSync(casesDir)
+const questsDir = join(__dirname, '../../../../content/quests');
+type RawItem = { id: string; skill: string; passage?: { body: string }; sampleAnswer?: string };
+const items: RawItem[] = readdirSync(questsDir)
   .filter((f) => f.endsWith('.json'))
-  .map((f) => JSON.parse(readFileSync(join(casesDir, f), 'utf8')) as { id: string; documents: { id: string; body: string }[]; evidence: { documentId: string; excerpt: string }[]; sampleSolution: { report: string; highlights: { documentId: string; text: string }[] } });
+  .flatMap((f) => (JSON.parse(readFileSync(join(questsDir, f), 'utf8')) as { items: RawItem[] }).items);
 
 describe('parseMarkdownTable', () => {
   it('parses header, separator and rows', () => {
@@ -33,10 +34,10 @@ describe('parseBlocks', () => {
     expect(blocks[3]).toMatchObject({ kind: 'list', ordered: true, items: ['first', 'second'] });
     expect(blocks[4]).toMatchObject({ lines: ['Line one', 'Line two'] });
   });
-  it('parses every table in the built-in cases', () => {
-    for (const c of cases) for (const d of c.documents) {
-      if (!d.body.includes('|---')) continue;
-      expect(parseBlocks(d.body).some((b) => b.kind === 'table'), `${c.id}/${d.id}`).toBe(true);
+  it('parses every table in the built-in passages', () => {
+    for (const i of items) {
+      if (!i.passage?.body.includes('|---')) continue;
+      expect(parseBlocks(i.passage.body).some((b) => b.kind === 'table'), i.id).toBe(true);
     }
   });
 });
@@ -56,17 +57,10 @@ describe('sentence splitter', () => {
   it('treats lines, list items and table rows as separate chips', () => {
     expect(splitSentences('Bank: Global\nAccount: 123\n\n- a item\n- b item\n\n| T | R |\n|---|---|\n| 9:00 | B2 |')).toEqual(['Bank: Global', 'Account: 123', 'a item', 'b item', '9:00 | B2']);
   });
-  it('every evidence excerpt and sample highlight is covered by a run of adjacent chips (cases can be solved in Select mode)', () => {
-    const norm = (x: string) => x.toLowerCase().replace(/[^a-z0-9$%]+/g, ' ').trim();
-    const covered = (chips: string[], text: string) => {
-      const want = norm(text);
-      for (let i = 0; i < chips.length; i++) for (let j = i; j < Math.min(chips.length, i + 4); j++) if (norm(chips.slice(i, j + 1).join(' ')).includes(want)) return true;
-      return false;
-    };
-    for (const c of cases) {
-      for (const h of c.sampleSolution.highlights) expect(covered(splitSentences(c.documents.find((d) => d.id === h.documentId)!.body), h.text), `${c.id}: ${h.text}`).toBe(true);
-      for (const e of c.evidence) expect(covered(splitSentences(c.documents.find((d) => d.id === e.documentId)!.body), e.excerpt), `${c.id}: ${e.excerpt}`).toBe(true);
-    }
+  it('splits every built-in reading passage into non-empty blocks', () => {
+    const passages = items.filter((i) => i.passage);
+    expect(passages.length).toBeGreaterThan(0);
+    for (const i of passages) expect(parseBlocks(i.passage!.body).length, i.id).toBeGreaterThan(0);
   });
   it('keeps initials such as "Minh P." inside the sentence', () => {
     expect(splitLineIntoSentences('Minh P. (2 May 2027): Amazing laptop! Best shop ever.')).toEqual(['Minh P. (2 May 2027): Amazing laptop!', 'Best shop ever.']);
@@ -77,7 +71,7 @@ describe('word counter', () => {
   it('is the same function the server uses', () => {
     const samples = ['', '  ', 'Hello world', "Emma's e-mail isn't real – it's a scam.", 'Phí 150 USD, trả trong 48 giờ!', 'well-known  co-operate\n\nnew line', '$5,000 on 20/03/2027 at 9:12'];
     for (const s of samples) expect(wordCount(s), s).toBe(serverWordCount(s));
-    for (const c of cases) expect(wordCount(c.sampleSolution.report)).toBe(serverWordCount(c.sampleSolution.report));
+    for (const i of items) if (i.sampleAnswer) expect(wordCount(i.sampleAnswer), i.id).toBe(serverWordCount(i.sampleAnswer));
   });
   it('counts words, contractions and hyphenated words once', () => {
     expect(wordCount("It isn't a well-known scam.")).toBe(5);

@@ -34,7 +34,7 @@ export function NotProvisionedPage({ disabled = false }: { disabled?: boolean })
   return (
     <FullPage>
       <div className="text-5xl" aria-hidden="true">
-        🕵️
+        🧭
       </div>
       <h1 className="text-2xl font-bold">{disabled ? t('auth.disabledTitle') : t('auth.notProvisionedTitle')}</h1>
       <p className="text-muted">{disabled ? t('auth.disabledBody') : t('auth.notProvisionedBody', { email: firebaseUser?.email ?? '' })}</p>

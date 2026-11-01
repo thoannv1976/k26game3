@@ -96,7 +96,7 @@ export function LoginPage() {
 
   return (
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4 py-10">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,var(--ed-primary-soft),transparent_45%),radial-gradient(circle_at_80%_90%,var(--ed-manila),transparent_40%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,var(--vq-primary-soft),transparent_45%),radial-gradient(circle_at_80%_90%,var(--vq-manila),transparent_40%)]" />
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>

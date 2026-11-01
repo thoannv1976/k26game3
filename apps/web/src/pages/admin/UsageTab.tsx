@@ -41,8 +41,8 @@ function DailyBars({ points }: { points: DayPoint[] }) {
       <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={t('admin.usage.chartLabel')} onMouseLeave={() => setHover(null)}>
         {[0, 0.5, 1].map((f) => (
           <g key={f}>
-            <line x1={pad.l} x2={W - pad.r} y1={y(nice * f)} y2={y(nice * f)} stroke="var(--ed-line)" strokeWidth="1" />
-            <text x={pad.l - 6} y={y(nice * f) + 4} textAnchor="end" fontSize="11" fill="var(--ed-muted)">
+            <line x1={pad.l} x2={W - pad.r} y1={y(nice * f)} y2={y(nice * f)} stroke="var(--vq-line)" strokeWidth="1" />
+            <text x={pad.l - 6} y={y(nice * f) + 4} textAnchor="end" fontSize="11" fill="var(--vq-muted)">
               {formatUsd(nice * f)}
             </text>
           </g>
@@ -58,19 +58,19 @@ function DailyBars({ points }: { points: DayPoint[] }) {
               {h > 0 && (
                 <path
                   d={`M${x},${pad.t + ih} V${top + r} Q${x},${top} ${x + r},${top} H${x + bw - r} Q${x + bw},${top} ${x + bw},${top + r} V${pad.t + ih} Z`}
-                  fill="var(--ed-primary)"
+                  fill="var(--vq-primary)"
                   opacity={hover === null || hover === i ? 1 : 0.45}
                 />
               )}
               {(i % 5 === 0 || i === points.length - 1) && (
-                <text x={x + bw / 2} y={H - 8} textAnchor="middle" fontSize="11" fill="var(--ed-muted)">
+                <text x={x + bw / 2} y={H - 8} textAnchor="middle" fontSize="11" fill="var(--vq-muted)">
                   {p.label}
                 </text>
               )}
             </g>
           );
         })}
-        <line x1={pad.l} x2={W - pad.r} y1={pad.t + ih} y2={pad.t + ih} stroke="var(--ed-muted)" strokeWidth="1" />
+        <line x1={pad.l} x2={W - pad.r} y1={pad.t + ih} y2={pad.t + ih} stroke="var(--vq-muted)" strokeWidth="1" />
       </svg>
       {hp && (
         <div className="pointer-events-none absolute top-0 right-0 rounded-lg border border-line bg-surface px-3 py-2 text-xs shadow-md" role="status">

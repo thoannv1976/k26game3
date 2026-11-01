@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Modal } from '../components/ui';
 
-/** Voice recording consent (shown in Vietnamese and English regardless of UI language). */
+/** Voice recording notice (shown in Vietnamese and English regardless of UI language). */
 export function ConsentModal({ open, onClose, onAgree, loading }: { open: boolean; onClose: () => void; onAgree: () => void; loading?: boolean }) {
   const { t } = useTranslation();
   return (
@@ -24,24 +24,22 @@ export function ConsentModal({ open, onClose, onAgree, loading }: { open: boolea
       <div className="grid gap-5 text-sm leading-relaxed md:grid-cols-2">
         <section lang="vi" className="space-y-2">
           <h3 className="font-semibold">Tiếng Việt</h3>
-          <p>Để luyện Nói, ứng dụng sẽ <strong>ghi âm giọng nói của bạn</strong> trong mỗi lượt bạn bấm micro.</p>
+          <p>Để luyện Nói, ứng dụng sẽ <strong>ghi âm giọng nói của bạn</strong> trong mỗi phần thi Nói.</p>
           <ul className="list-disc space-y-1 pl-5">
-            <li><strong>Ghi gì:</strong> chỉ đoạn âm thanh từ lúc bạn bấm micro đến lúc dừng (tối đa vài chục giây mỗi lượt) và lời thoại được chuyển thành chữ.</li>
-            <li><strong>Để làm gì:</strong> chuyển giọng nói thành chữ để nhân vật AI phản hồi, đánh giá kỹ năng Nói và để giảng viên nghe lại, nhận xét.</li>
-            <li><strong>Lưu bao lâu:</strong> theo chính sách lưu trữ của trường (mặc định tự động xóa sau 30 ngày).</li>
-            <li><strong>Không</strong> dùng để huấn luyện mô hình AI. Chỉ bạn, giảng viên của lớp và quản trị trường được truy cập.</li>
-            <li>Bạn có thể không đồng ý và dùng chế độ gõ chữ (không được tính là minh chứng kỹ năng Nói).</li>
+            <li><strong>Ghi gì:</strong> chỉ đoạn âm thanh từ lúc bắt đầu đến lúc dừng ghi âm của từng phần, và lời nói được chuyển thành chữ.</li>
+            <li><strong>Để làm gì:</strong> chuyển giọng nói thành chữ, AI chấm sơ bộ (nội dung, từ vựng, ngữ pháp), đo độ trôi chảy và để giảng viên nghe lại, thẩm định (phát âm do giảng viên chấm).</li>
+            <li><strong>Lưu bao lâu:</strong> theo chính sách lưu trữ của trường, sau đó tự động xóa.</li>
+            <li><strong>Không</strong> dùng để huấn luyện mô hình AI. Chỉ bạn, giảng viên của lớp và quản trị trường được nghe.</li>
           </ul>
         </section>
         <section lang="en" className="space-y-2">
           <h3 className="font-semibold">English</h3>
-          <p>To practise speaking, the app will <strong>record your voice</strong> each time you use the microphone.</p>
+          <p>To practise speaking, the app will <strong>record your voice</strong> in each speaking part.</p>
           <ul className="list-disc space-y-1 pl-5">
-            <li><strong>What:</strong> only the audio from when you start until you stop the microphone (up to a few dozen seconds per turn) and its transcript.</li>
-            <li><strong>Why:</strong> to turn your speech into text so the AI character can reply, to assess your speaking and so your teacher can listen and give feedback.</li>
-            <li><strong>Retention:</strong> according to your school's policy (by default deleted automatically after 30 days).</li>
-            <li>It is <strong>not</strong> used to train AI models. Only you, your course teachers and school administrators can access it.</li>
-            <li>You may decline and use text mode instead (it does not count as speaking evidence).</li>
+            <li><strong>What:</strong> only the audio from when a recording starts until it stops, and its transcript.</li>
+            <li><strong>Why:</strong> to transcribe your speech, give preliminary AI feedback (content, vocabulary, grammar), measure fluency, and so your teacher can listen and review (pronunciation is scored by your teacher).</li>
+            <li><strong>Retention:</strong> according to your school's policy, then deleted automatically.</li>
+            <li>It is <strong>not</strong> used to train AI models. Only you, your course teachers and school administrators can listen to it.</li>
           </ul>
         </section>
       </div>

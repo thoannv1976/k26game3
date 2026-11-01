@@ -1,9 +1,9 @@
 /**
- * Document text helpers for the Document Room: block parsing (paragraphs, lists, Markdown pipe tables),
+ * Document text helpers for passages: block parsing (paragraphs, lists, Markdown pipe tables),
  * sentence splitting for the keyboard/touch "Select text" mode, and highlight/glossary segmentation.
  * Word counting reuses the server's implementation so the counter always matches what the API stores.
  */
-export { wordCount } from '@engine/text';
+export { wordCount } from '@vq/game-engine/core';
 
 /* ---------------- Markdown pipe tables ---------------- */
 

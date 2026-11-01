@@ -37,7 +37,7 @@ function MultiSelect({ label, options, value, onChange }: { label: string; optio
             <label className="flex min-h-11 cursor-pointer items-center gap-3 px-3 py-1.5 hover:bg-surface-2">
               <input
                 type="checkbox"
-                className="h-5 w-5 accent-[var(--ed-primary)]"
+                className="h-5 w-5 accent-[var(--vq-primary)]"
                 checked={value.includes(o.uid)}
                 onChange={(e) => onChange(e.target.checked ? [...value, o.uid] : value.filter((v) => v !== o.uid))}
               />

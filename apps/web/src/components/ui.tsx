@@ -211,7 +211,7 @@ export function Textarea(props: ComponentProps<'textarea'>) {
 export function Checkbox({ label, ...props }: InputHTMLAttributes<HTMLInputElement> & { label: ReactNode }) {
   return (
     <label className="flex min-h-11 cursor-pointer items-center gap-2 text-sm sm:min-h-9">
-      <input type="checkbox" {...props} className="h-5 w-5 rounded accent-[var(--ed-primary)]" />
+      <input type="checkbox" {...props} className="h-5 w-5 rounded accent-[var(--vq-primary)]" />
       <span>{label}</span>
     </label>
   );

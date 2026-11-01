@@ -16,7 +16,7 @@ export default function PlatformPage() {
   const qc = useQueryClient();
   const toast = useToast();
   const q = useQuery({ queryKey: ['platform-tenants'], queryFn: () => api.get<{ tenants: TenantRow[] }>('/api/platform/tenants') });
-  const [form, setForm] = useState({ id: '', name: '', domains: '', adminEmail: '', adminName: '', seedCases: true });
+  const [form, setForm] = useState({ id: '', name: '', domains: '', adminEmail: '', adminName: '', seedContent: true });
   const [created, setCreated] = useState<{ id: string; email: string; password: string | null } | null>(null);
 
   const create = useMutation({
@@ -27,11 +27,11 @@ export default function PlatformPage() {
         allowedEmailDomains: parseDomains(form.domains),
         adminEmail: form.adminEmail.trim(),
         adminName: form.adminName.trim(),
-        seedCases: form.seedCases,
+        seedContent: form.seedContent,
       }),
     onSuccess: (r) => {
       setCreated({ id: r.tenant.id, email: form.adminEmail.trim(), password: r.admin.temporaryPassword });
-      setForm({ id: '', name: '', domains: '', adminEmail: '', adminName: '', seedCases: true });
+      setForm({ id: '', name: '', domains: '', adminEmail: '', adminName: '', seedContent: true });
       void qc.invalidateQueries({ queryKey: ['platform-tenants'] });
     },
   });
@@ -124,7 +124,7 @@ export default function PlatformPage() {
           <Field label={t('platform.adminEmail')}>{(id) => <Input id={id} type="email" required value={form.adminEmail} onChange={(e) => setForm({ ...form, adminEmail: e.target.value })} />}</Field>
           <Field label={t('platform.adminName')}>{(id) => <Input id={id} required value={form.adminName} onChange={(e) => setForm({ ...form, adminName: e.target.value })} />}</Field>
           <div className="sm:col-span-2">
-            <Checkbox label={t('platform.seedCases')} checked={form.seedCases} onChange={(e) => setForm({ ...form, seedCases: e.target.checked })} />
+            <Checkbox label={t('platform.seedContent')} checked={form.seedContent} onChange={(e) => setForm({ ...form, seedContent: e.target.checked })} />
           </div>
           <div className="sm:col-span-2">
             <Button type="submit" loading={create.isPending}>

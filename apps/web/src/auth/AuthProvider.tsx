@@ -103,11 +103,10 @@ export function useSetMeUser() {
 export function homePathForRole(role: Role | null): string {
   switch (role) {
     case 'student':
-      return '/office';
+      return '/world';
     case 'teacher':
-      return '/teacher';
     case 'school_admin':
-      return '/admin';
+      return '/teacher';
     case 'platform_admin':
       return '/platform';
     default:
