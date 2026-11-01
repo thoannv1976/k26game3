@@ -1,0 +1,16 @@
+name: Deploy production
+
+# Manual only. Configure the "production" GitHub Environment with required reviewers
+# and its own variables (GCP_PROJECT_ID=k26game1-prod, WIF_PROVIDER, ...).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: production

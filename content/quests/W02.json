@@ -1,0 +1,122 @@
+{
+  "quest": {
+    "id": "W02",
+    "skill": "writing",
+    "level": "B2",
+    "title": {
+      "en": "Discussing an Educational Issue",
+      "vi": "Bàn luận về một vấn đề giáo dục"
+    },
+    "summary": {
+      "en": "Write a well-argued essay on a debate in higher education: take a clear position, develop your arguments with examples and respond to the other side.",
+      "vi": "Viết một bài luận có lập luận chặt chẽ về một vấn đề đang được tranh luận trong giáo dục đại học: nêu rõ quan điểm, phát triển lập luận bằng ví dụ và phản hồi ý kiến trái chiều."
+    },
+    "story": {
+      "en": "The Writing Academy is holding its annual Great Debate, and this year the topic is the future of university learning. The Council of Scholars has invited you to submit two essays for the debate archive. Only essays with a clear position, strong evidence and a fair answer to the other side will be displayed in the Hall of Arguments. Sharpen your quill – the Council is waiting.",
+      "vi": "Học viện Viết đang tổ chức Đại tranh biện thường niên, và chủ đề năm nay là tương lai của việc học ở đại học. Hội đồng Học giả đã mời bạn gửi hai bài luận cho kho lưu trữ tranh biện. Chỉ những bài luận có quan điểm rõ ràng, dẫn chứng thuyết phục và phản hồi công bằng với phía bên kia mới được trưng bày trong Sảnh Lập luận. Hãy chuẩn bị ngòi bút – Hội đồng đang chờ bạn."
+    },
+    "objectives": [
+      {
+        "en": "State a clear position and keep it consistent through the essay.",
+        "vi": "Nêu quan điểm rõ ràng và giữ quan điểm nhất quán trong toàn bài."
+      },
+      {
+        "en": "Develop two main arguments with reasons and specific examples.",
+        "vi": "Phát triển hai luận điểm chính bằng lý lẽ và ví dụ cụ thể."
+      },
+      {
+        "en": "Acknowledge and answer an opposing view.",
+        "vi": "Thừa nhận và phản bác một quan điểm trái chiều."
+      },
+      {
+        "en": "Link ideas with a range of cohesive devices and write a clear conclusion.",
+        "vi": "Liên kết ý bằng nhiều phương tiện liên kết khác nhau và viết phần kết luận rõ ràng."
+      }
+    ],
+    "estimatedMinutes": 80,
+    "xpReward": 170,
+    "requires": [
+      "W01"
+    ],
+    "challenges": [
+      {
+        "id": "c1_attendance",
+        "title": "Challenge 1 – Should attendance be compulsory?",
+        "itemId": "W02_attendance_essay"
+      },
+      {
+        "id": "c2_online_learning",
+        "title": "Challenge 2 – Online or face-to-face?",
+        "itemId": "W02_online_learning_essay"
+      }
+    ],
+    "passPercent": 50,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "W02_attendance_essay",
+      "skill": "writing",
+      "level": "B2",
+      "topic": "Education – university attendance",
+      "objective": "Write a discussion essay that presents both views on an educational issue and gives a clearly justified personal opinion.",
+      "difficulty": 4,
+      "title": "Compulsory attendance at university",
+      "instructions": {
+        "en": "Write an essay of at least 250 words (230–320 words) in 40 minutes. Discuss both views, give your own opinion and support your ideas with reasons and relevant examples.",
+        "vi": "Viết một bài luận ít nhất 250 từ (230–320 từ) trong 40 phút. Bàn luận cả hai quan điểm, nêu ý kiến của bạn và củng cố ý tưởng bằng lý lẽ cùng ví dụ phù hợp."
+      },
+      "task": {
+        "type": "essay",
+        "input": "",
+        "prompt": "Write an essay on the following topic:\n\n\"Some people think that university students should be required to attend all of their classes. Others believe that students are adults and should decide for themselves whether to attend.\"\n\nDiscuss both views and give your own opinion. Give reasons for your answer and include relevant examples from your own knowledge or experience. Write at least 250 words.",
+        "minWords": 230,
+        "maxWords": 320,
+        "timeMinutes": 40
+      },
+      "keyPoints": [
+        "Introduction paraphrases the issue and states a clear position (thesis) on compulsory attendance.",
+        "First developed argument with a reason and a specific example (e.g. interaction, feedback and practice in class).",
+        "Second developed argument with a reason and a specific example (e.g. discipline, habits or responsibility needed later at work).",
+        "Presents the opposing view fairly (e.g. part-time jobs, family duties, lectures that repeat the textbook) and responds to it with a concession or rebuttal.",
+        "Conclusion restates the position and summarises the main reasons without adding new arguments.",
+        "Uses a range of cohesive devices (e.g. Furthermore, On the other hand, However, In conclusion) and clear paragraphing.",
+        "Uses B2-level vocabulary and a mix of complex sentence structures with good accuracy and a formal academic tone."
+      ],
+      "weight": 2,
+      "sampleAnswer": "In many universities, lecturers record attendance, and students who miss too many classes may fail a course. Some people argue that this rule is necessary, while others believe that adult learners should be free to manage their own time. In my opinion, attendance should be compulsory for most classes, although some flexibility is needed.\n\nThe main argument for compulsory attendance is that learning in class is more effective than studying alone. During a lesson, students can ask questions, discuss ideas with classmates and receive immediate feedback. For example, in a language course, speaking practice is almost impossible without a partner and a teacher. Furthermore, a clear attendance rule helps students develop discipline and good habits, which they will need later at work, where punctuality and reliability are expected.\n\nOn the other hand, supporters of free attendance point out that many students have part-time jobs or family responsibilities. They also claim that some lectures simply repeat the textbook, so attending them is a waste of time. These points are reasonable, and it is true that forcing students to sit through a dull lecture does not guarantee that they will learn anything.\n\nHowever, I believe the solution is not to remove the rule but to improve it. Universities could allow a small number of absences, record lectures for students who cannot attend, and make classes more interactive so that coming to class is clearly worthwhile.\n\nIn conclusion, although students deserve some freedom, compulsory attendance brings important benefits for both learning and personal development. If it is combined with flexible policies and engaging teaching, it can serve students and universities alike."
+    },
+    {
+      "id": "W02_online_learning_essay",
+      "skill": "writing",
+      "level": "B2",
+      "topic": "Education – online and face-to-face learning",
+      "objective": "Write an opinion essay that evaluates a claim about the future of education and argues a clear, qualified position.",
+      "difficulty": 5,
+      "title": "Will online learning replace the classroom?",
+      "instructions": {
+        "en": "Write an essay of at least 250 words (230–320 words) in 40 minutes. Say how far you agree or disagree, develop your arguments with examples and respond to the opposite view.",
+        "vi": "Viết một bài luận ít nhất 250 từ (230–320 từ) trong 40 phút. Nêu mức độ bạn đồng ý hay không đồng ý, phát triển lập luận bằng ví dụ và phản hồi quan điểm ngược lại."
+      },
+      "task": {
+        "type": "essay",
+        "input": "",
+        "prompt": "Write an essay on the following topic:\n\n\"In the near future, online learning will completely replace face-to-face teaching at universities.\"\n\nTo what extent do you agree or disagree with this statement? Give reasons for your answer and include relevant examples from your own knowledge or experience. Write at least 250 words.",
+        "minWords": 230,
+        "maxWords": 320,
+        "timeMinutes": 40
+      },
+      "keyPoints": [
+        "Introduction gives background and states a clear position on the extent of agreement (e.g. partly agree, disagree).",
+        "Fairly acknowledges the advantages of online learning (e.g. flexibility, access, cost) with an example.",
+        "Develops at least one strong argument for face-to-face teaching with an example (e.g. interaction, teamwork, hands-on practical training, motivation).",
+        "Develops a further argument with an example (e.g. digital divide and unequal internet access, need for self-discipline).",
+        "Uses concession and contrast to link the two sides (e.g. Admittedly…, Nevertheless…, While…).",
+        "Conclusion restates the position and may suggest a balanced alternative such as blended learning.",
+        "Uses a range of cohesive devices, B2-level vocabulary and accurate complex sentences in a formal tone."
+      ],
+      "weight": 2,
+      "sampleAnswer": "Since the pandemic, online courses have become a normal part of university life, and some people now predict that traditional classrooms will soon disappear. While I accept that online learning has clear advantages, I disagree that it will completely replace face-to-face education.\n\nAdmittedly, online learning offers flexibility and wider access. Students can watch lectures at any time, replay difficult sections and study from home, which saves both travel time and money. For instance, a student who lives two hours from campus or works in the evenings can still follow a full programme. Online platforms also allow universities to invite guest speakers from other countries at almost no cost.\n\nNevertheless, face-to-face learning provides something that technology cannot easily replace: real human interaction. In a classroom, students build relationships, work in teams and develop soft skills such as communication and leadership. Many practical subjects, such as medicine, engineering or laboratory science, require hands-on training that simply cannot be done through a screen. Moreover, studying alone at home demands strong self-discipline, and many students lose motivation when they only ever see their teachers on a laptop.\n\nAnother important factor is equality. Not every student has a fast internet connection or a quiet place to study, especially in rural areas. If universities moved entirely online, these students would be at a serious disadvantage.\n\nIn conclusion, online learning is a valuable tool, but it is far more likely to support traditional teaching than to replace it. In my view, the best model for the future is blended learning, which combines the flexibility of online study with the human connection of the classroom."
+    }
+  ]
+}

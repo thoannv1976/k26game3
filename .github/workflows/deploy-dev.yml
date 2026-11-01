@@ -1,0 +1,21 @@
+name: Deploy dev
+
+# Deploys main to the development project (shared project k26game1, site k26-detective) after CI passes.
+# Requires repository variables created by infrastructure/bootstrap.sh (see docs/DEPLOYMENT.md).
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    if: ${{ vars.WIF_PROVIDER != '' && (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success') }}
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: development

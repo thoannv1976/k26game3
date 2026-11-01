@@ -1,0 +1,266 @@
+{
+  "quest": {
+    "id": "L01",
+    "skill": "listening",
+    "level": "B1",
+    "title": { "en": "Airport Announcements", "vi": "Thông báo ở sân bay" },
+    "summary": {
+      "en": "Catch the key information in airport announcements so you don't miss your flight.",
+      "vi": "Nghe và nắm thông tin quan trọng trong các thông báo ở sân bay để không lỡ chuyến bay."
+    },
+    "story": {
+      "en": "You are at Riverside International Airport, flying to Singapore on Pacific Sky flight PS 418. The terminal is busy and the announcements are fast. Listen carefully – each challenge is a little harder than the last.",
+      "vi": "Bạn đang ở sân bay quốc tế Riverside, chuẩn bị bay đi Singapore trên chuyến PS 418 của hãng Pacific Sky. Nhà ga rất đông và thông báo được đọc khá nhanh. Hãy nghe thật kỹ – mỗi thử thách khó hơn thử thách trước."
+    },
+    "objectives": [
+      { "en": "Identify flight numbers, gates and times in announcements.", "vi": "Xác định số hiệu chuyến bay, cổng và giờ trong thông báo." },
+      { "en": "Recognise changes such as delays and gate changes.", "vi": "Nhận biết các thay đổi như chậm chuyến, đổi cổng." },
+      { "en": "Decide what to do based on spoken instructions.", "vi": "Quyết định hành động phù hợp dựa trên hướng dẫn nghe được." }
+    ],
+    "estimatedMinutes": 12,
+    "xpReward": 100,
+    "requires": [],
+    "challenges": [
+      { "id": "c1_flight", "title": "Challenge 1 – Which flight?", "itemId": "L01_flight" },
+      { "id": "c2_gate", "title": "Challenge 2 – Find the gate", "itemId": "L01_gate" },
+      { "id": "c3_delay", "title": "Challenge 3 – A change of time", "itemId": "L01_delay" },
+      { "id": "c4_action", "title": "Challenge 4 – What should you do?", "itemId": "L01_action" }
+    ],
+    "passPercent": 60,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "L01_flight",
+      "skill": "listening",
+      "level": "B1",
+      "topic": "Travel – airports",
+      "objective": "Identify a flight number and destination in a short announcement.",
+      "difficulty": 1,
+      "title": "Final call for passengers",
+      "instructions": {
+        "en": "Listen to the announcement and answer the questions. You can play it up to 3 times.",
+        "vi": "Nghe thông báo và trả lời câu hỏi. Bạn được nghe tối đa 3 lần."
+      },
+      "script": {
+        "context": "An announcement in the departure hall.",
+        "speakers": [{ "id": "announcer", "name": "Airport announcer", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-C" } }],
+        "lines": [
+          {
+            "speaker": "announcer",
+            "text": "Good morning, ladies and gentlemen. This is a final call for passengers travelling to Bangkok on Pacific Sky flight PS 214. Please go to your gate immediately, as the gate will close in ten minutes. Passengers travelling to Singapore on flight PS 418, please wait for further information. Thank you."
+          }
+        ]
+      },
+      "plays": { "quest": 3, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "Which flight is the final call for?",
+          "options": ["PS 418 to Singapore", "PS 214 to Bangkok", "PS 240 to Bangkok", "PS 814 to Singapore"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The announcer says this is a final call for passengers to Bangkok on flight PS 214. Flight PS 418 to Singapore is mentioned later, but those passengers must wait.",
+          "evidence": "final call for passengers travelling to Bangkok on Pacific Sky flight PS 214"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "In how many minutes will the gate for the Bangkok flight close? (one or two words / a number)",
+          "acceptable": ["10", "ten", "ten minutes", "10 minutes"],
+          "maxWords": 2,
+          "points": 1,
+          "explanation": "The announcer says the gate will close in ten minutes.",
+          "evidence": "the gate will close in ten minutes"
+        }
+      ]
+    },
+    {
+      "id": "L01_gate",
+      "skill": "listening",
+      "level": "B1",
+      "topic": "Travel – airports",
+      "objective": "Identify a boarding gate and a boarding time.",
+      "difficulty": 2,
+      "title": "Boarding information for Singapore",
+      "instructions": {
+        "en": "Listen to the announcement for your flight and answer the questions.",
+        "vi": "Nghe thông báo dành cho chuyến bay của bạn và trả lời câu hỏi."
+      },
+      "script": {
+        "context": "An announcement about your flight, PS 418.",
+        "speakers": [{ "id": "announcer", "name": "Airport announcer", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-F" } }],
+        "lines": [
+          {
+            "speaker": "announcer",
+            "text": "Attention please. Pacific Sky flight PS 418 to Singapore will board from gate B 17. Boarding will start at ten forty-five. Passengers with small children and anyone who needs extra help may board first. Please have your passport and boarding pass ready. Gate B 17 is a five-minute walk from the main shopping area."
+          }
+        ]
+      },
+      "plays": { "quest": 3, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short",
+          "prompt": "Which gate does flight PS 418 board from? (letter and number)",
+          "acceptable": ["B17", "B 17", "gate B17", "gate B 17"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "The announcement says flight PS 418 will board from gate B 17.",
+          "evidence": "will board from gate B 17"
+        },
+        {
+          "id": "q2",
+          "type": "mcq",
+          "prompt": "What time does boarding start?",
+          "options": ["10:15", "10:45", "11:45", "10:40"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "Boarding will start at ten forty-five, which is 10:45.",
+          "evidence": "Boarding will start at ten forty-five"
+        },
+        {
+          "id": "q3",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Passengers with small children can board before other passengers.",
+          "answer": "true",
+          "points": 1,
+          "explanation": "The announcer says passengers with small children may board first.",
+          "evidence": "Passengers with small children and anyone who needs extra help may board first"
+        }
+      ]
+    },
+    {
+      "id": "L01_delay",
+      "skill": "listening",
+      "level": "B1",
+      "topic": "Travel – airports",
+      "objective": "Recognise changes to departure time and gate.",
+      "difficulty": 3,
+      "title": "A change to your flight",
+      "instructions": {
+        "en": "Listen to the update and answer the questions. Pay attention to what has changed.",
+        "vi": "Nghe thông báo cập nhật và trả lời câu hỏi. Chú ý những gì đã thay đổi."
+      },
+      "script": {
+        "context": "An update about flight PS 418, twenty minutes later.",
+        "speakers": [{ "id": "announcer", "name": "Airport announcer", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-B" } }],
+        "lines": [
+          {
+            "speaker": "announcer",
+            "text": "Ladies and gentlemen, we have an update for passengers on Pacific Sky flight PS 418 to Singapore. Because of a technical check on the aircraft, the flight is now delayed by forty minutes. The new departure time is twelve twenty. Please also note that the flight will now board from gate C 4, not gate B 17. We are sorry for the delay. Passengers can collect a free drink voucher from the Pacific Sky desk next to gate C 4."
+          }
+        ]
+      },
+      "plays": { "quest": 3, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "Why is the flight delayed?",
+          "options": ["Bad weather in Singapore", "A technical check on the plane", "The crew arrived late", "There are too many passengers"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The announcer gives the reason: a technical check on the aircraft. Weather and crew are not mentioned.",
+          "evidence": "Because of a technical check on the aircraft"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "What is the new departure time? (use numbers, e.g. 9:30)",
+          "acceptable": ["12:20", "12.20", "1220", "twelve twenty", "12 20"],
+          "maxWords": 2,
+          "points": 1,
+          "explanation": "The new departure time is twelve twenty (12:20). The delay is forty minutes.",
+          "evidence": "The new departure time is twelve twenty"
+        },
+        {
+          "id": "q3",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Passengers should still go to gate B 17.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "The gate has changed: the flight will now board from gate C 4, not gate B 17.",
+          "evidence": "the flight will now board from gate C 4, not gate B 17"
+        },
+        {
+          "id": "q4",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Passengers will receive a free meal on the plane.",
+          "answer": "not_given",
+          "points": 1,
+          "explanation": "The announcement only mentions a free drink voucher at the desk; it says nothing about a meal on the plane.",
+          "evidence": "collect a free drink voucher from the Pacific Sky desk"
+        }
+      ]
+    },
+    {
+      "id": "L01_action",
+      "skill": "listening",
+      "level": "B1",
+      "topic": "Travel – airports",
+      "objective": "Infer the correct action from a dialogue and an announcement.",
+      "difficulty": 4,
+      "title": "What should you do?",
+      "instructions": {
+        "en": "Listen to the conversation at the information desk and the announcement that follows. Then choose what you should do.",
+        "vi": "Nghe cuộc hội thoại ở quầy thông tin và thông báo tiếp theo. Sau đó chọn việc bạn nên làm."
+      },
+      "script": {
+        "context": "You ask for help at the information desk. Then there is an announcement.",
+        "speakers": [
+          { "id": "agent", "name": "Information desk agent", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-D" } },
+          { "id": "you", "name": "You", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-H" } },
+          { "id": "announcer", "name": "Airport announcer", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-C" } }
+        ],
+        "lines": [
+          { "speaker": "you", "text": "Excuse me, I'm on flight PS 418 to Singapore. I heard about a gate change. Is it still gate C 4?" },
+          { "speaker": "agent", "text": "Let me check. Yes, it's C 4, but the C gates are in the other building. You need to take the free shuttle train. It leaves every five minutes from the end of this hall." },
+          { "speaker": "you", "text": "Do I need to go through security again?" },
+          { "speaker": "agent", "text": "No, you don't. Just show your boarding pass at the train entrance." },
+          {
+            "speaker": "announcer",
+            "text": "Passengers on flight PS 418 to Singapore, boarding will now begin at eleven fifty at gate C 4. Please make sure you arrive at the gate at least fifteen minutes before boarding."
+          }
+        ]
+      },
+      "plays": { "quest": 3, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "How should you get to gate C 4?",
+          "options": ["Walk through the shopping area", "Take the free shuttle train", "Take a taxi to the other building", "Wait for a bus outside"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The agent says the C gates are in the other building and you need to take the free shuttle train.",
+          "evidence": "You need to take the free shuttle train"
+        },
+        {
+          "id": "q2",
+          "type": "mcq",
+          "prompt": "What must you show at the train entrance?",
+          "options": ["Your passport", "Your boarding pass", "Your drink voucher", "Your luggage tag"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The agent says you only need to show your boarding pass at the train entrance; you do not go through security again.",
+          "evidence": "Just show your boarding pass at the train entrance"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "Boarding begins at 11:50. What is the latest time you should arrive at the gate?",
+          "options": ["11:20", "11:35", "11:50", "12:05"],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "You must arrive at least fifteen minutes before boarding. Fifteen minutes before 11:50 is 11:35.",
+          "evidence": "arrive at the gate at least fifteen minutes before boarding"
+        }
+      ]
+    }
+  ]
+}

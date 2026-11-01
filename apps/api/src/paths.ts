@@ -1,0 +1,40 @@
+import type { Firestore } from 'firebase-admin/firestore';
+
+/** Firestore layout (database "vstep"); all learning data lives under tenants/{tenantId}. */
+export const CONTENT_COLLECTIONS = { item: 'question_bank', quest: 'quests', exam: 'mock_exams' } as const;
+
+export const paths = (db: Firestore) => ({
+  tenant: (t: string) => db.collection('tenants').doc(t),
+  tenants: () => db.collection('tenants'),
+  users: (t: string) => db.collection(`tenants/${t}/users`),
+  user: (t: string, uid: string) => db.doc(`tenants/${t}/users/${uid}`),
+  courses: (t: string) => db.collection(`tenants/${t}/courses`),
+  course: (t: string, id: string) => db.doc(`tenants/${t}/courses/${id}`),
+  assignments: (t: string) => db.collection(`tenants/${t}/assignments`),
+  content: (t: string, kind: keyof typeof CONTENT_COLLECTIONS) => db.collection(`tenants/${t}/${CONTENT_COLLECTIONS[kind]}`),
+  contentDoc: (t: string, kind: keyof typeof CONTENT_COLLECTIONS, id: string) => db.doc(`tenants/${t}/${CONTENT_COLLECTIONS[kind]}/${id}`),
+  contentVersion: (t: string, kind: keyof typeof CONTENT_COLLECTIONS, id: string, v: number) => db.doc(`tenants/${t}/${CONTENT_COLLECTIONS[kind]}/${id}/versions/${v}`),
+  contentVersions: (t: string, kind: keyof typeof CONTENT_COLLECTIONS, id: string) => db.collection(`tenants/${t}/${CONTENT_COLLECTIONS[kind]}/${id}/versions`),
+  blueprints: (t: string) => db.collection(`tenants/${t}/exam_blueprints`),
+  blueprint: (t: string, id: string) => db.doc(`tenants/${t}/exam_blueprints/${id}`),
+  attempts: (t: string) => db.collection(`tenants/${t}/game_sessions`),
+  attempt: (t: string, id: string) => db.doc(`tenants/${t}/game_sessions/${id}`),
+  writing: (t: string, sid: string, itemId: string) => db.doc(`tenants/${t}/game_sessions/${sid}/writing_submissions/${itemId}`),
+  writings: (t: string, sid: string) => db.collection(`tenants/${t}/game_sessions/${sid}/writing_submissions`),
+  explanations: (t: string, sid: string) => db.collection(`tenants/${t}/game_sessions/${sid}/explanations`),
+  explanation: (t: string, sid: string, key: string) => db.doc(`tenants/${t}/game_sessions/${sid}/explanations/${key.replace(/[:/]/g, '__')}`),
+  assessments: (t: string) => db.collection(`tenants/${t}/assessments`),
+  assessment: (t: string, sid: string) => db.doc(`tenants/${t}/assessments/${sid}`),
+  championships: (t: string) => db.collection(`tenants/${t}/championships`),
+  championship: (t: string, id: string) => db.doc(`tenants/${t}/championships/${id}`),
+  entries: (t: string, cid: string) => db.collection(`tenants/${t}/championships/${cid}/entries`),
+  entry: (t: string, cid: string, uid: string) => db.doc(`tenants/${t}/championships/${cid}/entries/${uid}`),
+  coachMessages: (t: string, uid: string) => db.collection(`tenants/${t}/users/${uid}/coach_messages`),
+  coachMessage: (t: string, uid: string, id: string) => db.doc(`tenants/${t}/users/${uid}/coach_messages/${id}`),
+  profile: (t: string, uid: string) => db.doc(`tenants/${t}/learning_profiles/${uid}`),
+  counters: (t: string) => db.collection(`tenants/${t}/usage_counters`),
+  counter: (t: string, id: string) => db.doc(`tenants/${t}/usage_counters/${id}`),
+  usageLogs: (t: string) => db.collection(`tenants/${t}/usage_logs`),
+  auditLogs: (t: string) => db.collection(`tenants/${t}/audit_logs`),
+  platformAudit: () => db.collection('platform_audit_logs'),
+});

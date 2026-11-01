@@ -1,0 +1,95 @@
+{
+  "quest": {
+    "id": "W01",
+    "skill": "writing",
+    "level": "B1",
+    "title": { "en": "Responding to an Email", "vi": "Trả lời thư điện tử" },
+    "summary": {
+      "en": "Write clear, well-organised emails that answer every question – in a friendly style for friends and a polite, formal style for offices.",
+      "vi": "Viết thư điện tử rõ ràng, mạch lạc và trả lời đầy đủ mọi câu hỏi – thân mật khi viết cho bạn bè, lịch sự và trang trọng khi viết cho các văn phòng."
+    },
+    "story": {
+      "en": "Welcome to the Writing Academy! Your first assignment has arrived in the Academy's message tower: two emails are waiting for a reply. One is from an old friend who is planning a trip to see you; the other is a notice from a university housing office abroad. Read each message carefully, decide who you are writing to, and send replies that would make the Academy's Master Scribes proud.",
+      "vi": "Chào mừng bạn đến với Học viện Viết! Nhiệm vụ đầu tiên của bạn vừa được gửi đến tháp thư của Học viện: có hai bức thư đang chờ được hồi âm. Một bức từ người bạn cũ đang lên kế hoạch đến thăm bạn; bức còn lại là thông báo của văn phòng nhà ở sinh viên tại một trường đại học ở nước ngoài. Hãy đọc kỹ từng thư, xác định bạn đang viết cho ai và gửi những lá thư hồi âm khiến các Bậc thầy Văn chương của Học viện phải tự hào."
+    },
+    "objectives": [
+      { "en": "Answer every question or content point in the task.", "vi": "Trả lời đầy đủ mọi câu hỏi hoặc ý được yêu cầu trong đề bài." },
+      { "en": "Choose an informal or formal tone that suits the reader.", "vi": "Chọn giọng văn thân mật hoặc trang trọng phù hợp với người đọc." },
+      { "en": "Use suitable greetings, paragraphs and closings in an email.", "vi": "Sử dụng lời chào, cách chia đoạn và lời kết phù hợp trong thư." },
+      { "en": "Write within the word limit and the time limit.", "vi": "Viết đúng giới hạn số từ và thời gian cho phép." }
+    ],
+    "estimatedMinutes": 45,
+    "xpReward": 110,
+    "requires": [],
+    "challenges": [
+      { "id": "c1_reply_friend", "title": "Challenge 1 – A letter from a friend", "itemId": "W01_reply_friend" },
+      { "id": "c2_housing_office", "title": "Challenge 2 – Writing to the housing office", "itemId": "W01_housing_office" }
+    ],
+    "passPercent": 50,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "W01_reply_friend",
+      "skill": "writing",
+      "level": "B1",
+      "topic": "Friends and travel – a visit",
+      "objective": "Write an informal reply to a friend's email that answers three questions with relevant details.",
+      "difficulty": 2,
+      "title": "Lucas is coming to visit",
+      "instructions": {
+        "en": "Read the email from your friend Lucas. Write a reply of about 120 words (100–160 words) in 20 minutes. Answer all three of his questions and use a friendly, informal style.",
+        "vi": "Đọc thư của bạn bạn là Lucas. Viết thư trả lời khoảng 120 từ (100–160 từ) trong 20 phút. Trả lời cả ba câu hỏi của Lucas và dùng văn phong thân mật, gần gũi."
+      },
+      "task": {
+        "type": "email",
+        "input": "Hi there,\n\nHow are you? I hope your exams went well! I've got some exciting news: my university has a two-week break in July, and I'm finally planning to come and visit you in Vietnam. I can't wait!\n\nI have a few questions before I book anything. First, which week in July would be better for you, the first or the second? Second, what should I pack? Is it very hot and rainy at that time of year? And finally, what are two or three places in your city that you think I really shouldn't miss?\n\nWrite back soon!\n\nLucas",
+        "prompt": "Your English-speaking friend Lucas has sent you the email above. Write a reply of about 120 words. In your reply, you should: tell Lucas which week in July is better for you and why; give him advice about what to pack for the weather; recommend two or three places in your city and say why they are worth visiting. Use an informal style. You do not need to write a subject line.",
+        "minWords": 100,
+        "maxWords": 160,
+        "timeMinutes": 20
+      },
+      "keyPoints": [
+        "Opens with a friendly informal greeting (e.g. 'Hi Lucas,') and reacts positively to the news of the visit.",
+        "Says which week in July is better (first or second) and gives a reason.",
+        "Describes the weather in July and gives practical packing advice (e.g. light clothes, umbrella, sun cream).",
+        "Recommends two or three specific places in the city with a short reason for each.",
+        "Keeps a consistent friendly, informal tone (contractions, direct questions, exclamations) without being too casual.",
+        "Organises the reply in short paragraphs and ends with a suitable informal closing (e.g. 'See you soon!', 'Best wishes,') and the writer's name."
+      ],
+      "weight": 1,
+      "sampleAnswer": "Hi Lucas,\n\nThanks for your email – it's brilliant news that you're coming to visit! My exams went quite well, so I'm feeling much more relaxed now.\n\nThe second week of July would be better for me. In the first week I have to help my parents at their shop, but after that I'm completely free, so I can show you around every day.\n\nJuly is very hot here, usually around 35 degrees, and it often rains heavily in the afternoon. I'd pack light cotton clothes, sandals, sun cream and a small umbrella.\n\nYou really shouldn't miss the old market by the river, where you can try amazing street food. I'd also love to take you to the lotus lake at sunset and to the hill viewpoint just outside the city.\n\nCan't wait to see you!\n\nBest wishes,\nMinh"
+    },
+    {
+      "id": "W01_housing_office",
+      "skill": "writing",
+      "level": "B1",
+      "topic": "Study abroad – student accommodation",
+      "objective": "Write a short formal email to an organisation asking for information and making a polite request.",
+      "difficulty": 3,
+      "title": "A room at Maple Court Residence",
+      "instructions": {
+        "en": "Read the notice from the Student Housing Office. Write a formal email of about 120 words (100–160 words) in 20 minutes. Cover all three points in the task and use polite, formal language.",
+        "vi": "Đọc thông báo của Văn phòng Nhà ở Sinh viên. Viết một thư điện tử trang trọng khoảng 120 từ (100–160 từ) trong 20 phút. Trình bày đầy đủ cả ba ý trong đề bài và dùng ngôn ngữ lịch sự, trang trọng."
+      },
+      "task": {
+        "type": "email",
+        "input": "GREENFIELD UNIVERSITY – STUDENT HOUSING OFFICE\n\nRooms available for the spring semester at Maple Court Residence\n\n- Single and shared rooms, 10 minutes' walk from the main campus\n- Prices from $280 per month\n- Shared kitchens on every floor and a 24-hour study room\n- Places are limited: priority is given to exchange and first-year students\n\nFor more information or to request a room, please email the Student Housing Office.",
+        "prompt": "You will study at Greenfield University for one semester as an exchange student. Write an email of about 120 words to the Student Housing Office. In your email, you should: introduce yourself and explain why you are writing; ask what is included in the monthly price (for example, electricity, water or internet); ask how and by when you should apply; and make one polite request about the kind of room you would like, giving a reason. Use a formal style.",
+        "minWords": 100,
+        "maxWords": 160,
+        "timeMinutes": 20
+      },
+      "keyPoints": [
+        "Uses a formal greeting (e.g. 'Dear Sir or Madam,') and clearly states the purpose of the email in the first paragraph.",
+        "Briefly introduces the writer (name, exchange student, course or dates of study).",
+        "Asks what the monthly price includes, e.g. electricity, water or internet.",
+        "Asks how to apply and what the deadline is.",
+        "Makes a polite request about the type of room (e.g. single, quiet floor) and gives a reason.",
+        "Keeps a polite formal tone throughout (no contractions or slang; polite forms such as 'Could you please…', 'I would be grateful if…') and closes formally (e.g. 'I look forward to hearing from you. Yours faithfully,' plus full name)."
+      ],
+      "weight": 1,
+      "sampleAnswer": "Dear Sir or Madam,\n\nI am writing to ask for more information about the rooms at Maple Court Residence. My name is Tran Thi Lan, and I will be studying Business at Greenfield University as an exchange student from January to June next year.\n\nFirst, could you please tell me what is included in the monthly price? In particular, I would like to know whether electricity, water and internet are included, or whether I would need to pay for them separately.\n\nSecond, I would be grateful if you could explain how to apply for a room and when the deadline is.\n\nFinally, I would prefer a single room on a quiet floor if possible, as I usually study late in the evening.\n\nThank you for your help. I look forward to hearing from you.\n\nYours faithfully,\nTran Thi Lan"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "default": "k26game1",
+    "dev": "k26game1",
+    "prod": "k26game1-prod"
+  },
+  "targets": {
+    "k26game1": { "hosting": { "detective": ["k26-detective"] } },
+    "k26game1-prod": { "hosting": { "detective": ["k26-detective-prod"] } }
+  }
+}

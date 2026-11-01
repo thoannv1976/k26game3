@@ -1,0 +1,31 @@
+{
+  "name": "vstep-quest",
+  "private": true,
+  "version": "1.0.0",
+  "description": "VSTEP Quest \u2013 AI English Championship (K26 Game 3)",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test:unit": "npm run test --workspace @vq/game-engine && npm run test --workspace @vq/ai && npm run test:unit --workspace @vq/api",
+    "test:integration": "firebase emulators:exec --only firestore,auth --project demo-vq \"npm run test:integration --workspace @vq/api && npm run test:rules --workspace @vq/api\"",
+    "test": "npm run test:unit && npm run test:integration",
+    "build": "npm run build --workspace @vq/web && npm run build --workspace @vq/api",
+    "emulators": "firebase emulators:start --only firestore,auth --project demo-vq",
+    "seed:local": "tsx scripts/seed.mts --local",
+    "dev:api": "npm run dev --workspace @vq/api",
+    "dev:web": "npm run dev --workspace @vq/web",
+    "test:e2e": "playwright test -c tests/e2e/playwright.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "firebase-tools": "14.27.0",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  }
+}

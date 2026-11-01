@@ -1,0 +1,33 @@
+{
+  "name": "@vq/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "node build.mjs",
+    "start": "node dist/server.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test:unit": "vitest run --dir test/unit",
+    "test:integration": "vitest run --dir test/integration",
+    "test:rules": "vitest run --dir test/rules"
+  },
+  "dependencies": {
+    "@vq/ai": "1.0.0",
+    "@vq/game-engine": "1.0.0",
+    "@vq/shared": "1.0.0",
+    "@fastify/helmet": "13.0.2",
+    "@fastify/rate-limit": "10.3.0",
+    "@google/genai": "1.28.0",
+    "fastify": "5.6.1",
+    "firebase-admin": "13.5.0",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "5.0.0",
+    "@types/node": "22.18.12",
+    "esbuild": "0.25.11",
+    "firebase": "12.4.0",
+    "vitest": "3.2.4"
+  }
+}

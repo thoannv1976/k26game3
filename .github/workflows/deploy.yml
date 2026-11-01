@@ -1,0 +1,70 @@
+# Reusable deployment workflow (called by deploy-dev.yml and deploy-prod.yml).
+name: Deploy (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    timeout-minutes: 30
+    env:
+      PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      REGION: ${{ vars.GCP_REGION || 'asia-southeast1' }}
+      IMAGE: ${{ vars.GCP_REGION || 'asia-southeast1' }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/detective/detective-api:${{ github.sha }}
+      SITE_ID: ${{ vars.HOSTING_SITE || 'k26-detective' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run test:unit
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOYER_SA }}
+          create_credentials_file: true
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build and push API image
+        run: |
+          gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+          docker build -f apps/api/Dockerfile -t "${IMAGE}" .
+          docker push "${IMAGE}"
+
+      - name: Deploy Cloud Run
+        run: |
+          gcloud run deploy detective-api --project "${PROJECT_ID}" --region "${REGION}" --image "${IMAGE}" \
+            --service-account "${{ vars.RUNTIME_SA }}" --allow-unauthenticated \
+            --memory 1Gi --cpu 1 --concurrency 40 --timeout 300 \
+            --min-instances "${{ vars.MIN_INSTANCES || '0' }}" --max-instances "${{ vars.MAX_INSTANCES || '10' }}" \
+            --set-env-vars "NODE_ENV=production,GCP_PROJECT_ID=${PROJECT_ID},FIRESTORE_DATABASE=detective,VERTEX_LOCATION=${{ vars.VERTEX_LOCATION || 'global' }},GEMINI_MODEL=${{ vars.GEMINI_MODEL || 'gemini-3-flash-preview' }},LOG_LEVEL=info"
+
+      - name: Build web
+        env:
+          VITE_FIREBASE_API_KEY: ${{ vars.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ vars.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
+        run: npm run build --workspace @vq/web
+
+      - name: Deploy Firebase Hosting (site ${{ vars.HOSTING_SITE || 'k26-detective' }}) and Firestore rules/indexes (database detective)
+        run: |
+          npx firebase target:apply hosting detective "${SITE_ID}" --project "${PROJECT_ID}"
+          npx firebase deploy --project "${PROJECT_ID}" --only hosting:detective,firestore --non-interactive
+
+      - name: Smoke test
+        run: curl -fsS "https://${SITE_ID}.web.app/api/health"

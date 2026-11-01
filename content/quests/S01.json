@@ -1,0 +1,95 @@
+{
+  "quest": {
+    "id": "S01",
+    "skill": "speaking",
+    "level": "B1",
+    "title": { "en": "Everyday Social Communication", "vi": "Giao tiếp xã hội hằng ngày" },
+    "summary": {
+      "en": "Answer questions about yourself with confidence and talk about a familiar topic for up to two minutes.",
+      "vi": "Tự tin trả lời các câu hỏi về bản thân và nói về một chủ đề quen thuộc trong tối đa hai phút."
+    },
+    "story": {
+      "en": "The gates of the Speaking Arena open, and the crowd goes quiet. Before you can face the Arena's champions, the Gatekeeper wants to get to know you. She will ask about your hometown, your studies and your free time, and then challenge you to talk about a topic close to everyday life. Speak clearly, give reasons and examples, and keep talking – the Arena rewards those who don't give up.",
+      "vi": "Cánh cổng Đấu trường Nói mở ra và khán giả bỗng im lặng. Trước khi đối đầu với các nhà vô địch của Đấu trường, Người gác cổng muốn làm quen với bạn. Cô ấy sẽ hỏi về quê hương, việc học và thời gian rảnh của bạn, rồi thách bạn nói về một chủ đề gần gũi với cuộc sống hằng ngày. Hãy nói rõ ràng, đưa ra lý do và ví dụ, và đừng ngừng nói – Đấu trường luôn tưởng thưởng cho những ai không bỏ cuộc."
+    },
+    "objectives": [
+      { "en": "Answer personal questions with full answers, not just one or two words.", "vi": "Trả lời các câu hỏi cá nhân bằng câu trả lời đầy đủ, không chỉ một hai từ." },
+      { "en": "Give reasons and examples to extend your answers.", "vi": "Đưa ra lý do và ví dụ để mở rộng câu trả lời." },
+      { "en": "Speak about a familiar topic in an organised way for up to two minutes.", "vi": "Nói về một chủ đề quen thuộc một cách có tổ chức trong tối đa hai phút." }
+    ],
+    "estimatedMinutes": 10,
+    "xpReward": 100,
+    "requires": [],
+    "challenges": [{ "id": "c1_meet_gatekeeper", "title": "Challenge 1 – Meet the Gatekeeper", "itemId": "S01_social_talk" }],
+    "passPercent": 50,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "S01_social_talk",
+      "skill": "speaking",
+      "level": "B1",
+      "topic": "Personal life – hometown, studies, free time",
+      "objective": "Answer social questions about familiar personal topics and speak at length about relaxing after study, giving reasons and examples.",
+      "difficulty": 2,
+      "title": "Getting to know you",
+      "instructions": {
+        "en": "This task has three parts. In Parts 1 and 2, answer the examiner's questions about yourself. In Part 3, you have 30 seconds to prepare, then talk about the topic and answer the follow-up questions. Try to give full answers with reasons and examples.",
+        "vi": "Bài thi gồm ba phần. Ở Phần 1 và Phần 2, hãy trả lời các câu hỏi của giám khảo về bản thân bạn. Ở Phần 3, bạn có 30 giây chuẩn bị, sau đó nói về chủ đề được giao và trả lời các câu hỏi phụ. Hãy cố gắng trả lời đầy đủ, kèm lý do và ví dụ."
+      },
+      "parts": [
+        {
+          "id": "p1_hometown",
+          "type": "social",
+          "prompt": "Let's talk about your hometown.\n1. Where is your hometown, and what is it like?\n2. What do you like most about living there?\n3. How has your hometown changed in recent years?",
+          "options": [],
+          "prepSeconds": 0,
+          "speakSeconds": 60,
+          "followUps": [],
+          "keyPoints": [
+            "Names the hometown and gives a short description (size, location, what it is known for).",
+            "Says what they like most and gives a reason.",
+            "Describes at least one change (e.g. new buildings, traffic, shops) using past or present perfect tenses.",
+            "Gives full-sentence answers to all three questions rather than one-word replies."
+          ]
+        },
+        {
+          "id": "p2_studies_free_time",
+          "type": "social",
+          "prompt": "Now let's talk about your studies and your free time.\n1. What are you studying at university, and why did you choose it?\n2. What do you usually do in your free time?\n3. Do you prefer spending free time alone or with other people? Why?",
+          "options": [],
+          "prepSeconds": 0,
+          "speakSeconds": 60,
+          "followUps": [],
+          "keyPoints": [
+            "Names their major and gives at least one reason for choosing it.",
+            "Describes usual free-time activities using present simple and frequency expressions (usually, often, at weekends).",
+            "States a clear preference (alone or with others) and supports it with a reason or example.",
+            "Answers all three questions with relevant, extended answers."
+          ]
+        },
+        {
+          "id": "p3_relax_topic",
+          "type": "topic",
+          "prompt": "Talk about your favourite way to relax after a busy week of study. You should say:\n- what you do and where you do it\n- who you usually do it with\n- how often you do it\nand explain why it helps you to relax.",
+          "options": [],
+          "prepSeconds": 30,
+          "speakSeconds": 120,
+          "followUps": [
+            "Do you think university students today have enough free time? Why or why not?",
+            "Some people relax by using their phones. Is this a good way to relax?",
+            "What could your university do to help students reduce stress?"
+          ],
+          "keyPoints": [
+            "Clearly describes the activity and where it happens.",
+            "Says who they do it with and how often.",
+            "Explains why it helps them relax, with at least one reason and a personal example.",
+            "Organises the talk with simple linking words (first, also, because, so, that's why).",
+            "Answers the follow-up questions with an opinion and a reason."
+          ]
+        }
+      ],
+      "sampleAnswer": "Part 1: My hometown is Hoi An, a small, peaceful city in central Vietnam. It's famous for its old town, with yellow houses and colourful lanterns. What I like most is the slow pace of life – people are friendly and I can cycle everywhere. In recent years it has changed a lot. There are many more hotels and cafés now because of tourism, so it's busier and the traffic is heavier than when I was a child.\n\nPart 2: I'm studying Information Technology. I chose it because I've always enjoyed computers, and I think there are good job opportunities in this field. In my free time I usually play badminton with my classmates or watch films. I prefer spending free time with other people, because I'm quite sociable and chatting with friends helps me forget about my assignments.\n\nPart 3: My favourite way to relax after a busy week is going for a walk around West Lake on Sunday mornings. I usually go with my roommate, and we do it almost every weekend unless it's raining. First, we walk slowly around the lake for about an hour, and then we stop at a small café for a glass of iced tea. It helps me relax because I spend the whole week sitting in front of a screen, so being outside in the fresh air makes me feel calm. Also, I can talk to my roommate about my problems, and that's why I always feel lighter afterwards. For example, last month I was very worried about an exam, but after our walk I felt much more positive.\n\nFollow-ups: I don't think students have enough free time, because many of us study and work part-time. Using a phone can be relaxing for a short time, but too much screen time makes me more tired. My university could organise more sports clubs and offer free counselling to help students reduce stress."
+    }
+  ]
+}

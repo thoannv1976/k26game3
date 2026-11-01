@@ -1,0 +1,283 @@
+@import 'tailwindcss';
+
+/*
+ * English Detective design tokens: warm paper, cork and manila, dark navy ink, red string accents.
+ * Light + dark via prefers-color-scheme. Utilities: bg-primary, text-fg, border-line, bg-paper, text-string…
+ */
+:root {
+  --ed-primary: #1f3550;
+  --ed-primary-hover: #152639;
+  --ed-primary-fg: #fffaf0;
+  --ed-primary-soft: #e3e8ef;
+  --ed-canvas: #f3ecdd;
+  --ed-surface: #fffbf3;
+  --ed-surface-2: #f2e9d8;
+  --ed-paper: #fffdf7;
+  --ed-paper-line: #e9dfca;
+  --ed-fg: #1b2230;
+  --ed-muted: #5d5f68;
+  --ed-line: #ddd0b6;
+  --ed-success: #23683b;
+  --ed-success-soft: #dcefdc;
+  --ed-warn: #94560a;
+  --ed-warn-soft: #fbedc9;
+  --ed-danger: #a8261d;
+  --ed-danger-soft: #f8dcd6;
+  --ed-string: #c0392b;
+  --ed-manila: #e8cf92;
+  --ed-manila-2: #dcbc70;
+  --ed-cork: #c39a6b;
+  --ed-cork-2: #a87c4f;
+  --ed-wood: #8a5a36;
+  --ed-wood-2: #6e4527;
+  --ed-wall: #e7dcc6;
+  --ed-wall-2: #d8c9ab;
+  --ed-floor: #b98b5e;
+  --ed-mark: #fde58a;
+  --ed-mark-fg: #1b2230;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ed-primary: #a9c1e3;
+    --ed-primary-hover: #c6d6ee;
+    --ed-primary-fg: #0f141c;
+    --ed-primary-soft: #1f2c40;
+    --ed-canvas: #12161d;
+    --ed-surface: #1a1f28;
+    --ed-surface-2: #232a35;
+    --ed-paper: #1f242d;
+    --ed-paper-line: #2e3542;
+    --ed-fg: #ece5d6;
+    --ed-muted: #aaa496;
+    --ed-line: #343b48;
+    --ed-success: #7fd394;
+    --ed-success-soft: #173323;
+    --ed-warn: #f2c063;
+    --ed-warn-soft: #3a2c0d;
+    --ed-danger: #f3877c;
+    --ed-danger-soft: #3c1714;
+    --ed-string: #ef6f61;
+    --ed-manila: #6e5c37;
+    --ed-manila-2: #5a4a2b;
+    --ed-cork: #6a5139;
+    --ed-cork-2: #54402c;
+    --ed-wood: #4e3523;
+    --ed-wood-2: #3c2819;
+    --ed-wall: #262b35;
+    --ed-wall-2: #1f242d;
+    --ed-floor: #3d2d20;
+    --ed-mark: #6b5713;
+    --ed-mark-fg: #fff6d6;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-primary: var(--ed-primary);
+  --color-primary-hover: var(--ed-primary-hover);
+  --color-primary-fg: var(--ed-primary-fg);
+  --color-primary-soft: var(--ed-primary-soft);
+  --color-canvas: var(--ed-canvas);
+  --color-surface: var(--ed-surface);
+  --color-surface-2: var(--ed-surface-2);
+  --color-paper: var(--ed-paper);
+  --color-paper-line: var(--ed-paper-line);
+  --color-fg: var(--ed-fg);
+  --color-muted: var(--ed-muted);
+  --color-line: var(--ed-line);
+  --color-success: var(--ed-success);
+  --color-success-soft: var(--ed-success-soft);
+  --color-warn: var(--ed-warn);
+  --color-warn-soft: var(--ed-warn-soft);
+  --color-danger: var(--ed-danger);
+  --color-danger-soft: var(--ed-danger-soft);
+  --color-string: var(--ed-string);
+  --color-manila: var(--ed-manila);
+  --color-manila-2: var(--ed-manila-2);
+  --color-cork: var(--ed-cork);
+  --color-mark: var(--ed-mark);
+  --color-mark-fg: var(--ed-mark-fg);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Georgia', 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', 'Courier New', monospace;
+}
+
+html,
+body {
+  background: var(--ed-canvas);
+  color: var(--ed-fg);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ed-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--ed-mark);
+  color: var(--ed-mark-fg);
+}
+
+/* ---------------- paper & folders ---------------- */
+.paper-plain {
+  background-color: var(--ed-paper);
+  box-shadow: 0 1px 0 var(--ed-line), 0 10px 24px -14px rgb(27 34 48 / 0.35);
+}
+.doc-mark {
+  background: var(--ed-mark);
+  color: var(--ed-mark-fg);
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px var(--ed-mark);
+}
+.gloss-term {
+  text-decoration: underline dotted;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--ed-primary);
+  cursor: help;
+}
+.stamp {
+  display: inline-block;
+  border: 3px solid currentColor;
+  border-radius: 8px;
+  padding: 0.15rem 0.6rem;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+}
+.cork {
+  background-color: var(--ed-cork);
+  background-image: radial-gradient(rgb(0 0 0 / 0.08) 1px, transparent 1.5px), radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1.5px);
+  background-size: 9px 9px, 13px 13px;
+  background-position: 0 0, 4px 6px;
+}
+
+/* ---------------- office scene ---------------- */
+.office-hotspot {
+  cursor: pointer;
+  outline: none;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+.office-hotspot:hover,
+.office-hotspot:focus-visible {
+  transform: translateY(-4px);
+  filter: drop-shadow(0 8px 6px rgb(27 34 48 / 0.3));
+}
+.office-hotspot .hotspot-ring {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+.office-hotspot:focus-visible .hotspot-ring,
+.office-hotspot:hover .hotspot-ring {
+  opacity: 1;
+}
+@keyframes ed-lamp {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+@keyframes ed-steam {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
+}
+@keyframes ed-dots {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+@keyframes ed-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ed-stamp-in {
+  from {
+    transform: scale(1.8) rotate(-12deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(-6deg);
+    opacity: 1;
+  }
+}
+@keyframes ed-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+.lamp-glow {
+  animation: ed-lamp 4s ease-in-out infinite;
+}
+.steam {
+  animation: ed-steam 3s ease-in infinite;
+}
+.steam.s2 {
+  animation-delay: 1.4s;
+}
+.typing-dot {
+  animation: ed-dots 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.magnifier-sweep {
+  transform-box: view-box;
+  transform-origin: 60px 60px;
+  animation: ed-sweep 3s linear infinite;
+}
+.stamp-in {
+  animation: ed-stamp-in 500ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.indeterminate {
+  animation: ed-indeterminate 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

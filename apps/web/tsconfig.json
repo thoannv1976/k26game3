@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@engine/text": ["../../packages/game-engine/src/text.ts"],
+      "@engine/scoring": ["../../packages/game-engine/src/scoring.ts"]
+    }
+  },
+  "include": ["src"]
+}

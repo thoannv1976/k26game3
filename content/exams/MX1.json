@@ -1,0 +1,708 @@
+{
+  "blueprint": {
+    "id": "vstep_mini_v1",
+    "name": "VSTEP-format Mini Mock Exam (4 skills, shortened)",
+    "description": "A shortened four-skill practice exam that follows the section order and task types of the VSTEP 3–5 format (Listening, Reading, Writing, Speaking) in about 85 minutes instead of the full test time. Listening: 3 parts (announcements, a conversation, a short lecture), 15 questions, 20 minutes. Reading: 2 passages (B1 and B2), 20 questions, 25 minutes. Writing: Task 1 email (about 120 words) and Task 2 essay (about 250 words, double weight), 30 minutes. Speaking: social interaction, solution discussion and topic development, about 10 minutes. This is original practice material, not official VSTEP content. The blueprint, the items and any score conversion must be reviewed and approved by the school's English assessment experts before use with students.",
+    "sections": [
+      {
+        "skill": "listening",
+        "timeMinutes": 20,
+        "parts": [
+          { "id": "part1", "title": "Part 1 – Short announcements and instructions", "itemCount": 1, "questionCount": 5 },
+          { "id": "part2", "title": "Part 2 – Conversation", "itemCount": 1, "questionCount": 5 },
+          { "id": "part3", "title": "Part 3 – Short talk / lecture", "itemCount": 1, "questionCount": 5 }
+        ]
+      },
+      {
+        "skill": "reading",
+        "timeMinutes": 25,
+        "parts": [
+          { "id": "passage1", "title": "Passage 1 – General interest article (B1)", "itemCount": 1, "questionCount": 10 },
+          { "id": "passage2", "title": "Passage 2 – Academic text (B2)", "itemCount": 1, "questionCount": 10 }
+        ]
+      },
+      {
+        "skill": "writing",
+        "timeMinutes": 30,
+        "parts": [
+          { "id": "task1", "title": "Task 1 – Email / letter (about 120 words)", "itemCount": 1, "questionCount": 0 },
+          { "id": "task2", "title": "Task 2 – Essay (about 250 words)", "itemCount": 1, "questionCount": 0 }
+        ]
+      },
+      {
+        "skill": "speaking",
+        "timeMinutes": 10,
+        "parts": [
+          { "id": "interview", "title": "Parts 1–3 – Social interaction, solution discussion, topic development", "itemCount": 1, "questionCount": 0 }
+        ]
+      }
+    ],
+    "conversion": [],
+    "approvedBy": ""
+  },
+  "exam": {
+    "id": "mx1",
+    "blueprintId": "vstep_mini_v1",
+    "title": { "en": "Mini Mock Exam 1 (VSTEP format)", "vi": "Đề thi thử rút gọn số 1 (định dạng VSTEP)" },
+    "level": "B1-B2",
+    "sections": [
+      { "skill": "listening", "timeMinutes": 20, "itemIds": ["MX1_listen_p1", "MX1_listen_p2", "MX1_listen_p3"] },
+      { "skill": "reading", "timeMinutes": 25, "itemIds": ["MX1_read_p1", "MX1_read_p2"] },
+      { "skill": "writing", "timeMinutes": 30, "itemIds": ["MX1_write_t1", "MX1_write_t2"] },
+      { "skill": "speaking", "timeMinutes": 10, "itemIds": ["MX1_speak"] }
+    ],
+    "disclaimer": {
+      "en": "This is a shortened practice exam in the VSTEP format, written for learning purposes. It is not an official VSTEP exam, and the results are practice scores with AI-assisted feedback – not an official VSTEP score, level or certificate.",
+      "vi": "Đây là đề luyện tập rút gọn theo định dạng VSTEP, được biên soạn cho mục đích học tập. Đây không phải là đề thi VSTEP chính thức; kết quả chỉ là điểm luyện tập có hỗ trợ nhận xét của AI – không phải điểm, bậc năng lực hay chứng chỉ VSTEP chính thức."
+    }
+  },
+  "items": [
+    {
+      "id": "MX1_listen_p1",
+      "skill": "listening",
+      "level": "B1",
+      "topic": "Campus life – announcements",
+      "objective": "Identify specific information, reasons and required actions in short announcements and instructions.",
+      "difficulty": 2,
+      "title": "Listening Part 1 – Campus announcements",
+      "instructions": {
+        "en": "Part 1. You will hear four short announcements and instructions at a university. For questions 1–5, choose the best answer (A, B, C or D). In the exam, you can play the recording only once.",
+        "vi": "Phần 1. Bạn sẽ nghe bốn thông báo và hướng dẫn ngắn ở một trường đại học. Với các câu hỏi 1–5, hãy chọn đáp án đúng nhất (A, B, C hoặc D). Trong bài thi, bạn chỉ được nghe bản ghi âm một lần."
+      },
+      "script": {
+        "context": "Four short recordings: a library announcement, a sports centre message, a campus shuttle driver and a lecturer at the end of a class.",
+        "speakers": [
+          { "id": "library", "name": "Library announcer", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-A" } },
+          { "id": "sports", "name": "Daniel, Sports Centre", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-J" } },
+          { "id": "driver", "name": "Shuttle driver", "voice": { "languageCode": "en-AU", "name": "en-AU-Neural2-B" } },
+          { "id": "lecturer", "name": "Lecturer", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-C" } }
+        ],
+        "lines": [
+          {
+            "speaker": "library",
+            "text": "Good afternoon. This is a message for all library users. Because of essential repairs to the heating system, the second floor of the Central Library will be closed from Monday the fourteenth until Wednesday the sixteenth. During this time, the quiet study rooms will move to the ground floor, next to the computer area. Books from the second floor can still be requested online and collected at the main desk after twenty-four hours. We apologise for any inconvenience."
+          },
+          {
+            "speaker": "sports",
+            "text": "Hello everyone, this is Daniel from the Riverside Sports Centre. Just a reminder that our swimming pool now opens at six thirty in the morning on weekdays, half an hour earlier than before. Student members can bring one guest for free on Fridays, but guests must show photo ID at reception. If you want to join the new evening yoga class, please sign up on the noticeboard by Thursday, because places are limited to twenty."
+          },
+          {
+            "speaker": "driver",
+            "text": "Morning, folks, and welcome aboard the campus shuttle. Please note that today we won't be stopping at the Science Park, because the road is closed for a charity running event. If you need the Science Park, get off at the Medical School stop and walk from there – it's only about ten minutes. Sorry about that, and the next shuttle will leave from here in fifteen minutes."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "Before you leave, a quick instruction about your group presentations next week. Each group will have twelve minutes to present, followed by three minutes for questions. Please upload your slides to the course website by nine p.m. the day before your presentation – not on the morning itself, because I need time to check that the files open. And remember, every member of the group must speak for at least part of the time."
+          }
+        ]
+      },
+      "plays": { "quest": 2, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "Why will the second floor of the library be closed?",
+          "options": ["It is being cleaned before the exams.", "The heating system needs repairs.", "The quiet study rooms are being redesigned.", "New computers are being installed."],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The announcer says the closure is because of essential repairs to the heating system. The study rooms move only as a result of the closure, and the computers are just a location reference.",
+          "evidence": "Because of essential repairs to the heating system, the second floor of the Central Library will be closed"
+        },
+        {
+          "id": "q2",
+          "type": "mcq",
+          "prompt": "Where can students collect books requested from the second floor?",
+          "options": ["At the main desk", "Next to the computer area", "In the quiet study rooms", "On the second floor"],
+          "correctIndex": 0,
+          "points": 1,
+          "explanation": "Books can be requested online and collected at the main desk after twenty-four hours. The computer area is where the quiet study rooms move to.",
+          "evidence": "collected at the main desk after twenty-four hours"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "What time does the swimming pool now open on weekdays?",
+          "options": ["6:00 a.m.", "6:30 a.m.", "7:00 a.m.", "7:30 a.m."],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "Daniel says the pool now opens at six thirty, half an hour earlier than before. So 7:00 a.m. was the old opening time.",
+          "evidence": "our swimming pool now opens at six thirty in the morning on weekdays, half an hour earlier than before"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "What should passengers going to the Science Park do today?",
+          "options": ["Wait fifteen minutes for a special shuttle", "Take part in the charity running event", "Get off at the Medical School and walk", "Ask the driver to take a different road"],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "The shuttle will not stop at the Science Park because the road is closed, so the driver tells passengers to get off at the Medical School stop and walk for about ten minutes.",
+          "evidence": "get off at the Medical School stop and walk from there"
+        },
+        {
+          "id": "q5",
+          "type": "mcq",
+          "prompt": "When must each group upload its presentation slides?",
+          "options": ["On the morning of the presentation", "By 9 p.m. on the day before the presentation", "Immediately after the presentation", "By 9 a.m. on the day of the presentation"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The lecturer asks for the slides by nine p.m. the day before the presentation and clearly says not on the morning itself, because she needs time to check the files.",
+          "evidence": "upload your slides to the course website by nine p.m. the day before your presentation – not on the morning itself"
+        }
+      ]
+    },
+    {
+      "id": "MX1_listen_p2",
+      "skill": "listening",
+      "level": "B1",
+      "topic": "Student life – part-time jobs",
+      "objective": "Understand the purpose, details, opinions and decisions in a conversation between two students.",
+      "difficulty": 3,
+      "title": "Listening Part 2 – Choosing a part-time job",
+      "instructions": {
+        "en": "Part 2. You will hear a conversation between two students, Kevin and Laura. For questions 6–10, choose the best answer or decide if the statement is True, False or Not Given. In the exam, you can play the recording only once.",
+        "vi": "Phần 2. Bạn sẽ nghe cuộc hội thoại giữa hai sinh viên, Kevin và Laura. Với các câu hỏi 6–10, hãy chọn đáp án đúng nhất hoặc xác định nhận định là Đúng (True), Sai (False) hay Không có thông tin (Not Given). Trong bài thi, bạn chỉ được nghe bản ghi âm một lần."
+      },
+      "script": {
+        "context": "Two students talk in the university café about part-time jobs for next semester.",
+        "speakers": [
+          { "id": "kevin", "name": "Kevin", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-I" } },
+          { "id": "laura", "name": "Laura", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-F" } }
+        ],
+        "lines": [
+          { "speaker": "kevin", "text": "Hi Laura, have you got a minute? I need some advice. I've been offered two part-time jobs for next semester and I can't decide which one to take." },
+          { "speaker": "laura", "text": "Sure. What are they?" },
+          { "speaker": "kevin", "text": "One is at the campus bookshop. It pays quite well, and the hours are fixed: Tuesday and Thursday evenings. The other is a research assistant job in the Psychology Department. Professor Hayes needs someone to enter survey data and organise interviews." },
+          { "speaker": "laura", "text": "The research job sounds more useful for your degree. You're planning to do a master's, aren't you?" },
+          { "speaker": "kevin", "text": "Yes, that's the point. But it pays less – about two-thirds of what the bookshop pays – and the hours change every week, depending on when the interviews are." },
+          { "speaker": "laura", "text": "Hmm. How many hours a week is it?" },
+          { "speaker": "kevin", "text": "About eight. The bookshop is ten." },
+          { "speaker": "laura", "text": "Honestly, I did something similar last year in the Biology lab. The money wasn't great, but Dr Patel wrote me a reference letter, and that's how I got my place on the summer programme in Singapore. You can't buy that kind of experience." },
+          { "speaker": "kevin", "text": "That's true. My worry is the changing hours. I have football training on Wednesday afternoons, and I really don't want to miss it." },
+          { "speaker": "laura", "text": "Why don't you just ask the professor? Lots of researchers are happy to plan around students' timetables if you tell them early." },
+          { "speaker": "kevin", "text": "I suppose so. Oh, and she also said I could use some of the data for my final-year project, if the ethics committee agrees." },
+          { "speaker": "laura", "text": "Well, then it's obvious, Kevin! Most people struggle for months to collect data for their project." },
+          { "speaker": "kevin", "text": "You're right. OK, I'll email Professor Hayes tonight about the Wednesday training, and if she's fine with it, I'll accept. Then I'll tell the bookshop on Friday." },
+          { "speaker": "laura", "text": "Good plan. And if you need extra money, you could still do a few weekend shifts somewhere." }
+        ]
+      },
+      "plays": { "quest": 2, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "Why does Kevin want to talk to Laura?",
+          "options": ["He wants her to apply for a job with him.", "He needs help choosing between two jobs.", "He wants to know about the summer programme in Singapore.", "He needs advice about his final-year project topic."],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "At the start Kevin says he has been offered two part-time jobs and cannot decide which one to take, so he asks Laura for advice.",
+          "evidence": "I've been offered two part-time jobs for next semester and I can't decide which one to take"
+        },
+        {
+          "id": "q2",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "The research assistant job involves more hours per week than the bookshop job.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "The research job is about eight hours a week, while the bookshop job is ten, so the research job has fewer hours.",
+          "evidence": "About eight. The bookshop is ten."
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "How did Laura's job in the Biology lab help her?",
+          "options": ["It paid enough for a trip to Singapore.", "It helped her get into a summer programme.", "It gave her data for her own project.", "It led to a full-time job after graduation."],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The pay was not great, but Dr Patel wrote her a reference letter, and that is how she got her place on the summer programme in Singapore.",
+          "evidence": "Dr Patel wrote me a reference letter, and that's how I got my place on the summer programme in Singapore"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "Why does Laura say \"then it's obvious\"?",
+          "options": ["Because the research job allows Kevin to keep playing football", "Because the bookshop job pays more money", "Because Kevin may be able to use the research data for his project", "Because Professor Hayes has already agreed to change the hours"],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "Laura reacts to the news that Kevin could use some of the data for his final-year project. She explains that most students struggle for months to collect data, so this is a big advantage of the research job.",
+          "evidence": "she also said I could use some of the data for my final-year project"
+        },
+        {
+          "id": "q5",
+          "type": "mcq",
+          "prompt": "What will Kevin do first?",
+          "options": ["Accept the research job immediately", "Tell the bookshop that he does not want the job", "Email Professor Hayes about his football training", "Look for weekend shifts to earn extra money"],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "Kevin will email Professor Hayes tonight about the Wednesday training. He will accept only if she agrees, and he will tell the bookshop later, on Friday.",
+          "evidence": "I'll email Professor Hayes tonight about the Wednesday training"
+        }
+      ]
+    },
+    {
+      "id": "MX1_listen_p3",
+      "skill": "listening",
+      "level": "B2",
+      "topic": "Environment – cities and climate",
+      "objective": "Follow the main idea, causes, effects and the speaker's conclusion in a short academic lecture.",
+      "difficulty": 4,
+      "title": "Listening Part 3 – The urban heat island effect",
+      "instructions": {
+        "en": "Part 3. You will hear part of a lecture about cities and temperature. For questions 11–15, choose the best answer or decide if the statement is True, False or Not Given. In the exam, you can play the recording only once.",
+        "vi": "Phần 3. Bạn sẽ nghe một phần bài giảng về đô thị và nhiệt độ. Với các câu hỏi 11–15, hãy chọn đáp án đúng nhất hoặc xác định nhận định là Đúng (True), Sai (False) hay Không có thông tin (Not Given). Trong bài thi, bạn chỉ được nghe bản ghi âm một lần."
+      },
+      "script": {
+        "context": "Part of an introductory lecture in an environmental studies course.",
+        "speakers": [{ "id": "lecturer", "name": "Dr Alan Brooks", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-D" } }],
+        "lines": [
+          {
+            "speaker": "lecturer",
+            "text": "Good morning, everyone. Today I want to talk about a problem that affects almost every large city in the world: the urban heat island effect. Simply put, this means that a city is noticeably warmer than the countryside around it. On a summer evening, the centre of a big city can be several degrees hotter than the farmland just outside it."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "So why does this happen? There are three main causes. The first is the materials we build with. Dark surfaces such as roads and roofs absorb heat from the sun during the day and release it slowly at night. That is why the difference between city and countryside is usually greatest after sunset, not at midday. The second cause is the lack of plants. In the countryside, trees and fields cool the air as water evaporates from their leaves. In a city centre, there is far less vegetation to do this job. The third cause is waste heat from human activity – air conditioners, cars and factories all push extra heat into the streets."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "Now, you might think a few extra degrees is just uncomfortable. In fact, it is a serious health issue. During heatwaves, hospitals in hot cities see more patients with breathing and heart problems, and older people who live alone are especially at risk. There is also an energy cost: hotter cities use more air conditioning, which in turn produces more waste heat, which makes the city even hotter. It's a vicious circle."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "What can be done? One popular solution is the green roof – a roof covered with soil and plants. Green roofs can make the surface of a roof dramatically cooler on a hot afternoon. However, they are expensive to install, and older buildings often cannot support the extra weight. A cheaper option is the so-called cool roof, which is simply painted white or covered with a reflective material. It doesn't look as attractive, but it sends much of the sunlight back into the sky."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "Finally, and I think this is the most important point, no single building can solve the problem. Researchers increasingly argue that cities need connected networks of parks, street trees and water, rather than isolated projects here and there. For next week, please read chapter four of your textbook, and come prepared to discuss whether this approach could work in your home city."
+          }
+        ]
+      },
+      "plays": { "quest": 2, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "What is the lecture mainly about?",
+          "options": ["How farmers protect their crops from hot weather", "Why cities are warmer than the countryside and what can be done about it", "How air conditioners were developed for large cities", "Why older buildings are more comfortable than modern ones"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The lecturer introduces the urban heat island effect – cities being warmer than the countryside – and then covers its causes, its effects and possible solutions.",
+          "evidence": "this means that a city is noticeably warmer than the countryside around it"
+        },
+        {
+          "id": "q2",
+          "type": "mcq",
+          "prompt": "According to the lecturer, when is the temperature difference between the city and the countryside usually greatest?",
+          "options": ["At midday", "In the early morning", "After sunset", "During heavy rain"],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "Dark surfaces absorb heat during the day and release it slowly at night, so the difference is usually greatest after sunset, not at midday.",
+          "evidence": "the difference between city and countryside is usually greatest after sunset, not at midday"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "What does the lecturer mean by \"a vicious circle\"?",
+          "options": ["Heat makes people stay at home, so streets become empty.", "Hospitals are full, so fewer older people can get help.", "Using more air conditioning creates more heat, which leads to even more air conditioning.", "Cities build more roads, which brings more cars into the centre."],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "Hotter cities use more air conditioning, which produces more waste heat and makes the city even hotter – so the problem feeds itself. That is the vicious circle.",
+          "evidence": "hotter cities use more air conditioning, which in turn produces more waste heat, which makes the city even hotter"
+        },
+        {
+          "id": "q4",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Cool roofs cost less than green roofs.",
+          "answer": "true",
+          "points": 1,
+          "explanation": "Green roofs are described as expensive, and the cool roof is introduced as a cheaper option.",
+          "evidence": "A cheaper option is the so-called cool roof"
+        },
+        {
+          "id": "q5",
+          "type": "mcq",
+          "prompt": "What is the lecturer's most important point?",
+          "options": ["Every building should have a green roof.", "Cool roofs should replace parks in city centres.", "Cities need connected green and water spaces, not just separate projects.", "Older people should move out of city centres in summer."],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "The lecturer calls this the most important point: no single building can solve the problem, and cities need connected networks of parks, street trees and water rather than isolated projects.",
+          "evidence": "cities need connected networks of parks, street trees and water, rather than isolated projects here and there"
+        }
+      ]
+    },
+    {
+      "id": "MX1_read_p1",
+      "skill": "reading",
+      "level": "B1",
+      "topic": "Campus life – sustainability",
+      "objective": "Understand the main idea, specific details, inference, vocabulary in context and reference in a general-interest article.",
+      "difficulty": 2,
+      "title": "Reading Passage 1 – The Campus Repair Café",
+      "instructions": {
+        "en": "Passage 1. Read the article and answer questions 1–10. Choose the best answer, decide if each statement is True, False or Not Given, or write a short answer as instructed.",
+        "vi": "Bài đọc 1. Đọc bài báo và trả lời các câu hỏi 1–10. Chọn đáp án đúng nhất, xác định mỗi nhận định là Đúng (True), Sai (False) hay Không có thông tin (Not Given), hoặc viết câu trả lời ngắn theo yêu cầu."
+      },
+      "passage": {
+        "type": "article",
+        "title": "Fix It, Don't Bin It: The Campus Repair Café Turns One",
+        "meta": { "source": "Westbridge Student News (fictional)", "section": "Campus life" },
+        "body": "When engineering student Mai Tran broke the zip on her favourite backpack last year, she almost threw it away. Instead, a friend suggested she take it to a small room behind the student union, where a group of volunteers had just started something called the Repair Café. Twenty minutes later, the bag was as good as new, and Mai had learned how to replace a zip herself. “I left with my bag and a new skill,” she says. “Now I'm one of the volunteers.”\n\nThe Repair Café opened at Westbridge University twelve months ago. It runs every second Saturday from ten in the morning until two in the afternoon. Students and staff bring in broken items – lamps, headphones, bicycles, clothes, even laptops – and volunteers help them repair these items for free. The only rule is that owners must stay and take part in the repair. “We are not a shop,” explains organiser Daniel Okafor, a final-year physics student. “The idea is to teach people, not just to do the work for them.”\n\nIn its first year, the café received almost 600 items. According to its records, about seventy per cent were repaired successfully. Clothes and bicycles were the easiest, while modern phones were the most difficult, because many are designed in a way that makes it hard to open them without special tools. When something cannot be fixed, volunteers help the owner find a place to recycle it safely.\n\nThe project has also had unexpected benefits. Many volunteers say the café has become a place to meet people from other faculties. International students, in particular, have found it a friendly way to make local friends. Last semester, the café also began running short workshops on basic sewing and bicycle maintenance, which were fully booked within a day.\n\nNot everything has been easy. The café depends entirely on donations for tools and spare parts, and finding enough volunteers during exam periods is a constant problem. Daniel hopes the university will provide a permanent room and a small budget next year. “At the moment, we have to pack everything into boxes after every session,” he says. “With our own space, we could open more often.”\n\nFor Mai, the café has changed the way she thinks about the things she owns. “Before, if something broke, I just bought a new one. Now my first question is: can I fix it?”"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "What is the article mainly about?",
+          "options": ["A shop on campus that sells second-hand bicycles", "A volunteer project where people learn to repair their own things", "A university course in engineering and physics", "A competition to design phones that are easy to open"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The whole article describes the Repair Café: volunteers help people fix broken items for free, and the aim is to teach people rather than do the work for them.",
+          "evidence": "The idea is to teach people, not just to do the work for them."
+        },
+        {
+          "id": "q2",
+          "type": "mcq",
+          "prompt": "How often is the Repair Café open?",
+          "options": ["Every Saturday", "Once every two weeks", "Once a month", "Every weekday afternoon"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "\"Every second Saturday\" means one Saturday in every two – that is, once every two weeks.",
+          "evidence": "It runs every second Saturday from ten in the morning until two in the afternoon"
+        },
+        {
+          "id": "q3",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "People can leave their broken items at the café and collect them later.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "The only rule is that owners must stay and take part in the repair, so they cannot simply leave their items.",
+          "evidence": "The only rule is that owners must stay and take part in the repair"
+        },
+        {
+          "id": "q4",
+          "type": "short",
+          "prompt": "About what percentage of items did the café repair successfully in its first year? (a number or up to three words)",
+          "acceptable": ["70%", "70", "seventy", "70 per cent", "seventy per cent", "70 percent", "seventy percent"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "According to the café's records, about seventy per cent of the almost 600 items were repaired successfully.",
+          "evidence": "about seventy per cent were repaired successfully"
+        },
+        {
+          "id": "q5",
+          "type": "mcq",
+          "prompt": "Why were modern phones the most difficult items to repair?",
+          "options": ["The volunteers had no experience with electronics.", "Spare parts for phones are too expensive.", "Many phones are hard to open without special tools.", "Owners did not want to take part in the repair."],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "The article says many modern phones are designed in a way that makes them hard to open without special tools.",
+          "evidence": "many are designed in a way that makes it hard to open them without special tools"
+        },
+        {
+          "id": "q6",
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"them\" in \"hard to open them\" refers to …",
+          "options": ["special tools", "modern phones", "clothes and bicycles", "the volunteers"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The sentence is about modern phones: many (phones) are designed in a way that makes it hard to open them (the phones).",
+          "evidence": "modern phones were the most difficult, because many are designed in a way that makes it hard to open them"
+        },
+        {
+          "id": "q7",
+          "type": "mcq",
+          "prompt": "In paragraph 4, \"fully booked\" is closest in meaning to …",
+          "options": ["cancelled because of low interest", "described in a printed book", "all places were taken", "moved to a bigger room"],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "If a workshop is fully booked, all the places have been reserved. Here it shows the workshops were very popular – full within a day.",
+          "evidence": "which were fully booked within a day"
+        },
+        {
+          "id": "q8",
+          "type": "mcq",
+          "prompt": "What can be inferred about international students at the café?",
+          "options": ["They value it partly as a way to build friendships.", "They bring more broken items than local students.", "They are not allowed to work as volunteers.", "They mostly attend the sewing workshops."],
+          "correctIndex": 0,
+          "points": 1,
+          "explanation": "The article says international students have found the café a friendly way to make local friends, so it is important to them socially, not only for repairs. The other options are not stated.",
+          "evidence": "International students, in particular, have found it a friendly way to make local friends"
+        },
+        {
+          "id": "q9",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "The university currently gives the café money for tools and spare parts.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "The café depends entirely on donations. Daniel only hopes the university will provide a budget next year, so it does not do so now.",
+          "evidence": "The café depends entirely on donations for tools and spare parts"
+        },
+        {
+          "id": "q10",
+          "type": "mcq",
+          "prompt": "How has Mai's attitude changed since she started using the café?",
+          "options": ["She now prefers to buy new things rather than old ones.", "She now tries to repair things before replacing them.", "She has decided to change her degree to physics.", "She thinks the café should charge for repairs."],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "Before, Mai bought new things when something broke. Now her first question is whether she can fix it.",
+          "evidence": "Now my first question is: can I fix it?"
+        }
+      ]
+    },
+    {
+      "id": "MX1_read_p2",
+      "skill": "reading",
+      "level": "B2",
+      "topic": "Education – learning strategies",
+      "objective": "Understand the writer's purpose, supporting details, inference, vocabulary in context, reference and the writer's attitude in an academic text.",
+      "difficulty": 4,
+      "title": "Reading Passage 2 – Remembering by recalling",
+      "instructions": {
+        "en": "Passage 2. Read the text and answer questions 11–20. Choose the best answer, decide if the statement is True, False or Not Given, or write a short answer as instructed.",
+        "vi": "Bài đọc 2. Đọc văn bản và trả lời các câu hỏi 11–20. Chọn đáp án đúng nhất, xác định nhận định là Đúng (True), Sai (False) hay Không có thông tin (Not Given), hoặc viết câu trả lời ngắn theo yêu cầu."
+      },
+      "passage": {
+        "type": "academic",
+        "title": "Remembering by Recalling: The Case for Retrieval Practice",
+        "meta": { "source": "Study skills reader (written for this practice exam)" },
+        "body": "Ask most university students how they prepare for an exam, and the answer is likely to involve rereading: going over lecture notes, highlighting textbooks and reviewing slides until the material feels familiar. It is an understandable strategy. Rereading is comfortable, it seems productive, and it creates a pleasant sense of progress. Yet a large body of research in cognitive psychology suggests that it is one of the least effective ways to learn. A far more powerful technique, known as retrieval practice, is used surprisingly rarely.\n\nRetrieval practice simply means trying to recall information from memory rather than looking at it again. Answering practice questions, explaining a concept to a friend without notes, or writing down everything you remember about a topic are all forms of retrieval. In a typical experiment, two groups of students read the same text. One group then rereads it several times, while the other reads it once and spends the remaining time trying to recall it. When tested immediately, the rereading group often performs slightly better. However, when the same students are tested a week later, the pattern is reversed: those who practised recalling the material remember considerably more.\n\nWhy should this be the case? Psychologists believe that the act of retrieving a memory does more than simply measure what we know; it actually changes the memory, making it stronger and easier to access in the future. Each successful recall acts rather like a path through a forest: the more often it is walked, the clearer it becomes. Rereading, by contrast, makes information feel familiar without requiring the brain to rebuild it. This familiarity is misleading, because recognising something on the page is very different from being able to produce it in an exam hall.\n\nInterestingly, retrieval appears to work best when it is difficult. Recalling information after a delay, or mixing questions from different topics, feels harder and produces more mistakes in the short term. Many learners interpret this struggle as a sign of failure and return to rereading. Researchers describe such challenges as “desirable difficulties”: the effort itself is what makes the learning last.\n\nNone of this means that rereading is worthless. A first reading is necessary to understand new material, and reviewing notes can help to identify gaps. The problem arises when it becomes the main strategy. For students, the practical message is straightforward: close the book more often. Turning lecture headings into questions, using flashcards, or meeting classmates to quiz one another requires no special equipment and costs nothing. It may feel less reassuring than another hour with a highlighter, but the evidence suggests it is time far better spent."
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "What is the writer's main purpose in this text?",
+          "options": ["To explain how to highlight a textbook effectively", "To argue that students should rely more on recalling information than on rereading", "To describe the history of research in cognitive psychology", "To compare different types of university exams"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The writer presents research showing that retrieval practice is more powerful than rereading and ends with the practical advice to \"close the book more often\".",
+          "evidence": "A far more powerful technique, known as retrieval practice, is used surprisingly rarely."
+        },
+        {
+          "id": "q2",
+          "type": "mcq",
+          "prompt": "According to paragraph 1, why do many students choose to reread?",
+          "options": ["It is recommended by most psychologists.", "It feels comfortable and gives a sense of progress.", "It is the fastest way to finish a course.", "It helps them answer questions in a group."],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The writer calls rereading understandable because it is comfortable, seems productive and creates a pleasant sense of progress.",
+          "evidence": "Rereading is comfortable, it seems productive, and it creates a pleasant sense of progress"
+        },
+        {
+          "id": "q3",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "In tests taken immediately after studying, the rereading group usually does much worse than the retrieval group.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "In immediate tests the rereading group often performs slightly better, not much worse. The advantage of retrieval appears only a week later.",
+          "evidence": "When tested immediately, the rereading group often performs slightly better"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "What happens when students in the typical experiment are tested a week later?",
+          "options": ["Both groups remember about the same amount.", "The rereading group remembers considerably more.", "The group that practised recalling remembers considerably more.", "Neither group can remember the text."],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "After a week the pattern is reversed: the students who practised recalling the material remember considerably more.",
+          "evidence": "those who practised recalling the material remember considerably more"
+        },
+        {
+          "id": "q5",
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"it\" in \"it actually changes the memory\" refers to …",
+          "options": ["the act of retrieving a memory", "what we know", "the future", "the exam hall"],
+          "correctIndex": 0,
+          "points": 1,
+          "explanation": "The subject of the sentence is \"the act of retrieving a memory\": it does more than measure what we know – it (the act of retrieving) changes the memory.",
+          "evidence": "the act of retrieving a memory does more than simply measure what we know; it actually changes the memory"
+        },
+        {
+          "id": "q6",
+          "type": "mcq",
+          "prompt": "Why does the writer compare recall to \"a path through a forest\"?",
+          "options": ["To show that studying outdoors improves memory", "To suggest that memories disappear quickly", "To illustrate how repeated recall makes a memory easier to reach", "To explain why exams feel stressful"],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "A path becomes clearer the more often it is walked; in the same way, each successful recall makes a memory stronger and easier to access.",
+          "evidence": "the more often it is walked, the clearer it becomes"
+        },
+        {
+          "id": "q7",
+          "type": "mcq",
+          "prompt": "In paragraph 3, \"misleading\" is closest in meaning to …",
+          "options": ["giving a false impression", "difficult to notice", "extremely useful", "slowly disappearing"],
+          "correctIndex": 0,
+          "points": 1,
+          "explanation": "Familiarity is misleading because it makes students think they know the material when they may not be able to produce it in an exam – it gives a false impression.",
+          "evidence": "This familiarity is misleading, because recognising something on the page is very different from being able to produce it in an exam hall"
+        },
+        {
+          "id": "q8",
+          "type": "mcq",
+          "prompt": "What can be inferred from paragraph 4 about why many learners stop using retrieval practice?",
+          "options": ["They find it too expensive.", "They wrongly see its difficulty as a sign that they are failing.", "Their teachers do not allow it.", "It takes more time than rereading."],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "Retrieval feels harder and produces more mistakes at first. Many learners interpret this struggle as failure and go back to rereading, although the struggle is actually what makes learning last.",
+          "evidence": "Many learners interpret this struggle as a sign of failure and return to rereading"
+        },
+        {
+          "id": "q9",
+          "type": "short",
+          "prompt": "What term do researchers use for challenges that make learning last? (no more than two words)",
+          "acceptable": ["desirable difficulties", "desirable difficulty"],
+          "maxWords": 2,
+          "points": 1,
+          "explanation": "Researchers call such challenges \"desirable difficulties\" because the effort itself makes the learning last.",
+          "evidence": "Researchers describe such challenges as “desirable difficulties”"
+        },
+        {
+          "id": "q10",
+          "type": "mcq",
+          "prompt": "What is the writer's attitude towards rereading?",
+          "options": ["It is completely useless and should be avoided.", "It is the best strategy for most students.", "It has some value but should not be the main strategy.", "It works well only when combined with highlighting."],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "The writer says rereading is not worthless – it helps first understanding and finding gaps – but the problem arises when it becomes the main strategy.",
+          "evidence": "None of this means that rereading is worthless"
+        }
+      ]
+    },
+    {
+      "id": "MX1_write_t1",
+      "skill": "writing",
+      "level": "B1",
+      "topic": "Personal communication – helping a visiting student",
+      "objective": "Write an informal email that answers all the questions in a received email, with an appropriate opening, closing and tone.",
+      "difficulty": 3,
+      "title": "Writing Task 1 – Reply to a friend",
+      "instructions": {
+        "en": "Task 1. Read the email from your friend Sam and write a reply of about 120 words (at least 100 words). Answer all of Sam's questions. You should spend about 10 minutes on this task. Do not include your real name or address.",
+        "vi": "Bài 1. Đọc email của bạn Sam và viết thư trả lời khoảng 120 từ (tối thiểu 100 từ). Trả lời đầy đủ các câu hỏi của Sam. Bạn nên dành khoảng 10 phút cho bài này. Không ghi tên thật hay địa chỉ thật của bạn."
+      },
+      "task": {
+        "type": "email",
+        "input": "Hi,\n\nGreat news – I've been accepted for a one-semester exchange at your university, starting in February! I'm really excited, but also a bit nervous because I've never lived abroad.\n\nCould you help me with a few things? First, what's the best way to find somewhere to live near the campus? Second, what's the weather like at that time of year – what kind of clothes should I bring? And finally, would you have time to meet me when I arrive, or should I take a taxi from the airport?\n\nThanks so much!\nSam",
+        "prompt": "You have received this email from Sam, a friend who is coming to study at your university for one semester. Write a reply to Sam. In your email, you should: give advice about finding accommodation near the campus; describe the weather in February and suggest what clothes to bring; and say whether you can meet Sam on arrival, or explain how to get from the airport. Write about 120 words.",
+        "minWords": 100,
+        "maxWords": 170,
+        "timeMinutes": 10
+      },
+      "keyPoints": [
+        "Friendly opening that reacts to Sam's news (congratulations, reassurance about living abroad)",
+        "Clear, practical advice on finding accommodation near the campus (e.g. dormitory application, student housing group, sharing a flat)",
+        "Description of the weather in February with suitable clothing suggestions",
+        "Answer about meeting Sam at the airport, or clear instructions for getting from the airport",
+        "Informal but polite tone, logical paragraphs and an appropriate closing"
+      ],
+      "weight": 1,
+      "sampleAnswer": "Hi Sam,\n\nCongratulations on getting the exchange place! Don't worry – lots of international students come here, and you'll make friends very quickly.\n\nThe easiest way to find accommodation is to apply for a room in the university dormitory. It's cheap and only five minutes from the lecture halls, but you should apply soon because places go fast. If you prefer more privacy, join the student housing group online, where people often look for flatmates.\n\nIn February, it's usually cool and quite rainy, around fifteen to twenty degrees. Bring a light jacket, a couple of warm sweaters and a good umbrella.\n\nOf course I'll meet you at the airport! Just send me your flight number and arrival time, and I'll be there.\n\nSee you soon,\nAn"
+    },
+    {
+      "id": "MX1_write_t2",
+      "skill": "writing",
+      "level": "B2",
+      "topic": "Education – online and face-to-face learning",
+      "objective": "Write a discussion essay that presents both views, gives a clear personal opinion and supports ideas with reasons and examples.",
+      "difficulty": 4,
+      "title": "Writing Task 2 – Online learning at university",
+      "instructions": {
+        "en": "Task 2. Write an essay of about 250 words (at least 200 words) on the topic below. Give reasons for your answer and include relevant examples from your own knowledge or experience. You should spend about 20 minutes on this task. This task counts twice as much as Task 1.",
+        "vi": "Bài 2. Viết một bài luận khoảng 250 từ (tối thiểu 200 từ) về chủ đề dưới đây. Nêu lý do cho quan điểm của bạn và đưa ra ví dụ phù hợp từ hiểu biết hoặc trải nghiệm của bản thân. Bạn nên dành khoảng 20 phút cho bài này. Bài 2 được tính điểm gấp đôi Bài 1."
+      },
+      "task": {
+        "type": "essay",
+        "input": "",
+        "prompt": "Some people believe that universities should make online learning a permanent part of every degree programme. Others think that face-to-face classes are always more effective. Discuss both views and give your own opinion. Write about 250 words.",
+        "minWords": 200,
+        "maxWords": 320,
+        "timeMinutes": 20
+      },
+      "keyPoints": [
+        "Introduction that paraphrases the topic and states a clear position",
+        "Arguments for online learning (flexibility, saving time and money, recorded lectures, access for working students) with an example",
+        "Arguments for face-to-face classes (interaction, motivation, practical and lab work, social skills) with an example",
+        "A clear personal opinion that is consistent throughout (e.g. a balanced or blended approach)",
+        "Conclusion that summarises the main ideas without adding new arguments",
+        "Logical paragraphing, linking words and a range of B2 vocabulary and grammar"
+      ],
+      "weight": 2,
+      "sampleAnswer": "In recent years, online learning has become a normal part of university life. While some people argue that it should be a permanent element of every degree, others believe that traditional classes are always more effective. In my opinion, the best approach combines both.\n\nOn the one hand, online learning offers clear benefits. It gives students flexibility, which is especially important for those who have part-time jobs or live far from the campus. Recorded lectures can be watched several times, so students can review difficult points at their own speed. In addition, universities can reach more learners without building new classrooms. For example, many of my classmates followed online courses in statistics during the summer while working full time.\n\nOn the other hand, face-to-face classes provide something that a screen cannot easily replace. Students can ask questions immediately, discuss ideas in groups and build relationships with lecturers and classmates. Practical subjects, such as chemistry or nursing, require real equipment and close supervision. Moreover, many students find it hard to stay motivated when they study alone at home, and some do not have a reliable internet connection.\n\nPersonally, I believe universities should not choose one option over the other. Theory-based content, such as introductory lectures, can be delivered online, while seminars, laboratory sessions and group projects should take place on campus. This blended model saves time without losing the human contact that makes learning meaningful.\n\nIn conclusion, both online and face-to-face learning have important strengths. A thoughtful combination of the two is likely to serve modern students best."
+    },
+    {
+      "id": "MX1_speak",
+      "skill": "speaking",
+      "level": "B2",
+      "topic": "Free time, student well-being and learning languages",
+      "objective": "Answer personal questions, choose and justify a solution, and develop a topic with reasons and examples.",
+      "difficulty": 3,
+      "title": "Speaking – Parts 1, 2 and 3",
+      "instructions": {
+        "en": "The speaking test has three parts and lasts about 10 minutes. Part 1: answer questions about yourself. Part 2: you have 1 minute to prepare, then choose the best solution and explain why. Part 3: you have 1 minute to prepare, then talk about the topic and answer follow-up questions. Speak clearly and give reasons and examples.",
+        "vi": "Bài thi nói gồm ba phần, kéo dài khoảng 10 phút. Phần 1: trả lời các câu hỏi về bản thân. Phần 2: bạn có 1 phút chuẩn bị, sau đó chọn giải pháp tốt nhất và giải thích lý do. Phần 3: bạn có 1 phút chuẩn bị, sau đó trình bày về chủ đề và trả lời các câu hỏi mở rộng. Hãy nói rõ ràng, nêu lý do và ví dụ."
+      },
+      "parts": [
+        {
+          "id": "p1_social",
+          "type": "social",
+          "prompt": "Part 1 – Social interaction. Let's talk about your free time. What do you usually do at the weekend? Do you prefer spending your free time alone or with other people? Why? Has the way you spend your free time changed since you started university?",
+          "options": [],
+          "prepSeconds": 0,
+          "speakSeconds": 120,
+          "followUps": [],
+          "keyPoints": [
+            "Answers all three questions directly",
+            "Gives at least one reason or example for each answer",
+            "Compares the past and the present for the last question (e.g. used to …, now …)",
+            "Uses natural, conversational language rather than memorised phrases"
+          ]
+        },
+        {
+          "id": "p2_solution",
+          "type": "solution",
+          "prompt": "Part 2 – Solution discussion. Situation: Many students at your university feel very stressed during exam periods. The university is considering three ideas to help them. Which idea do you think is the best? Explain your choice and say why the other ideas are less suitable.",
+          "options": [
+            "Keep the library open 24 hours a day during exam weeks",
+            "Offer free counselling sessions and relaxation workshops",
+            "Spread the exams over a longer period, with fewer exams each week"
+          ],
+          "prepSeconds": 60,
+          "speakSeconds": 120,
+          "followUps": [],
+          "keyPoints": [
+            "Clearly chooses one option",
+            "Gives at least two reasons for the choice, with an example or explanation",
+            "Explains why each of the other two options is less suitable",
+            "Uses linking and comparison language (e.g. whereas, more effective than, the main drawback is)"
+          ]
+        },
+        {
+          "id": "p3_topic",
+          "type": "topic",
+          "prompt": "Part 3 – Topic development. Topic: Learning a foreign language is more important today than ever before. You may use these ideas: better job opportunities; travel and understanding other cultures; access to information and online learning. You can also use your own ideas.",
+          "options": [],
+          "prepSeconds": 60,
+          "speakSeconds": 180,
+          "followUps": [
+            "Do you think artificial intelligence translation tools will make learning languages less necessary? Why or why not?",
+            "What is the best age to start learning a foreign language?",
+            "What can universities do to help students improve their speaking skills?"
+          ],
+          "keyPoints": [
+            "Introduces the topic and states a clear view",
+            "Develops at least two ideas with reasons and examples",
+            "Organises the talk logically with signposting (firstly, another reason, finally)",
+            "Gives a short conclusion",
+            "Responds to follow-up questions with relevant, extended answers"
+          ]
+        }
+      ],
+      "sampleAnswer": "Part 1: At the weekend I usually play badminton with my roommates on Saturday morning, and on Sunday I often visit my grandparents or catch up on assignments. I prefer spending free time with other people, because I'm quite sociable and I feel more relaxed when I'm chatting with friends. Since I started university, my free time has changed a lot. In high school I used to stay at home and play video games, but now I'm a member of the photography club, so I go out much more.\n\nPart 2: In my opinion, spreading the exams over a longer period is the best idea. The main reason is that it deals with the cause of the stress: when students have three or four exams in one week, they cannot sleep or revise properly. With fewer exams each week, they have time to rest between them. Keeping the library open 24 hours a day might sound helpful, but it could actually encourage students to stay up all night, which makes stress worse. Counselling and relaxation workshops are useful, but many students are too busy to attend them during exam weeks, so they would not solve the main problem.\n\nPart 3: I strongly agree that learning a foreign language is more important today than ever before. Firstly, it opens up better job opportunities. Many companies in Vietnam work with international partners, so employees who can speak English confidently are often promoted faster. Secondly, a foreign language helps us understand other cultures when we travel or meet international students. Finally, most information online, such as research articles and free courses, is in English, so language skills give us access to much more knowledge. In conclusion, a foreign language is no longer just a school subject; it is an essential skill for modern life."
+    }
+  ]
+}

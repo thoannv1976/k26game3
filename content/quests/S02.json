@@ -1,0 +1,91 @@
+{
+  "quest": {
+    "id": "S02",
+    "skill": "speaking",
+    "level": "B2",
+    "title": { "en": "Discussing Solutions to a Problem", "vi": "Thảo luận giải pháp cho một vấn đề" },
+    "summary": {
+      "en": "Compare possible solutions to a real university problem, choose the best one and defend your choice, then develop the topic in depth.",
+      "vi": "So sánh các giải pháp khả thi cho một vấn đề thực tế ở trường đại học, chọn giải pháp tốt nhất và bảo vệ lựa chọn của mình, sau đó phát triển chủ đề một cách sâu sắc."
+    },
+    "story": {
+      "en": "You have earned your place in the Speaking Arena's Council Chamber. The Rector of Lakeview University has a problem: fewer and fewer students are coming to face-to-face English classes. Three advisers have proposed three different plans, and the Rector wants a champion to choose one and convince the Council. You have one minute to think – then the floor is yours.",
+      "vi": "Bạn đã giành được chỗ đứng trong Phòng Hội đồng của Đấu trường Nói. Hiệu trưởng Trường Đại học Lakeview đang gặp một vấn đề: ngày càng ít sinh viên đến học các lớp tiếng Anh trực tiếp. Ba cố vấn đã đề xuất ba kế hoạch khác nhau, và Hiệu trưởng cần một nhà vô địch chọn ra một phương án và thuyết phục Hội đồng. Bạn có một phút để suy nghĩ – sau đó sân khấu là của bạn."
+    },
+    "objectives": [
+      { "en": "Choose one solution and justify it with clear, relevant reasons.", "vi": "Chọn một giải pháp và lý giải bằng các lý do rõ ràng, phù hợp." },
+      { "en": "Explain why the other options are less suitable.", "vi": "Giải thích vì sao các phương án còn lại kém phù hợp hơn." },
+      { "en": "Develop a topic in depth and answer extension questions with balanced opinions.", "vi": "Phát triển chủ đề một cách sâu sắc và trả lời các câu hỏi mở rộng bằng quan điểm cân bằng." },
+      { "en": "Use language for comparing, persuading and speculating.", "vi": "Sử dụng ngôn ngữ để so sánh, thuyết phục và phỏng đoán." }
+    ],
+    "estimatedMinutes": 12,
+    "xpReward": 160,
+    "requires": ["S01"],
+    "challenges": [{ "id": "c1_council_chamber", "title": "Challenge 1 – The Rector's dilemma", "itemId": "S02_attendance_solution" }],
+    "passPercent": 50,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "S02_attendance_solution",
+      "skill": "speaking",
+      "level": "B2",
+      "topic": "Education – class attendance and student motivation",
+      "objective": "Evaluate three solutions to a university problem, choose and justify one while rejecting the others, and then develop a related topic with extended opinions.",
+      "difficulty": 4,
+      "title": "Bringing students back to class",
+      "instructions": {
+        "en": "This task has two parts. In Part 1, read the situation and the three options. You have 1 minute to prepare, then speak for up to 2.5 minutes: choose the best option, explain why, and say why the other two are less suitable. Then answer the examiner's questions. In Part 2, you have 30 seconds to prepare and then talk about the topic for up to 2 minutes.",
+        "vi": "Bài thi gồm hai phần. Ở Phần 1, hãy đọc tình huống và ba phương án. Bạn có 1 phút chuẩn bị, sau đó nói tối đa 2,5 phút: chọn phương án tốt nhất, giải thích lý do và nói vì sao hai phương án còn lại kém phù hợp hơn. Sau đó trả lời các câu hỏi của giám khảo. Ở Phần 2, bạn có 30 giây chuẩn bị rồi nói về chủ đề trong tối đa 2 phút."
+      },
+      "parts": [
+        {
+          "id": "p1_solution",
+          "type": "solution",
+          "prompt": "Situation: A university has low attendance in face-to-face English classes. The university wants to choose a solution to increase participation. Three solutions have been suggested (see the options). Which solution do you think is the best? Explain your choice and say why the other solutions are less suitable.",
+          "options": [
+            "Gamified attendance points: students earn points and badges for attending and taking part, which count towards their final grade.",
+            "Smaller classes with project work: classes of no more than 20 students working in teams on real-life English projects.",
+            "A blended timetable: one face-to-face session and one online session each week, with online tasks that prepare students for class."
+          ],
+          "prepSeconds": 60,
+          "speakSeconds": 150,
+          "followUps": [
+            "What problems might the university face when it introduces your chosen solution, and how could they be solved?",
+            "Should students who attend every class receive higher marks than students who do not? Why or why not?",
+            "Apart from these three options, what else could encourage students to come to class?"
+          ],
+          "keyPoints": [
+            "Clearly states which one option is the best choice.",
+            "Justifies the choice with at least two developed reasons (e.g. motivation, more speaking practice, flexibility) and an example.",
+            "Explains why each of the other two options is less suitable, with a specific weakness for each (e.g. cost, short-term motivation, less real interaction).",
+            "Uses language for comparing and persuading (more effective than, whereas, the main drawback is, I'm convinced that…).",
+            "Organises the answer logically with an introduction, reasons and a short conclusion.",
+            "Answers the follow-up questions with relevant, extended opinions."
+          ]
+        },
+        {
+          "id": "p2_topic",
+          "type": "topic",
+          "prompt": "Topic: \"Students learn best when they are actively involved in their lessons.\" Talk about this statement. You may use the following ideas or your own: interaction with teachers and classmates; learning by doing projects; the role of technology in the classroom.",
+          "options": [],
+          "prepSeconds": 30,
+          "speakSeconds": 120,
+          "followUps": [
+            "Is it the teacher's or the student's responsibility to make lessons interesting?",
+            "Do you think artificial intelligence will make classroom teachers less important in the future?",
+            "How has the way people learn languages changed compared with your parents' generation?"
+          ],
+          "keyPoints": [
+            "Gives a clear opinion on the statement.",
+            "Develops at least two of the ideas (or own ideas) with reasons and examples.",
+            "Considers a different perspective or a limitation (e.g. some students prefer quiet, individual study).",
+            "Uses a range of B2 vocabulary and linking expressions to connect ideas.",
+            "Responds to the follow-up questions with balanced, well-supported views."
+          ]
+        }
+      ],
+      "sampleAnswer": "Part 1: In my opinion, the best solution is smaller classes with project work. First of all, the main reason students skip English classes is that they don't feel they get enough practice. In a class of forty, each student might speak for only two or three minutes, whereas in a group of twenty working on a project, everyone has to contribute. For example, if students prepare a short video or a survey in English, they have a real reason to come, because their team depends on them. Secondly, project work develops teamwork and presentation skills, which employers really value, so students can see that the class is useful for their future.\n\nAs for the other options, gamified points might increase attendance at first, but I'm afraid the motivation would only be short-term. Students might come just to collect points without actually participating. The blended timetable is more flexible, but the main drawback is that it reduces face-to-face time even further, and many students might not complete the online tasks at all. So, although smaller classes are more expensive, I'm convinced they would solve the real problem rather than just the symptoms.\n\nFollow-ups: The biggest problem would be cost, because the university would need more teachers, but it could train postgraduate students as teaching assistants. I don't think attendance alone should be rewarded with marks; participation and progress matter more. Universities could also invite guest speakers or run English clubs to make learning more enjoyable.\n\nPart 2: I strongly agree that students learn best when they are actively involved. When I just listen to a lecture, I usually forget most of it within a week, but when I discuss ideas with classmates, I remember them much better. Learning by doing projects is also powerful: last semester, my group interviewed tourists in English, and I learnt more useful phrases in one afternoon than in a month of textbook exercises. Technology can help too, for instance through online quizzes or apps that give instant feedback. Having said that, active learning isn't ideal for everyone. Some shy students need time to think quietly, so teachers should balance group work with individual tasks. Overall, though, involving students actively makes lessons more memorable and more motivating."
+    }
+  ]
+}

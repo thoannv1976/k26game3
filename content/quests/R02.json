@@ -1,0 +1,269 @@
+{
+  "quest": {
+    "id": "R02",
+    "skill": "reading",
+    "level": "B2",
+    "title": { "en": "Technology and Society", "vi": "Công nghệ và xã hội" },
+    "summary": {
+      "en": "Read a magazine article and an academic text about how technology is changing learning and cities, and work out what the writers really think.",
+      "vi": "Đọc một bài báo và một văn bản học thuật về cách công nghệ đang thay đổi việc học và các thành phố, rồi nhận ra quan điểm thực sự của tác giả."
+    },
+    "story": {
+      "en": "Deep inside Reading Castle, the Tower of Debate has opened its doors – but only to readers who can see beyond the facts. Two texts lie on the reading desk: one about an AI tutor at a university, the other about how remote work is reshaping cities. Read between the lines to unlock the tower.",
+      "vi": "Sâu bên trong Lâu đài Đọc hiểu, Tháp Tranh luận đã mở cửa – nhưng chỉ dành cho những người đọc nhìn thấu được những gì nằm sau các dữ kiện. Trên bàn đọc có hai văn bản: một bài về trợ lý AI ở một trường đại học, bài còn lại về cách làm việc từ xa đang định hình lại các thành phố. Hãy đọc hiểu cả những ý ẩn sau câu chữ để mở khóa tòa tháp."
+    },
+    "objectives": [
+      { "en": "Infer the writer's opinion and purpose.", "vi": "Suy luận quan điểm và mục đích của tác giả." },
+      { "en": "Work out the meaning of words and phrases from context.", "vi": "Đoán nghĩa của từ và cụm từ dựa vào ngữ cảnh." },
+      { "en": "Tell the difference between False and Not Given.", "vi": "Phân biệt giữa thông tin Sai và Không có thông tin." }
+    ],
+    "estimatedMinutes": 22,
+    "xpReward": 170,
+    "requires": ["R01"],
+    "challenges": [
+      { "id": "c1_ai_classroom", "title": "Challenge 1 – An AI tutor on campus", "itemId": "R02_ai_classroom" },
+      { "id": "c2_remote_cities", "title": "Challenge 2 – Remote work and the city", "itemId": "R02_remote_cities" }
+    ],
+    "passPercent": 60,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "R02_ai_classroom",
+      "skill": "reading",
+      "level": "B2",
+      "topic": "Technology – AI in education",
+      "objective": "Understand a feature article, infer implied meaning, identify the writer's conclusion and work out vocabulary from context.",
+      "difficulty": 3,
+      "title": "The AI tutor will see you now",
+      "instructions": {
+        "en": "Read the magazine article about an AI writing assistant at a university and answer the questions.",
+        "vi": "Đọc bài báo về một trợ lý viết bằng AI tại một trường đại học và trả lời câu hỏi."
+      },
+      "passage": {
+        "type": "article",
+        "title": "The AI tutor will see you now – but should it?",
+        "meta": { "source": "Campus Review", "section": "Education" },
+        "body": "When Halden University introduced an AI writing assistant for all first-year students last autumn, the reaction on campus was mixed. Some lecturers welcomed it as a tireless helper; others warned that it would quietly do students' thinking for them. A year later, the first results of the pilot are in, and they suggest that both groups were partly right.\n\nThe assistant, nicknamed 'Quill' by students, does not write essays. Instead, it responds to a draft with questions: Is this claim supported? Could this paragraph be shorter? According to the university's own report, students who used Quill at least once a week submitted assignments that were, on average, better organised than those of students who did not. Their grades rose by around four percentage points.\n\nHowever, the picture becomes less rosy when one looks more closely. The improvement was concentrated among students who were already performing well. Students who were struggling at the start of the year were the least likely to use the tool, and when they did, they tended to accept its suggestions without question. In other words, a technology that was supposed to narrow the gap between strong and weak students may have widened it.\n\nThere is also the question of what students are actually learning. Dr Simon Okafor, who teaches academic writing at Halden, put it bluntly: 'A student who fixes a paragraph because the machine flagged it has improved the paragraph. Whether they have improved as a writer is another matter.' He now asks students to submit a short note explaining which suggestions they rejected and why – a requirement that, he says, has produced some of the most thoughtful writing he has seen.\n\nSupporters of the pilot argue that such concerns, while valid, are not a reason to abandon the technology. After all, nobody suggests removing spell-checkers from word processors. The real issue, they say, is design: tools should be built to make students explain their choices, not simply to accept corrections.\n\nIt would be easy to read the Halden results as either a triumph or a warning. They are neither. What they show is that a tool's effect depends less on the tool itself than on how teachers build it into their courses. Universities rushing to buy AI licences would do well to spend at least as much on training the people who will use them."
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "According to the article, what does Quill do?",
+          "options": [
+            "It writes model essays for students",
+            "It asks students questions about their drafts",
+            "It gives students their final grades",
+            "It only checks spelling and grammar"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The article says Quill does not write essays; instead it responds to a draft with questions. Spell-checkers are mentioned later only as a comparison.",
+          "evidence": "it responds to a draft with questions"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "By about how many percentage points did the grades of regular Quill users rise? (a number)",
+          "acceptable": ["4", "four", "4 points", "four points", "4 percentage points", "four percentage points", "4%"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "Students who used Quill at least once a week saw their grades rise by around four percentage points.",
+          "evidence": "Their grades rose by around four percentage points"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "In paragraph 3, the phrase 'less rosy' is closest in meaning to",
+          "options": ["less clear", "less positive", "less colourful", "less surprising"],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "'Rosy' describes a hopeful, positive situation. The paragraph then describes a problem (weaker students did not benefit), so 'less rosy' means less positive. 'Less colourful' is the literal meaning of the colour word, which does not fit here.",
+          "evidence": "the picture becomes less rosy when one looks more closely"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "What does the writer suggest about the effect of Quill on the gap between strong and weak students?",
+          "options": [
+            "It closed the gap completely",
+            "It may have made the gap bigger",
+            "It had no effect on the gap",
+            "It mainly helped the weaker students"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "The improvement was concentrated among students who were already doing well, while struggling students used the tool least, so the tool may have widened the gap. This is the opposite of what it was supposed to do.",
+          "evidence": "a technology that was supposed to narrow the gap between strong and weak students may have widened it"
+        },
+        {
+          "id": "q5",
+          "type": "mcq",
+          "prompt": "What is Dr Okafor's main concern?",
+          "options": [
+            "Students may improve their texts without becoming better writers",
+            "The tool makes too many mistakes in its suggestions",
+            "Students do not use the tool often enough",
+            "The tool is too expensive for the university"
+          ],
+          "correctIndex": 0,
+          "points": 2,
+          "explanation": "He separates improving a paragraph from improving as a writer: a student can fix a text because the machine flagged it without learning much. He does not criticise the quality or the cost of the tool.",
+          "evidence": "Whether they have improved as a writer is another matter"
+        },
+        {
+          "id": "q6",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Halden University plans to offer Quill to second-year students next year.",
+          "answer": "not_given",
+          "points": 1,
+          "explanation": "The article says Quill was introduced for all first-year students, but it gives no information about any plans for second-year students.",
+          "evidence": "introduced an AI writing assistant for all first-year students last autumn"
+        },
+        {
+          "id": "q7",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Supporters of the pilot believe the concerns about the tool have no basis at all.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "Supporters describe the concerns as valid; they only argue that the concerns are not a reason to abandon the technology.",
+          "evidence": "such concerns, while valid, are not a reason to abandon the technology"
+        },
+        {
+          "id": "q8",
+          "type": "mcq",
+          "prompt": "What is the writer's main conclusion?",
+          "options": [
+            "AI writing tools should be banned from universities",
+            "The Halden pilot was a complete success",
+            "How teachers use a tool matters more than the tool itself",
+            "Students learn more from human tutors than from AI"
+          ],
+          "correctIndex": 2,
+          "points": 2,
+          "explanation": "The writer says the results are neither a triumph nor a warning and concludes that a tool's effect depends more on how teachers build it into courses. A ban and a 'complete success' are the two extreme readings the writer rejects; human tutors are not compared.",
+          "evidence": "a tool's effect depends less on the tool itself than on how teachers build it into their courses"
+        }
+      ]
+    },
+    {
+      "id": "R02_remote_cities",
+      "skill": "reading",
+      "level": "B2",
+      "topic": "Society – work and cities",
+      "objective": "Understand an academic text, identify the writer's purpose and concerns, infer from evidence and distinguish False from Not Given.",
+      "difficulty": 4,
+      "title": "Remote work and the changing shape of cities",
+      "instructions": {
+        "en": "Read the extract from a university course reader and answer the questions.",
+        "vi": "Đọc đoạn trích từ tài liệu học phần của trường đại học và trả lời câu hỏi."
+      },
+      "passage": {
+        "type": "academic",
+        "title": "Remote Work and the Changing Shape of Cities",
+        "meta": { "source": "Introduction to Urban Studies – course reader", "unit": "Unit 7" },
+        "body": "For most of the twentieth century, the geography of work was simple: people lived wherever they could afford and travelled each day to a central business district. The rapid spread of remote and hybrid work in the 2020s has disturbed this pattern, and urban researchers are still debating how permanent the change will be.\n\nThe most visible effect has been on city centres. In many large cities, office occupancy has settled at around sixty per cent of its former level. Businesses that depended on commuters, such as sandwich shops and dry cleaners, have suffered most. Some commentators have predicted the 'death of downtown', but this conclusion appears premature. Centres with a strong mix of housing, culture and leisure have recovered far better than those built almost entirely around offices. The lesson seems to be that diversity of use, rather than size, determines how resilient a centre is.\n\nA second effect is sometimes called the 'doughnut': activity has moved from the centre to the ring of suburbs around it. Local high streets in these areas report more weekday customers than before, as residents who once ate lunch near the office now spend that money closer to home. For suburbs that had been in decline, this has been an unexpected boost.\n\nLess clear is whether remote work is pushing people out of cities altogether. Early surveys suggested a large movement towards small towns and the countryside. More careful studies, however, indicate that most movers relocated only a short distance, typically to a cheaper area within commuting range. This makes sense if one considers that most hybrid workers are still expected in the office two or three days a week. True 'work from anywhere' arrangements remain the exception.\n\nThe shift also raises questions of fairness. Remote work is available mainly to well-paid professionals; cleaners, nurses and shop assistants cannot do their jobs from a kitchen table. If cities redesign transport and services around the needs of hybrid workers, they risk neglecting those who still travel every day, often at unsocial hours.\n\nPlanners are responding in different ways. Some cities are converting empty offices into flats, although this is technically difficult and expensive. Others are investing in 'fifteen-minute neighbourhoods', in which daily needs can be met within a short walk or bike ride. Whichever approach proves most successful, it is unlikely that the office-centred city of the past will return unchanged."
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "What is the main purpose of the text?",
+          "options": [
+            "To argue that city centres will soon disappear",
+            "To describe how remote work is affecting cities and the debate about it",
+            "To persuade companies to let employees work from home",
+            "To compare office rents in different cities"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The text describes several effects of remote work on cities and notes that researchers are still debating them. It actually rejects the idea that centres will disappear, and it does not try to persuade companies or discuss rents.",
+          "evidence": "urban researchers are still debating how permanent the change will be"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "Office occupancy in many large cities has settled at around ___ per cent of its former level. (a number)",
+          "acceptable": ["60", "sixty", "60%", "60 per cent", "sixty per cent", "60 percent", "sixty percent"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "The text says office occupancy has settled at around sixty per cent (60%) of its former level.",
+          "evidence": "office occupancy has settled at around sixty per cent of its former level"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word 'premature' is closest in meaning to",
+          "options": ["made too early", "completely wrong", "very popular", "carefully researched"],
+          "correctIndex": 0,
+          "points": 1,
+          "explanation": "'Premature' means happening or made too early. The writer thinks it is too soon to declare the 'death of downtown' because some centres are recovering. 'Completely wrong' is tempting, but the writer does not say the prediction is false – only that it is too early to make it.",
+          "evidence": "this conclusion appears premature"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "According to the writer, which kind of city centre is most likely to recover well?",
+          "options": [
+            "A very large centre with many offices",
+            "A centre that mixes housing, culture and leisure",
+            "A centre with many sandwich shops and dry cleaners",
+            "A centre that is far from any suburbs"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "Centres with a strong mix of housing, culture and leisure recovered far better, and the writer concludes that diversity of use, not size, decides how resilient a centre is. Sandwich shops and dry cleaners are among the businesses that suffered most.",
+          "evidence": "Centres with a strong mix of housing, culture and leisure have recovered far better"
+        },
+        {
+          "id": "q5",
+          "type": "short",
+          "prompt": "What name is given to the shift of activity from the centre to the suburbs? (one word)",
+          "acceptable": ["doughnut", "the doughnut", "donut", "the donut"],
+          "maxWords": 2,
+          "points": 1,
+          "explanation": "The text calls this second effect the 'doughnut': activity moves from the centre to the ring of suburbs around it, like the shape of a doughnut.",
+          "evidence": "A second effect is sometimes called the 'doughnut'"
+        },
+        {
+          "id": "q6",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Most people who moved because of remote work went to live in the countryside.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "Early surveys suggested this, but more careful studies show that most movers relocated only a short distance, to a cheaper area within commuting range.",
+          "evidence": "most movers relocated only a short distance, typically to a cheaper area within commuting range"
+        },
+        {
+          "id": "q7",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "The idea of fifteen-minute neighbourhoods was first developed by European planners.",
+          "answer": "not_given",
+          "points": 1,
+          "explanation": "The text explains what fifteen-minute neighbourhoods are and says some cities are investing in them, but it does not say where or by whom the idea was first developed.",
+          "evidence": "Others are investing in 'fifteen-minute neighbourhoods'"
+        },
+        {
+          "id": "q8",
+          "type": "mcq",
+          "prompt": "What concern does the writer raise in paragraph 5?",
+          "options": [
+            "Hybrid workers may soon lose their jobs",
+            "Cities may overlook workers who cannot work from home",
+            "Public transport will become too expensive",
+            "Professionals are unwilling to return to the office"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "The writer warns that if cities plan transport and services around hybrid workers, they risk neglecting people such as cleaners and nurses who must still travel every day. Job losses and transport prices are not mentioned.",
+          "evidence": "they risk neglecting those who still travel every day"
+        }
+      ]
+    }
+  ]
+}

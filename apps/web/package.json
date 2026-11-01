@@ -1,0 +1,33 @@
+{
+  "name": "@vq/web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@vq/game-engine": "1.0.0",
+    "@vq/shared": "1.0.0",
+    "@tanstack/react-query": "5.90.5",
+    "firebase": "12.4.0",
+    "i18next": "25.6.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-i18next": "16.2.0",
+    "react-router-dom": "7.9.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.16",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
+    "tailwindcss": "4.1.16",
+    "vite": "7.1.12",
+    "vitest": "3.2.4"
+  }
+}

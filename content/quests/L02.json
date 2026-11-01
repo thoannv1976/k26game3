@@ -1,0 +1,384 @@
+{
+  "quest": {
+    "id": "L02",
+    "skill": "listening",
+    "level": "B2",
+    "title": { "en": "University Lecture", "vi": "Bài giảng đại học" },
+    "summary": {
+      "en": "Follow a university lecture and a seminar on urban heat islands: complete your notes, catch the lecturer's views and understand a student debate.",
+      "vi": "Theo dõi một bài giảng đại học và buổi seminar về hiện tượng đảo nhiệt đô thị: hoàn thành ghi chép, nắm quan điểm của giảng viên và hiểu cuộc tranh luận giữa các sinh viên."
+    },
+    "story": {
+      "en": "You have started an exchange semester at Westmoor University, and your first Environmental Studies lecture is about to begin in Lecture Theatre 3. Dr Helen Marsh speaks quickly and expects good notes for the seminar that follows. Listen closely – each part builds on the one before.",
+      "vi": "Bạn vừa bắt đầu học kỳ trao đổi tại Đại học Westmoor, và buổi giảng đầu tiên của môn Nghiên cứu Môi trường sắp diễn ra ở Giảng đường 3. Tiến sĩ Helen Marsh nói khá nhanh và mong sinh viên ghi chép thật tốt cho buổi seminar ngay sau đó. Hãy nghe thật kỹ – mỗi phần đều được xây dựng dựa trên phần trước."
+    },
+    "objectives": [
+      { "en": "Complete lecture notes with key terms, facts and figures.", "vi": "Hoàn thành ghi chú bài giảng với các thuật ngữ, dữ kiện và số liệu chính." },
+      { "en": "Infer what the lecturer implies and identify her opinion.", "vi": "Suy luận điều giảng viên ngụ ý và nhận ra quan điểm của cô ấy." },
+      { "en": "Follow a seminar discussion and recognise each speaker's attitude.", "vi": "Theo dõi buổi thảo luận seminar và nhận biết thái độ của từng người nói." }
+    ],
+    "estimatedMinutes": 18,
+    "xpReward": 160,
+    "requires": ["L01"],
+    "challenges": [
+      { "id": "c1_causes", "title": "Challenge 1 – Why are cities hotter?", "itemId": "L02_lecture_causes" },
+      { "id": "c2_solutions", "title": "Challenge 2 – Cooling the city", "itemId": "L02_lecture_solutions" },
+      { "id": "c3_seminar", "title": "Challenge 3 – The seminar debate", "itemId": "L02_seminar" }
+    ],
+    "passPercent": 60,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "L02_lecture_causes",
+      "skill": "listening",
+      "level": "B2",
+      "topic": "Academic – urban environment",
+      "objective": "Follow the structure of a lecture, complete notes with key terms and figures, and infer the lecturer's meaning.",
+      "difficulty": 3,
+      "title": "Urban heat islands: the causes",
+      "instructions": {
+        "en": "Listen to the first part of the lecture and answer the questions. You can play it up to 3 times.",
+        "vi": "Nghe phần đầu của bài giảng và trả lời câu hỏi. Bạn được nghe tối đa 3 lần."
+      },
+      "script": {
+        "context": "The opening of an Environmental Studies lecture at Westmoor University.",
+        "speakers": [{ "id": "lecturer", "name": "Dr Helen Marsh", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-A" } }],
+        "lines": [
+          {
+            "speaker": "lecturer",
+            "text": "Good afternoon, everyone. Today's lecture is about something many of you will have felt without knowing its name: the urban heat island. Put simply, an urban heat island is a city area that is noticeably warmer than the countryside around it. In some cities the difference is small, but on a still summer night it can reach as much as seven degrees Celsius."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "So why does this happen? There are three main causes I'd like you to note down. The first is the materials we build with. Concrete, brick and dark asphalt absorb the sun's energy during the day and release it slowly after sunset. That is why the difference is usually greatest at night, not in the middle of the afternoon, which surprises a lot of people."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "The second cause is the loss of vegetation. Trees and grass cool the air through a process called evapotranspiration. Essentially, plants release water, and that water takes heat with it as it evaporates. When we replace parks with car parks, we lose that natural air conditioning."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "The third cause is what we call waste heat: the heat produced by vehicles, factories and, ironically, by air conditioners themselves. Every unit that cools a room pushes warm air into the street outside."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "Now, you might assume this is just a matter of comfort. It isn't. Higher night-time temperatures make it harder for people to recover from the heat of the day, and older residents are particularly at risk. Energy demand rises too, so heat islands have an economic cost as well. After a short break, we'll look at what cities are actually doing about it."
+          }
+        ]
+      },
+      "plays": { "quest": 3, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "short",
+          "prompt": "Complete the note: On a still summer night, the difference can reach up to ___ degrees Celsius. (a number)",
+          "acceptable": ["7", "seven", "7 degrees", "seven degrees", "7 degrees Celsius", "seven degrees Celsius"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "The lecturer says that on a still summer night the difference can reach as much as seven degrees Celsius (7 °C). In some cities it is much smaller.",
+          "evidence": "on a still summer night it can reach as much as seven degrees Celsius"
+        },
+        {
+          "id": "q2",
+          "type": "mcq",
+          "prompt": "According to the lecturer, when is the temperature difference usually greatest?",
+          "options": ["In the early morning", "In the middle of the afternoon", "At night", "During the winter"],
+          "correctIndex": 2,
+          "points": 1,
+          "explanation": "Building materials release the day's heat slowly after sunset, so the difference is greatest at night. The afternoon is the tempting answer, but the lecturer says 'not in the middle of the afternoon' and notes that this surprises many people.",
+          "evidence": "the difference is usually greatest at night, not in the middle of the afternoon"
+        },
+        {
+          "id": "q3",
+          "type": "short",
+          "prompt": "Complete the note: Cause 2 – loss of vegetation. Plants cool the air through a process called ___. (one word)",
+          "acceptable": ["evapotranspiration", "evapo-transpiration"],
+          "maxWords": 1,
+          "points": 1,
+          "explanation": "The lecturer names the process: evapotranspiration. Plants release water, and the water takes heat with it as it evaporates.",
+          "evidence": "Trees and grass cool the air through a process called evapotranspiration"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "What does the lecturer imply about air conditioners?",
+          "options": [
+            "They are the main cause of urban heat islands",
+            "They cool indoor spaces but add to the heat outside",
+            "They should be banned in city centres",
+            "They are cheaper than planting trees"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "The word 'ironically' and the sentence about warm air going into the street show that air conditioners solve the problem inside but make it worse outside. She lists them as one source of waste heat, not the main cause, and she never suggests a ban or compares costs.",
+          "evidence": "Every unit that cools a room pushes warm air into the street outside"
+        },
+        {
+          "id": "q5",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "The lecturer thinks urban heat islands are mainly a question of comfort.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "She mentions this idea only to reject it ('It isn't.') and then describes health risks and economic costs.",
+          "evidence": "you might assume this is just a matter of comfort. It isn't."
+        }
+      ]
+    },
+    {
+      "id": "L02_lecture_solutions",
+      "skill": "listening",
+      "level": "B2",
+      "topic": "Academic – urban environment",
+      "objective": "Understand a case study in a lecture, note specific figures, and identify the lecturer's opinion in response to a student question.",
+      "difficulty": 4,
+      "title": "Cooling the city: a case study",
+      "instructions": {
+        "en": "Listen to the second part of the lecture, including a question from a student. You can play it up to 2 times.",
+        "vi": "Nghe phần thứ hai của bài giảng, trong đó có một câu hỏi của sinh viên. Bạn được nghe tối đa 2 lần."
+      },
+      "script": {
+        "context": "The lecture continues after the break. A student asks a question.",
+        "speakers": [
+          { "id": "lecturer", "name": "Dr Helen Marsh", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-A" } },
+          { "id": "daniel", "name": "Daniel (student)", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-J" } }
+        ],
+        "lines": [
+          {
+            "speaker": "lecturer",
+            "text": "Welcome back. Let's turn to solutions. Broadly, cities have tried three approaches: cool roofs, green infrastructure and smarter street design. I'm going to use one case study, the coastal city of Port Velaro, because it tried all three."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "Cool roofs are the cheapest option. A roof painted with a reflective white coating can be up to thirty degrees cooler than a dark roof on a sunny day. Port Velaro required all new public buildings to have one from 2019. The results were encouraging, but the effect on street-level temperature was modest, because roofs are, of course, a long way above the people walking below."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "Green infrastructure, meaning street trees, green roofs and small pocket parks, had a much bigger effect at street level. The city planted around twelve thousand trees in five years. However, trees take time to grow, and they need water, which became a real issue during the drought of 2022."
+          },
+          {
+            "speaker": "daniel",
+            "text": "Sorry, can I ask something? If trees need so much water, isn't that a good reason not to rely on them in dry cities?"
+          },
+          {
+            "speaker": "lecturer",
+            "text": "That's a fair point, and it's exactly the debate Port Velaro had. My own view is that dropping trees would be a mistake. The answer is to choose drought-tolerant species and to collect rainwater, not to give up. Cities that relied only on technology found that the gains didn't last."
+          },
+          {
+            "speaker": "lecturer",
+            "text": "Finally, design. Narrow streets shaded by buildings, and streets that line up with the sea breeze, can lower temperatures with no running costs at all. The catch is that this only works for new districts; you can't easily move existing streets. For your assignment, please compare two of these approaches in terms of cost and effectiveness."
+          }
+        ]
+      },
+      "plays": { "quest": 2, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "Why does the lecturer choose Port Velaro as a case study?",
+          "options": [
+            "It is the hottest city in the region",
+            "It tried all three approaches",
+            "It was the first city to use cool roofs",
+            "It has no problem with water"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "She says she is using Port Velaro because it tried all three approaches. Nothing is said about it being the hottest or the first, and it actually had a drought, so it did have water problems.",
+          "evidence": "because it tried all three"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "Complete the note: Cool roofs – up to ___ degrees cooler than a dark roof on a sunny day. (a number)",
+          "acceptable": ["30", "thirty", "30 degrees", "thirty degrees"],
+          "maxWords": 2,
+          "points": 1,
+          "explanation": "A reflective white roof can be up to thirty degrees cooler than a dark roof. Do not confuse this with the year 2019, when the rule for public buildings began.",
+          "evidence": "can be up to thirty degrees cooler than a dark roof"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "Why did cool roofs have only a modest effect at street level?",
+          "options": [
+            "The white coating wore off quickly",
+            "Roofs are far above the people in the street",
+            "Very few buildings used them",
+            "The programme was stopped in 2019"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The lecturer explains that roofs are a long way above the people walking below, so cooling them does little for pedestrians. 2019 is when the programme started, not when it stopped.",
+          "evidence": "roofs are, of course, a long way above the people walking below"
+        },
+        {
+          "id": "q4",
+          "type": "short",
+          "prompt": "Complete the note: Port Velaro planted about ___ trees in five years. (a number)",
+          "acceptable": ["12000", "12,000", "12 000", "twelve thousand", "12000 trees", "12,000 trees", "twelve thousand trees"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "The lecturer says the city planted around twelve thousand (12,000) trees in five years.",
+          "evidence": "The city planted around twelve thousand trees in five years"
+        },
+        {
+          "id": "q5",
+          "type": "mcq",
+          "prompt": "How does the lecturer respond to Daniel's suggestion?",
+          "options": [
+            "She agrees that dry cities should stop planting trees",
+            "She accepts his concern but rejects his conclusion",
+            "She says the question is not relevant to the lecture",
+            "She avoids giving her own opinion"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "She calls it 'a fair point' (accepting the concern about water) but says dropping trees would be a mistake (rejecting the conclusion). She clearly gives her own view, so the last option is wrong.",
+          "evidence": "My own view is that dropping trees would be a mistake"
+        },
+        {
+          "id": "q6",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Smarter street design can easily be used in both new and existing districts.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "The lecturer says the catch is that street design only works for new districts, because existing streets cannot easily be moved.",
+          "evidence": "this only works for new districts; you can't easily move existing streets"
+        }
+      ]
+    },
+    {
+      "id": "L02_seminar",
+      "skill": "listening",
+      "level": "B2",
+      "topic": "Academic – seminar discussion",
+      "objective": "Follow a multi-speaker seminar, identify changes of opinion and speakers' attitudes, and infer implied meaning.",
+      "difficulty": 5,
+      "title": "Seminar: which approach is best?",
+      "instructions": {
+        "en": "Listen to the seminar discussion between a tutor and two students. Pay attention to how their opinions differ. You can play it up to 2 times.",
+        "vi": "Nghe buổi thảo luận seminar giữa một giảng viên hướng dẫn và hai sinh viên. Chú ý quan điểm của họ khác nhau như thế nào. Bạn được nghe tối đa 2 lần."
+      },
+      "script": {
+        "context": "A seminar the following week. The tutor, Dr Grace Whitfield, discusses the assignment with two students, Minh and Sophie.",
+        "speakers": [
+          { "id": "tutor", "name": "Dr Grace Whitfield", "voice": { "languageCode": "en-AU", "name": "en-AU-Neural2-C" } },
+          { "id": "minh", "name": "Minh", "voice": { "languageCode": "en-US", "name": "en-US-Neural2-D" } },
+          { "id": "sophie", "name": "Sophie", "voice": { "languageCode": "en-GB", "name": "en-GB-Neural2-F" } }
+        ],
+        "lines": [
+          {
+            "speaker": "tutor",
+            "text": "Right, let's get started. Last week's lecture compared three ways of cooling cities. Minh, you were going to look at cool roofs for your assignment. What did you find?"
+          },
+          {
+            "speaker": "minh",
+            "text": "Well, I started out thinking cool roofs were the obvious winner because they're so cheap. But the more I read, the less convinced I was. One study showed that in winter, reflective roofs can actually increase heating costs, because the building loses the free warmth from the sun."
+          },
+          { "speaker": "tutor", "text": "Interesting. So does that rule them out?" },
+          {
+            "speaker": "minh",
+            "text": "Not completely. In a city with a short, mild winter, the summer savings are still bigger. It just means they're not a solution for everywhere."
+          },
+          {
+            "speaker": "sophie",
+            "text": "Can I come in here? I think we're focusing too much on buildings. The people most at risk live in older flats with no air conditioning, and those are often in the poorest districts, with the fewest trees. So for me, the question isn't just which method works best, it's who benefits."
+          },
+          {
+            "speaker": "tutor",
+            "text": "That's an excellent point, Sophie, and it's one that a lot of city plans ignore. Minh, would you agree?"
+          },
+          {
+            "speaker": "minh",
+            "text": "Partly. I agree fairness matters, but if we only plant trees in poorer areas, the overall effect on the city might be smaller. I'd rather combine that with cool roofs on large public buildings."
+          },
+          {
+            "speaker": "tutor",
+            "text": "Good, so you're both moving towards a mixed approach. For next Thursday, I'd like each of you to bring one piece of data that supports your position. And please use peer-reviewed sources, not just news websites."
+          }
+        ]
+      },
+      "plays": { "quest": 2, "exam": 1 },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "How did Minh's opinion of cool roofs change as he did his research?",
+          "options": [
+            "He became more enthusiastic about them",
+            "He became less sure they were the best option",
+            "He decided they were completely useless",
+            "His opinion did not change at all"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "Minh first thought cool roofs were 'the obvious winner', but the more he read, the less convinced he was. He did not reject them completely: he still thinks they work in cities with mild winters.",
+          "evidence": "the more I read, the less convinced I was"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "Complete the note: Disadvantage of reflective roofs – they can increase ___ costs in winter. (one word)",
+          "acceptable": ["heating", "heating costs"],
+          "maxWords": 1,
+          "points": 1,
+          "explanation": "Minh reports a study showing that reflective roofs can increase heating costs in winter, because the building loses free warmth from the sun.",
+          "evidence": "reflective roofs can actually increase heating costs"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "What is Sophie's main point?",
+          "options": [
+            "Cool roofs are too expensive for poor districts",
+            "Plans should consider which residents actually benefit",
+            "Every flat should have free air conditioning",
+            "Older buildings should be replaced with new ones"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "Sophie says the question is not only which method works best but who benefits, because the people most at risk live in poor districts. She mentions air conditioning and old flats only to describe the problem, not as her proposal.",
+          "evidence": "the question isn't just which method works best, it's who benefits"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "What does the tutor imply about many city plans?",
+          "options": [
+            "They pay too little attention to fairness",
+            "They depend too much on planting trees",
+            "They are based only on news websites",
+            "They focus too much on winter costs"
+          ],
+          "correctIndex": 0,
+          "points": 2,
+          "explanation": "By saying Sophie's point about who benefits is one that many city plans ignore, the tutor implies that these plans do not think enough about fairness. The comment about news websites is advice for the students' sources, not a criticism of city plans.",
+          "evidence": "it's one that a lot of city plans ignore"
+        },
+        {
+          "id": "q5",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Minh completely agrees with Sophie's view.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "Minh answers 'Partly'. He agrees fairness matters but worries that planting trees only in poorer areas would reduce the overall effect.",
+          "evidence": "Partly. I agree fairness matters"
+        },
+        {
+          "id": "q6",
+          "type": "short",
+          "prompt": "For next Thursday, each student must bring one piece of ___. (one word)",
+          "acceptable": ["data"],
+          "maxWords": 1,
+          "points": 1,
+          "explanation": "The tutor asks each student to bring one piece of data that supports their position, taken from peer-reviewed sources.",
+          "evidence": "bring one piece of data that supports your position"
+        }
+      ]
+    }
+  ]
+}

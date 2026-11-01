@@ -1,0 +1,253 @@
+{
+  "quest": {
+    "id": "R01",
+    "skill": "reading",
+    "level": "B1",
+    "title": { "en": "International Student Life", "vi": "Cuộc sống du học sinh" },
+    "summary": {
+      "en": "Read a welcome email and a student blog to find the key information you need in your first weeks abroad.",
+      "vi": "Đọc email chào mừng và một bài blog của sinh viên để tìm những thông tin quan trọng cho các tuần đầu tiên ở nước ngoài."
+    },
+    "story": {
+      "en": "You have just arrived in the city of Northbridge to begin a year as an exchange student at Northbridge University. Your inbox is full and everything feels new. Read carefully to find out where to go, what to bring and how other students have settled in.",
+      "vi": "Bạn vừa đặt chân đến thành phố Northbridge để bắt đầu một năm học trao đổi tại Đại học Northbridge. Hộp thư đầy ắp và mọi thứ đều mới lạ. Hãy đọc kỹ để biết cần đến đâu, mang theo những gì và các sinh viên khác đã làm quen với cuộc sống mới ra sao."
+    },
+    "objectives": [
+      { "en": "Scan an email for dates, places and documents.", "vi": "Đọc lướt email để tìm ngày tháng, địa điểm và giấy tờ cần thiết." },
+      { "en": "Identify the main purpose of a text.", "vi": "Xác định mục đích chính của văn bản." },
+      { "en": "Decide whether statements are True, False or Not Given.", "vi": "Xác định các nhận định là Đúng, Sai hay Không có thông tin." }
+    ],
+    "estimatedMinutes": 15,
+    "xpReward": 110,
+    "requires": [],
+    "challenges": [
+      { "id": "c1_email", "title": "Challenge 1 – Your first week", "itemId": "R01_welcome_email" },
+      { "id": "c2_blog", "title": "Challenge 2 – Advice from a student", "itemId": "R01_student_blog" }
+    ],
+    "passPercent": 60,
+    "maxAttemptsPerDay": 5
+  },
+  "items": [
+    {
+      "id": "R01_welcome_email",
+      "skill": "reading",
+      "level": "B1",
+      "topic": "Education – international students",
+      "objective": "Scan an email for specific information (places, dates, documents) and identify its main purpose.",
+      "difficulty": 1,
+      "title": "A welcome email from the International Office",
+      "instructions": {
+        "en": "Read the email from the International Student Office and answer the questions.",
+        "vi": "Đọc email từ Văn phòng Sinh viên Quốc tế và trả lời câu hỏi."
+      },
+      "passage": {
+        "type": "email",
+        "title": "Welcome to Northbridge – your first week",
+        "meta": {
+          "from": "Ana Ruiz, International Student Office",
+          "to": "New international students",
+          "date": "2 September"
+        },
+        "body": "Dear new students,\n\nWelcome to Northbridge University! We are delighted that you have chosen to study with us, and we hope your journey here was a smooth one. This email explains what you need to do during your first week.\n\n1. Registration\nAll international students must complete registration in person at the International Student Office (Room G12, Harbour Building) by Friday 13 September. Please bring your passport, your student visa and the offer letter we sent you. Registration takes about twenty minutes. If you arrive after 13 September, contact us before you come so that we can book a time for you.\n\n2. Orientation Day\nOrientation Day is on Monday 9 September from 9:30 a.m. to 3 p.m. in the Main Hall. You will meet staff from the library, the health centre and the careers service, and current students will take you on a campus tour. Lunch is provided free of charge. Attendance is not compulsory, but we strongly recommend it.\n\n3. Bank accounts\nMany students want to open a local bank account in their first week. To do this, you will need a letter from us that confirms you are a student here. You can ask for one at registration. It is free and is usually ready within two working days.\n\n4. Clubs and Societies Fair\nThe Students' Union holds its Clubs and Societies Fair on Wednesday 11 September in the Sports Centre. With more than 150 clubs, from rock climbing to Korean cooking, it is the best way to make friends quickly.\n\nIf you have any questions, reply to this email or drop in to see us. Our office is open from 9 a.m. to 5 p.m., Monday to Friday.\n\nBest wishes,\nAna Ruiz\nInternational Student Adviser"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "What is the main purpose of the email?",
+          "options": [
+            "To advertise the Clubs and Societies Fair",
+            "To tell new students what to do in their first week",
+            "To explain how to apply for a student visa",
+            "To offer students part-time jobs at the university"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "The email says it explains what students need to do during their first week, and each section covers one task. The fair is only one part of it, and the visa is mentioned only as a document to bring, not something to apply for.",
+          "evidence": "This email explains what you need to do during your first week"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "In which room is the International Student Office? (letter and number)",
+          "acceptable": ["G12", "G 12", "Room G12", "Room G 12"],
+          "maxWords": 2,
+          "points": 1,
+          "explanation": "The office is in Room G12 in the Harbour Building.",
+          "evidence": "Room G12, Harbour Building"
+        },
+        {
+          "id": "q3",
+          "type": "mcq",
+          "prompt": "Which of these do students NOT need to bring for registration?",
+          "options": ["Their passport", "Their student visa", "Their offer letter", "A bank statement"],
+          "correctIndex": 3,
+          "points": 1,
+          "explanation": "Students must bring their passport, student visa and offer letter. A bank statement is not on the list; the email talks about banks only in the section on opening an account.",
+          "evidence": "Please bring your passport, your student visa and the offer letter we sent you"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "A student will arrive in Northbridge on 16 September. What should they do?",
+          "options": [
+            "Go straight to Room G12 without an appointment",
+            "Contact the office first to book a registration time",
+            "Wait for the next Orientation Day",
+            "Register online instead"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "The deadline is 13 September. Students who arrive after that date must contact the office before they come so that a time can be booked. Online registration is not mentioned; registration is in person.",
+          "evidence": "If you arrive after 13 September, contact us before you come so that we can book a time for you"
+        },
+        {
+          "id": "q5",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "All new international students must attend Orientation Day.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "The email says attendance is not compulsory, although it is strongly recommended.",
+          "evidence": "Attendance is not compulsory, but we strongly recommend it"
+        },
+        {
+          "id": "q6",
+          "type": "short",
+          "prompt": "How many working days does it usually take to get the letter for the bank? (a number)",
+          "acceptable": ["2", "two", "2 days", "two days", "2 working days", "two working days"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "The letter is free and is usually ready within two working days.",
+          "evidence": "usually ready within two working days"
+        },
+        {
+          "id": "q7",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Students have to pay a fee to join a club at the fair.",
+          "answer": "not_given",
+          "points": 1,
+          "explanation": "The email gives the date, the place and the number of clubs, but it says nothing about whether joining a club costs money.",
+          "evidence": "With more than 150 clubs, from rock climbing to Korean cooking"
+        }
+      ]
+    },
+    {
+      "id": "R01_student_blog",
+      "skill": "reading",
+      "level": "B1",
+      "topic": "Education – international students",
+      "objective": "Understand the main idea and specific details of a personal blog post, and recognise the writer's feelings.",
+      "difficulty": 2,
+      "title": "An international student's blog",
+      "instructions": {
+        "en": "Read the blog post written by a first-year student and answer the questions.",
+        "vi": "Đọc bài blog của một sinh viên năm nhất và trả lời câu hỏi."
+      },
+      "passage": {
+        "type": "blog",
+        "title": "My first month in Northbridge: five things I learned",
+        "meta": { "author": "Mai, first-year Business student", "date": "10 October" },
+        "body": "When I arrived in Northbridge four weeks ago, I was excited but also very nervous. Everything was new: the weather, the food, even the way people queue for the bus. Now that I feel more settled, I want to share what I have learned for anyone who is coming next year.\n\nFirst, find a place to live early. I booked a room in Riverside Hall, a university residence, three months before I left home. Friends who waited until they arrived had to stay in expensive hotels for two or three weeks. My room is small, but it costs £120 a week, including electricity and internet.\n\nSecond, go to the Clubs and Societies Fair, even if you feel shy. I joined the badminton club and the Photography Society. At first I only wanted to practise my English, but now some of the members are my closest friends.\n\nThird, do not be afraid to speak in seminars. In my country, students usually listen quietly while the teacher talks. Here, tutors expect you to give your opinion, and some of them even give marks for taking part. It felt strange in the first week, but it is getting easier.\n\nFourth, learn to cook a few simple dishes. Eating in the canteen every day is convenient, but it soon becomes expensive, and I really missed food from home. There is an Asian supermarket ten minutes from campus, so now I cook with my flatmates on Sunday evenings.\n\nFinally, be patient with yourself. Some days I still feel homesick, especially after I video-call my family. But every week, something that was difficult becomes normal. If you are reading this before your own journey, good luck – you will be fine!"
+      },
+      "questions": [
+        {
+          "id": "q1",
+          "type": "mcq",
+          "prompt": "What is the main purpose of the blog post?",
+          "options": [
+            "To complain about life in Northbridge",
+            "To give advice to future international students",
+            "To advertise rooms in Riverside Hall",
+            "To compare universities in different countries"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "Mai says she wants to share what she has learned for people coming next year, and the post is organised as five tips. She mentions problems, but she is not complaining, and Riverside Hall is only one example.",
+          "evidence": "I want to share what I have learned for anyone who is coming next year"
+        },
+        {
+          "id": "q2",
+          "type": "short",
+          "prompt": "How much does Mai's room cost each week? (a number or amount)",
+          "acceptable": ["£120", "120", "120 pounds", "£120 a week", "one hundred and twenty pounds"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "Mai's room costs £120 a week, and this includes electricity and internet.",
+          "evidence": "it costs £120 a week, including electricity and internet"
+        },
+        {
+          "id": "q3",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Some of Mai's friends spent extra money because they did not book accommodation early.",
+          "answer": "true",
+          "points": 1,
+          "explanation": "Friends who waited until they arrived had to stay in expensive hotels for two or three weeks.",
+          "evidence": "Friends who waited until they arrived had to stay in expensive hotels for two or three weeks"
+        },
+        {
+          "id": "q4",
+          "type": "mcq",
+          "prompt": "Why did Mai join clubs at first?",
+          "options": [
+            "To make close friends",
+            "To practise her English",
+            "To get better marks in seminars",
+            "To become a professional photographer"
+          ],
+          "correctIndex": 1,
+          "points": 1,
+          "explanation": "She says that at first she only wanted to practise her English. Making close friends is the result that came later, not her original reason.",
+          "evidence": "At first I only wanted to practise my English"
+        },
+        {
+          "id": "q5",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "All tutors at Northbridge give marks for taking part in seminars.",
+          "answer": "false",
+          "points": 1,
+          "explanation": "Mai writes that only some tutors give marks for taking part, not all of them.",
+          "evidence": "some of them even give marks for taking part"
+        },
+        {
+          "id": "q6",
+          "type": "short",
+          "prompt": "When does Mai cook with her flatmates? (no more than three words)",
+          "acceptable": ["Sunday evenings", "Sunday evening", "on Sunday evenings", "on Sunday evening", "Sunday nights"],
+          "maxWords": 3,
+          "points": 1,
+          "explanation": "Mai says she now cooks with her flatmates on Sunday evenings.",
+          "evidence": "now I cook with my flatmates on Sunday evenings"
+        },
+        {
+          "id": "q7",
+          "type": "tfng",
+          "prompt": "Decide if the statement is True, False or Not Given.",
+          "statement": "Food at the Asian supermarket is cheaper than food in the canteen.",
+          "answer": "not_given",
+          "points": 1,
+          "explanation": "Mai says the canteen becomes expensive and that the supermarket is ten minutes from campus, but she never compares the prices of the two.",
+          "evidence": "There is an Asian supermarket ten minutes from campus"
+        },
+        {
+          "id": "q8",
+          "type": "mcq",
+          "prompt": "How does Mai feel about her new life now?",
+          "options": [
+            "She never feels homesick any more",
+            "She sometimes feels homesick but is slowly adapting",
+            "She wants to go back home as soon as possible",
+            "She is sorry that she decided to study abroad"
+          ],
+          "correctIndex": 1,
+          "points": 2,
+          "explanation": "Mai still feels homesick on some days, but she says that every week something difficult becomes normal, so she is adapting. 'Never' is wrong because she still feels homesick, and she ends the post positively, so she is not sorry.",
+          "evidence": "Some days I still feel homesick, especially after I video-call my family"
+        }
+      ]
+    }
+  ]
+}
