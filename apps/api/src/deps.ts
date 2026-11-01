@@ -29,7 +29,7 @@ export function createDeps(config: AppConfig, o: Partial<Deps> = {}): Deps {
     stt: o.stt ?? (config.speechProvider === 'google' ? new GoogleSpeechToText(config.sttModel, config.sttLanguage) : new FakeSpeechToText()),
     tts: o.tts ?? (config.ttsProvider === 'google' ? new GoogleTextToSpeech() : new FakeTextToSpeech()),
     blobs: o.blobs ?? (config.blobStore === 'gcs' ? new GcsBlobStore(config.audioBucket) : config.blobStore === 'local' ? new LocalBlobStore(config.localDataDir) : new MemoryBlobStore()),
-    peers: o.peers ?? (config.peerCityUrl || config.peerDetectiveUrl ? new HttpPeerClient(config.peerCityUrl, config.peerDetectiveUrl) : new NoPeerClient()),
+    peers: o.peers ?? (config.peerCityUrl || config.peerDetectiveUrl ? new HttpPeerClient(config.peerCityUrl, config.peerDetectiveUrl, config.peerAudience) : new NoPeerClient()),
     now: o.now ?? (() => new Date()),
   };
 }

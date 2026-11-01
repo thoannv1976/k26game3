@@ -1,6 +1,6 @@
 name: Deploy dev
 
-# Deploys main to the development project (shared project k26game1, site k26-detective) after CI passes.
+# Deploys main to the development project (shared project k26game1, site k26-vstep) after CI passes.
 # Requires repository variables created by infrastructure/bootstrap.sh (see docs/DEPLOYMENT.md).
 on:
   workflow_run:

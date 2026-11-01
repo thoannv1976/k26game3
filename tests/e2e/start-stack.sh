@@ -2,9 +2,9 @@
 # Starts the full local stack for E2E tests: Firebase emulators → seed → API (offline providers) → web (vite preview).
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-export GCP_PROJECT_ID=demo-ed FIRESTORE_EMULATOR_HOST=127.0.0.1:8085 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099
+export GCP_PROJECT_ID=demo-vq FIRESTORE_EMULATOR_HOST=127.0.0.1:8085 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099
 
-npx firebase emulators:start --only firestore,auth --project demo-ed > test-results/emulators.log 2>&1 &
+npx firebase emulators:start --only firestore,auth --project demo-vq > test-results/emulators.log 2>&1 &
 EMU=$!
 API=''
 trap 'kill $EMU ${API:-} 2>/dev/null; pkill -f cloud-firestore-emulator 2>/dev/null; true' EXIT
@@ -19,4 +19,4 @@ API=$!
 for i in $(seq 1 30); do curl -sf http://127.0.0.1:8080/api/health >/dev/null && break; sleep 1; done
 
 # Web built with the auth emulator (see playwright.config.ts) and served with the /api proxy.
-npm run preview --workspace @ed/web -- --port 4173 --strictPort --host 127.0.0.1
+npm run preview --workspace @vq/web -- --port 4173 --strictPort --host 127.0.0.1

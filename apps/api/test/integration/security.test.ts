@@ -96,6 +96,34 @@ describe('content approval and listening audio', () => {
     expect((await ctx.app.inject({ method: 'GET', url: p.body.audio.segments[0].url, headers: { authorization: `Bearer ${student2.token}` } })).statusCode).toBe(403);
   });
 
+  it('teachers preview, replace and listen to listening audio before approval', async () => {
+    const it0 = BUILTIN_ITEMS.find((i) => i.id === 'L01_gate')!;
+    const draft = await api(ctx, teacher, 'PUT', '/api/admin/content/item/L01_gate', { content: { ...it0, title: `${it0.title} (v2)` }, note: 'edit' });
+    expect(draft.status, JSON.stringify(draft.body)).toBe(200);
+    const v = draft.body.version;
+    const before = tts.calls;
+    expect((await api(ctx, teacher, 'POST', `/api/admin/content/item/L01_gate/versions/${v}/audio/render`)).body.rendered).toBe(true);
+    expect(tts.calls).toBeGreaterThan(before);
+    const seg = await ctx.app.inject({ method: 'GET', url: `/api/admin/content/item/L01_gate/versions/${v}/audio/0`, headers: { authorization: `Bearer ${teacher.token}` } });
+    expect(seg.statusCode).toBe(200);
+    expect((await ctx.app.inject({ method: 'GET', url: `/api/admin/content/item/L01_gate/versions/${v}/audio/0`, headers: { authorization: `Bearer ${student.token}` } })).statusCode).toBe(403);
+    // Replace with a real recording, then approve: no new TTS rendering.
+    const boundary = '----vqmp3';
+    const mp3 = Buffer.alloc(4000, 7);
+    const body = Buffer.concat([
+      Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="seconds"\r\n\r\n42\r\n--${boundary}\r\nContent-Disposition: form-data; name="audio"; filename="real.mp3"\r\nContent-Type: audio/mpeg\r\n\r\n`),
+      mp3,
+      Buffer.from(`\r\n--${boundary}--\r\n`),
+    ]);
+    const up = await ctx.app.inject({ method: 'POST', url: `/api/admin/content/item/L01_gate/versions/${v}/audio`, headers: { authorization: `Bearer ${teacher.token}`, 'content-type': `multipart/form-data; boundary=${boundary}` }, payload: body });
+    expect(up.statusCode, up.body).toBe(200);
+    const calls = tts.calls;
+    expect((await api(ctx, teacher, 'POST', `/api/admin/content/item/L01_gate/approve`, { version: v })).status).toBe(200);
+    expect(tts.calls).toBe(calls);
+    const detail = await api(ctx, teacher, 'GET', '/api/admin/content/item/L01_gate');
+    expect(detail.body.versions[0].audio).toMatchObject({ source: 'upload', segments: [{ index: 0, seconds: 42 }] });
+  });
+
   it('AI-generated items are drafts and a draft must pass checks to be approved', async () => {
     const g = await api(ctx, teacher, 'POST', '/api/admin/content/generate', { id: 'R90_ai_test', skill: 'reading', level: 'B1', topic: 'Campus library', objective: 'Find specific information', difficulty: 2 });
     expect(g.status, JSON.stringify(g.body)).toBe(200);

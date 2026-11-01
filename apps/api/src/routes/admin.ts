@@ -11,7 +11,7 @@ import { getTenant } from '../tenants.js';
 import { audit } from '../audit.js';
 import { monthKey, recordUsage } from '../quota.js';
 import { NewUserSchema, deleteUserData, parseUserCsv, provisionUser } from '../services/users.js';
-import { approveContent, checkContent, generateItem, getContentAdmin, listContent, saveDraft, seedBuiltinContent, setArchived } from '../services/content.js';
+import { approveContent, audioForReview, checkContent, generateItem, getContentAdmin, listContent, renderAudio, saveDraft, seedBuiltinContent, setArchived, uploadAudio } from '../services/content.js';
 import { ItemRequestSchema } from '@vq/ai';
 
 const ADMIN = ['school_admin'] as const;
@@ -240,6 +240,39 @@ export async function adminRoutes(app: FastifyInstance, deps: Deps) {
     const r = await seedBuiltinContent(deps, m.tenantId, { approvedBy: body.approve ? m.uid : undefined, approveExams: body.approveExams });
     await audit(deps, m, m.tenantId, 'content.seed', 'builtin', r);
     return r;
+  });
+
+  /* Listening audio review: render a preview (TTS), listen to it, or replace it with a real recording (MP3). */
+  const ver = (req: { params: unknown }) => parseBody(z.coerce.number().int().min(1), (req.params as { version: string }).version);
+
+  app.post('/api/admin/content/item/:id/versions/:version/audio/render', async (req) => {
+    const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
+    const r = await renderAudio(deps, m.tenantId, cid(req), ver(req));
+    await audit(deps, m, m.tenantId, 'content.audio_render', `item:${cid(req)}@${ver(req)}`, r);
+    return r;
+  });
+
+  app.post('/api/admin/content/item/:id/versions/:version/audio', async (req) => {
+    const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
+    let file: Buffer | undefined;
+    let seconds = 0;
+    for await (const part of req.parts()) {
+      if (part.type === 'file') {
+        if (part.mimetype !== 'audio/mpeg') throw new ApiError('VALIDATION', 'Upload an MP3 file (audio/mpeg)');
+        file = await part.toBuffer();
+      } else if (part.fieldname === 'seconds') seconds = Number(part.value) || 0;
+    }
+    if (!file) throw new ApiError('VALIDATION', 'Missing audio file');
+    const r = await uploadAudio(deps, m.tenantId, cid(req), ver(req), file, seconds);
+    await audit(deps, m, m.tenantId, 'content.audio_upload', `item:${cid(req)}@${ver(req)}`, { bytes: file.length });
+    return r;
+  });
+
+  app.get('/api/admin/content/item/:id/versions/:version/audio/:index', async (req, reply) => {
+    const m = requireTenantMember(req.authUser, [...CONTENT_EDITORS]);
+    const index = parseBody(z.coerce.number().int().min(0).max(100), (req.params as { index: string }).index);
+    const data = await audioForReview(deps, m.tenantId, cid(req), ver(req), index);
+    return reply.header('Content-Type', 'audio/mpeg').header('Cache-Control', 'private, max-age=300').send(data);
   });
 
   /** AI Question Generator: creates a DRAFT item for teacher review (never published automatically). */

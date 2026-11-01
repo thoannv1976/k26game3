@@ -20,8 +20,8 @@ jobs:
     env:
       PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
       REGION: ${{ vars.GCP_REGION || 'asia-southeast1' }}
-      IMAGE: ${{ vars.GCP_REGION || 'asia-southeast1' }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/detective/detective-api:${{ github.sha }}
-      SITE_ID: ${{ vars.HOSTING_SITE || 'k26-detective' }}
+      IMAGE: ${{ vars.GCP_REGION || 'asia-southeast1' }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/vstep/vstep-api:${{ github.sha }}
+      SITE_ID: ${{ vars.HOSTING_SITE || 'k26-vstep' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -47,11 +47,15 @@ jobs:
 
       - name: Deploy Cloud Run
         run: |
-          gcloud run deploy detective-api --project "${PROJECT_ID}" --region "${REGION}" --image "${IMAGE}" \
+          gcloud run deploy vstep-api --project "${PROJECT_ID}" --region "${REGION}" --image "${IMAGE}" \
             --service-account "${{ vars.RUNTIME_SA }}" --allow-unauthenticated \
             --memory 1Gi --cpu 1 --concurrency 40 --timeout 300 \
             --min-instances "${{ vars.MIN_INSTANCES || '0' }}" --max-instances "${{ vars.MAX_INSTANCES || '10' }}" \
-            --set-env-vars "NODE_ENV=production,GCP_PROJECT_ID=${PROJECT_ID},FIRESTORE_DATABASE=detective,VERTEX_LOCATION=${{ vars.VERTEX_LOCATION || 'global' }},GEMINI_MODEL=${{ vars.GEMINI_MODEL || 'gemini-3-flash-preview' }},LOG_LEVEL=info"
+            --set-env-vars "NODE_ENV=production,GCP_PROJECT_ID=${PROJECT_ID},FIRESTORE_DATABASE=vstep,VERTEX_LOCATION=${{ vars.VERTEX_LOCATION || 'global' }},GEMINI_MODEL=${{ vars.GEMINI_MODEL || 'gemini-3-flash-preview' }},AUDIO_BUCKET=${PROJECT_ID}-vstep-audio,JOBS_INVOKERS=${{ vars.SCHEDULER_SA }},PEER_CITY_URL=${{ vars.PEER_CITY_URL }},PEER_DETECTIVE_URL=${{ vars.PEER_DETECTIVE_URL }},LOG_LEVEL=info"
+          RUN_URL="$(gcloud run services describe vstep-api --project "${PROJECT_ID}" --region "${REGION}" --format='value(status.url)')"
+          gcloud run services update vstep-api --project "${PROJECT_ID}" --region "${REGION}" --update-env-vars "JOBS_AUDIENCE=${RUN_URL}"
+          ARGS=(--project "${PROJECT_ID}" --location "${REGION}" --schedule "*/5 * * * *" --time-zone "Asia/Ho_Chi_Minh" --uri "${RUN_URL}/internal/jobs/tick" --http-method POST --oidc-service-account-email "${{ vars.SCHEDULER_SA }}" --oidc-token-audience "${RUN_URL}" --attempt-deadline 300s)
+          gcloud scheduler jobs update http vstep-jobs-tick "${ARGS[@]}" || gcloud scheduler jobs create http vstep-jobs-tick "${ARGS[@]}"
 
       - name: Build web
         env:
@@ -61,10 +65,10 @@ jobs:
           VITE_FIREBASE_APP_ID: ${{ vars.VITE_FIREBASE_APP_ID }}
         run: npm run build --workspace @vq/web
 
-      - name: Deploy Firebase Hosting (site ${{ vars.HOSTING_SITE || 'k26-detective' }}) and Firestore rules/indexes (database detective)
+      - name: Deploy Firebase Hosting (site ${{ vars.HOSTING_SITE || 'k26-vstep' }}) and Firestore rules/indexes (database vstep)
         run: |
-          npx firebase target:apply hosting detective "${SITE_ID}" --project "${PROJECT_ID}"
-          npx firebase deploy --project "${PROJECT_ID}" --only hosting:detective,firestore --non-interactive
+          npx firebase target:apply hosting vstep "${SITE_ID}" --project "${PROJECT_ID}"
+          npx firebase deploy --project "${PROJECT_ID}" --only hosting:vstep,firestore --non-interactive
 
       - name: Smoke test
         run: curl -fsS "https://${SITE_ID}.web.app/api/health"

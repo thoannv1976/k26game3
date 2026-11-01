@@ -208,5 +208,5 @@ export interface ContentVersionDoc<T = unknown> {
   approvedAt: string | null;
   note: string;
   /** Listening only: audio segments rendered for this version. */
-  audio?: { rendered: boolean; segments: { index: number; path: string; seconds: number }[] } | null;
+  audio?: { rendered: boolean; source?: 'tts' | 'upload'; segments: { index: number; path: string; seconds: number }[] } | null;
 }

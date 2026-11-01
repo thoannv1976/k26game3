@@ -29,7 +29,7 @@ export class StaticPeerClient implements PeerClient {
 
 /**
  * Calls `GET {peer}/api/lms/v1/learners/{uid}/evidence` on each peer Cloud Run service with a Google-signed
- * ID token of this service's account (audience = peer URL) and the tenant in `X-K26-Tenant`.
+ * ID token of this service's account (audience `k26-lms` by default) and the tenant in `X-K26-Tenant`.
  * Peers are optional: failures and timeouts are reported per source and never break the profile page.
  */
 export class HttpPeerClient implements PeerClient {
@@ -37,6 +37,7 @@ export class HttpPeerClient implements PeerClient {
   constructor(
     private readonly cityUrl: string,
     private readonly detectiveUrl: string,
+    private readonly audience = 'k26-lms',
     private readonly timeoutMs = 5000,
   ) {}
 
@@ -51,7 +52,7 @@ export class HttpPeerClient implements PeerClient {
   private async fetchOne(source: PeerResult['source'], baseUrl: string, tenantId: string, uid: string): Promise<PeerResult> {
     const base = baseUrl.replace(/\/+$/, '');
     try {
-      const client = await this.auth.getIdTokenClient(base);
+      const client = await this.auth.getIdTokenClient(this.audience);
       const headers = await client.getRequestHeaders();
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), this.timeoutMs);

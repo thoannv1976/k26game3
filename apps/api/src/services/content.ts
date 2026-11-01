@@ -161,7 +161,8 @@ export async function approveContent(deps: Deps, tenantId: string, kind: Content
   const v = await getVersion(deps, tenantId, kind, id, version);
   const check = await checkContent(deps, tenantId, kind, v.content);
   if (!check.ok) throw new ApiError('VALIDATION', 'This version has errors and cannot be approved', check.errors.map((message) => ({ path: '', message })));
-  if (kind === 'item' && (v.content as Item).skill === 'listening') await renderListeningAudio(deps, tenantId, v.content as Item, version);
+  // Listening: keep audio the teacher already previewed or uploaded; otherwise render it now.
+  if (kind === 'item' && (v.content as Item).skill === 'listening' && !v.audio?.rendered) await renderListeningAudio(deps, tenantId, v.content as Item, version);
   const now = deps.now().toISOString();
   await deps.db.runTransaction(async (tx) => {
     const ref = p.contentDoc(tenantId, kind, id);
@@ -171,6 +172,40 @@ export async function approveContent(deps: Deps, tenantId: string, kind: Content
     tx.update(ref, { approvedVersion: version, status: 'approved', ...meta(kind, v.content), updatedAt: now });
   });
   return { approvedVersion: version };
+}
+
+/* ---------------- listening audio review (staff) ---------------- */
+
+async function listeningVersion(deps: Deps, tenantId: string, id: string, version: number) {
+  const v = await getVersion(deps, tenantId, 'item', id, version);
+  if ((v.content as Item).skill !== 'listening') throw new ApiError('VALIDATION', 'Not a listening item');
+  return v;
+}
+
+/** Renders Text-to-Speech audio for a (draft) version so the teacher can listen before approving. */
+export async function renderAudio(deps: Deps, tenantId: string, id: string, version: number) {
+  const v = await listeningVersion(deps, tenantId, id, version);
+  const r = await renderListeningAudio(deps, tenantId, v.content as Item, version);
+  return { rendered: Boolean(r?.rendered), segments: r?.segments ?? 0 };
+}
+
+/** Replaces the generated audio with a real recording (one MP3 for the whole script). */
+export async function uploadAudio(deps: Deps, tenantId: string, id: string, version: number, mp3: Buffer, seconds: number) {
+  await listeningVersion(deps, tenantId, id, version);
+  if (mp3.length < 1000) throw new ApiError('VALIDATION', 'The audio file is empty');
+  const path = `tenants/${tenantId}/listening/${id}/v${version}/upload.mp3`;
+  await deps.blobs.put(path, mp3, 'audio/mpeg');
+  const audio = { rendered: true, source: 'upload', segments: [{ index: 0, path, seconds: Math.round(seconds) }] };
+  await paths(deps.db).contentVersion(tenantId, 'item', id, version).set({ audio }, { merge: true });
+  return { rendered: true, segments: 1 };
+}
+
+export async function audioForReview(deps: Deps, tenantId: string, id: string, version: number, index: number) {
+  const v = await listeningVersion(deps, tenantId, id, version);
+  const seg = v.audio?.segments.find((s) => s.index === index);
+  const data = seg ? await deps.blobs.get(seg.path) : null;
+  if (!data) throw notFound('Audio');
+  return data;
 }
 
 export async function setArchived(deps: Deps, tenantId: string, kind: ContentKind, id: string, archived: boolean) {

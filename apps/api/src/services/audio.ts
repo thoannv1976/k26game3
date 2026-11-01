@@ -28,7 +28,7 @@ export async function renderListeningAudio(deps: Deps, tenantId: string, item: I
     // ~2.5 words per second for the estimate shown in the player
     segments.push({ index, path, seconds: Math.round(line.text.split(/\s+/).length / 2.5) });
   }
-  await paths(deps.db).contentVersion(tenantId, 'item', item.id, version).set({ audio: { rendered: segments.length > 0, segments } } satisfies Partial<ContentVersionDoc>, { merge: true });
+  await paths(deps.db).contentVersion(tenantId, 'item', item.id, version).set({ audio: { rendered: segments.length > 0, source: 'tts', segments } } satisfies Partial<ContentVersionDoc>, { merge: true });
   if (chars) void recordUsage(deps, await getTenant(deps, tenantId), { kind: 'tts', uid: 'system', sessionId: null, courseId: null, ttsChars: chars, ok: true });
   return { rendered: segments.length > 0, segments: segments.length };
 }

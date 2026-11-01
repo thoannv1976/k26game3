@@ -27,6 +27,8 @@ export interface AppConfig {
   /** Read-only links to the other K26 games' LMS APIs (Cloud Run URLs); empty = disabled. */
   peerCityUrl: string;
   peerDetectiveUrl: string;
+  /** Audience of the Google ID token sent to the peers (they accept only this audience + the vstep-api account). */
+  peerAudience: string;
 }
 
 const str = (name: string, def: string) => {
@@ -62,6 +64,7 @@ export function loadConfig(overrides: Partial<AppConfig> = {}): AppConfig {
     jobsAudience: str('JOBS_AUDIENCE', ''),
     peerCityUrl: str('PEER_CITY_URL', ''),
     peerDetectiveUrl: str('PEER_DETECTIVE_URL', ''),
+    peerAudience: str('PEER_AUDIENCE', 'k26-lms'),
     ...overrides,
   };
   assertSafeConfig(cfg);

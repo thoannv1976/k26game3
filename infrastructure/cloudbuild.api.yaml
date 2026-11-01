@@ -1,6 +1,6 @@
 # Builds the API image with Cloud Build (used by scripts/deploy.sh from Cloud Shell).
 substitutions:
-  _IMAGE: asia-southeast1-docker.pkg.dev/${PROJECT_ID}/detective/detective-api:manual
+  _IMAGE: asia-southeast1-docker.pkg.dev/${PROJECT_ID}/vstep/vstep-api:manual
 steps:
   - name: gcr.io/cloud-builders/docker
     args: ['build', '-f', 'apps/api/Dockerfile', '-t', '${_IMAGE}', '.']

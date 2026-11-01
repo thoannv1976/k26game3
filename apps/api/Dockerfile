@@ -1,8 +1,8 @@
-# English Detective API – Cloud Run image.
-# Build from the repository root:  docker build -f apps/api/Dockerfile -t detective-api .
+# VSTEP Quest API – Cloud Run image.
+# Build from the repository root:  docker build -f apps/api/Dockerfile -t vstep-api .
 ARG NODE_IMAGE=node:22-slim
 
-# ---- build stage: bundle the API + workspace packages + case content ----
+# ---- build stage: bundle the API + workspace packages + quest + exam content ----
 FROM ${NODE_IMAGE} AS build
 WORKDIR /app
 COPY package.json package-lock.json tsconfig.base.json ./
