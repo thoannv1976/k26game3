@@ -109,11 +109,13 @@ export function SettingsTab() {
           <Field label={t('admin.ai.model')}>{(id) => <Input id={id} value={ai.model} minLength={3} onChange={(e) => setAi({ ...ai, model: e.target.value })} required />}</Field>
           <Field label={t('admin.ai.assessmentModel')}>{(id) => <Input id={id} value={ai.assessmentModel} minLength={3} onChange={(e) => setAi({ ...ai, assessmentModel: e.target.value })} required />}</Field>
           <NumberField label={t('admin.ai.temperature')} value={ai.temperature} min={0} max={1.5} step={0.05} onChange={(v) => setAi({ ...ai, temperature: v })} />
-          <NumberField label={t('admin.ai.historyTurns')} value={ai.historyTurns} min={2} max={40} onChange={(v) => setAi({ ...ai, historyTurns: v })} />
+          <NumberField label={t('admin.ai.audioRetention')} hint={t('admin.ai.audioRetentionHint')} value={ai.audioRetentionDays} min={0} max={365} onChange={(v) => setAi({ ...ai, audioRetentionDays: v })} />
           <fieldset className="grid gap-3 rounded-xl border border-line p-3 sm:col-span-2 sm:grid-cols-2">
             <legend className="px-1 text-sm font-semibold">{t('admin.ai.pricing')}</legend>
             <NumberField label={t('admin.ai.inputTokens')} value={ai.pricing.inputTokensPer1M} min={0} step={0.01} onChange={(v) => setP('inputTokensPer1M', v)} />
             <NumberField label={t('admin.ai.outputTokens')} value={ai.pricing.outputTokensPer1M} min={0} step={0.01} onChange={(v) => setP('outputTokensPer1M', v)} />
+            <NumberField label={t('admin.ai.sttPerMinute')} value={ai.pricing.sttPerMinute} min={0} step={0.001} onChange={(v) => setP('sttPerMinute', v)} />
+            <NumberField label={t('admin.ai.ttsPer1MChars')} value={ai.pricing.ttsPer1MChars} min={0} step={0.01} onChange={(v) => setP('ttsPer1MChars', v)} />
           </fieldset>
           <div className="sm:col-span-2">
             <Issues error={saveAi.error} />
@@ -130,11 +132,12 @@ export function SettingsTab() {
         <SectionTitle>{t('admin.quotas.title')}</SectionTitle>
         <form onSubmit={onQuotas} className="grid gap-3 sm:grid-cols-2">
           <NumberField label={t('admin.quotas.aiCalls')} value={quotas.aiCallsPerStudentPerDay} min={0} max={5000} onChange={(v) => setQ('aiCallsPerStudentPerDay', v)} />
-          <NumberField label={t('admin.quotas.attempts')} value={quotas.attemptsPerCasePerDay} min={1} max={100} onChange={(v) => setQ('attemptsPerCasePerDay', v)} />
-          <NumberField label={t('admin.quotas.interviews')} value={quotas.interviewQuestionsPerSession} min={0} max={500} onChange={(v) => setQ('interviewQuestionsPerSession', v)} />
-          <NumberField label={t('admin.quotas.assistant')} value={quotas.assistantRequestsPerSession} min={0} max={200} onChange={(v) => setQ('assistantRequestsPerSession', v)} />
-          <NumberField label={t('admin.quotas.grading')} value={quotas.gradingRequestsPerSession} min={1} max={10} onChange={(v) => setQ('gradingRequestsPerSession', v)} />
-          <NumberField label={t('admin.quotas.sessionMinutes')} value={quotas.maxSessionMinutes} min={10} max={240} onChange={(v) => setQ('maxSessionMinutes', v)} />
+          <NumberField label={t('admin.quotas.attempts')} value={quotas.attemptsPerQuestPerDay} min={1} max={50} onChange={(v) => setQ('attemptsPerQuestPerDay', v)} />
+          <NumberField label={t('admin.quotas.mockExams')} value={quotas.mockExamsPerStudentPerMonth} min={0} max={50} onChange={(v) => setQ('mockExamsPerStudentPerMonth', v)} />
+          <NumberField label={t('admin.quotas.explanations')} value={quotas.explanationsPerStudentPerDay} min={0} max={500} onChange={(v) => setQ('explanationsPerStudentPerDay', v)} />
+          <NumberField label={t('admin.quotas.coach')} value={quotas.coachMessagesPerStudentPerDay} min={0} max={500} onChange={(v) => setQ('coachMessagesPerStudentPerDay', v)} />
+          <NumberField label={t('admin.quotas.grading')} value={quotas.aiGradingsPerSubmission} min={1} max={5} onChange={(v) => setQ('aiGradingsPerSubmission', v)} />
+          <NumberField label={t('admin.quotas.recordSeconds')} value={quotas.maxRecordSeconds} min={20} max={300} onChange={(v) => setQ('maxRecordSeconds', v)} />
           <NumberField label={t('admin.quotas.outputTokens')} value={quotas.maxOutputTokens} min={256} max={8192} onChange={(v) => setQ('maxOutputTokens', v)} />
           <NumberField label={t('admin.quotas.budget')} value={quotas.monthlyBudgetUsd} min={0} max={100000} step={0.01} onChange={(v) => setQ('monthlyBudgetUsd', v)} />
           <NumberField label={t('admin.quotas.warnRatio')} hint={t('admin.quotas.warnRatioHint')} value={quotas.warnRatio} min={0.1} max={1} step={0.05} onChange={(v) => setQ('warnRatio', v)} />

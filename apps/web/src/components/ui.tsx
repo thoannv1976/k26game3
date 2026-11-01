@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, type ButtonHTMLAttributes, type ComponentProps, type InputHTMLAttributes, type ReactNode } from 'react';
+import { useEffect, useId, useRef, type ButtonHTMLAttributes, type ComponentProps, type HTMLAttributes, type InputHTMLAttributes, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, type LinkProps } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -69,8 +69,12 @@ export function Spinner({ className = 'h-5 w-5' }: { className?: string }) {
 }
 
 /* ---------------- Layout pieces ---------------- */
-export function Card({ children, className, as: As = 'section' }: { children: ReactNode; className?: string; as?: 'section' | 'div' | 'article' }) {
-  return <As className={cx('rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-5', className)}>{children}</As>;
+export function Card({ children, className, as: As = 'section', ...rest }: { children: ReactNode; className?: string; as?: 'section' | 'div' | 'article' } & Omit<HTMLAttributes<HTMLElement>, 'children' | 'className'> & { 'data-testid'?: string }) {
+  return (
+    <As className={cx('rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-5', className)} {...rest}>
+      {children}
+    </As>
+  );
 }
 
 export function PageHeader({ title, subtitle, actions }: { title: ReactNode; subtitle?: ReactNode; actions?: ReactNode }) {

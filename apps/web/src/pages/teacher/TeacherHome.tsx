@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../api/client';
 import type { TeacherClass } from '../../api/types';
 import { useAuth } from '../../auth/AuthProvider';
-import { EmptyState, ErrorBox, PageHeader, Skeleton } from '../../components/ui';
+import { ButtonLink, EmptyState, ErrorBox, PageHeader, Skeleton } from '../../components/ui';
 
 export default function TeacherHome() {
   const { t } = useTranslation();
@@ -12,7 +12,17 @@ export default function TeacherHome() {
   const q = useQuery({ queryKey: ['teacher-classes'], queryFn: () => api.get<{ classes: TeacherClass[] }>('/api/teacher/classes') });
   return (
     <div>
-      <PageHeader title={t('teacher.title')} subtitle={me?.tenant?.name} />
+      <PageHeader
+        title={t('teacher.title')}
+        subtitle={me?.tenant?.name}
+        actions={
+          <>
+            <ButtonLink to="/teacher/review" variant="secondary">📝 {t('nav.reviewQueue')}</ButtonLink>
+            <ButtonLink to="/teacher/championships" variant="secondary">🏆 {t('nav.championships')}</ButtonLink>
+            <ButtonLink to="/content" variant="secondary">📚 {t('nav.contentBank')}</ButtonLink>
+          </>
+        }
+      />
       {q.isPending ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Skeleton className="h-32" />

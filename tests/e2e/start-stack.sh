@@ -4,6 +4,8 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 export GCP_PROJECT_ID=demo-vq FIRESTORE_EMULATOR_HOST=127.0.0.1:8085 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099
 
+# A previous run may have left an emulator on the ports.
+pkill -f cloud-firestore-emulator 2>/dev/null || true
 npx firebase emulators:start --only firestore,auth --project demo-vq > test-results/emulators.log 2>&1 &
 EMU=$!
 API=''

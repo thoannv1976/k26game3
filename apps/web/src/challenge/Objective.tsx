@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../api/client';
 import { qk } from '../api/queries';
 import type { AttemptView, ListeningView, PlayResponse, ReadingView } from '../api/types';
-import { Alert, Badge, Button, cx } from '../components/ui';
+import { Alert, Badge, cx } from '../components/ui';
 import { useLocalized } from '../i18n';
 import { errorMessage } from '../i18n/errors';
 import { parseBlocks } from '../lib/text';

@@ -156,12 +156,12 @@ export function Disclaimer({ className, children }: { className?: string; childr
 
 /** Illustrated zone scenes (inline SVG, no external images). */
 export function ZoneArt({ skill, className }: { skill: Skill; className?: string }) {
-  const common = { viewBox: '0 0 200 100', className: cx('h-full w-full', className), 'aria-hidden': true as const, preserveAspectRatio: 'xMidYMid slice' };
+  // Drawn as a vignette on the right of the zone banner (the banner's gradient is the sky).
+  const common = { viewBox: '0 0 200 100', className: cx('absolute right-0 bottom-0 h-full w-auto max-w-full', className), 'aria-hidden': true as const, preserveAspectRatio: 'xMaxYMax meet' };
   switch (skill) {
     case 'listening':
       return (
         <svg {...common}>
-          <rect width="200" height="100" fill="#7dd3fc" />
           <circle cx="168" cy="22" r="11" fill="#fef08a" />
           <path d="M0 70q25-8 50 0t50 0 50 0 50 0v30H0z" fill="#0ea5e9" />
           <path d="M0 80q25-7 50 0t50 0 50 0 50 0v20H0z" fill="#0284c7" />
@@ -174,7 +174,6 @@ export function ZoneArt({ skill, className }: { skill: Skill; className?: string
     case 'reading':
       return (
         <svg {...common}>
-          <rect width="200" height="100" fill="#c4b5fd" />
           <circle cx="30" cy="20" r="9" fill="#fff" opacity="0.7" />
           <path d="M0 82q50-14 100-6t100-4v28H0z" fill="#7c3aed" opacity="0.55" />
           <g fill="#ede9fe" stroke="#5b21b6" strokeWidth="2">
@@ -193,7 +192,6 @@ export function ZoneArt({ skill, className }: { skill: Skill; className?: string
     case 'writing':
       return (
         <svg {...common}>
-          <rect width="200" height="100" fill="#fde68a" />
           <path d="M0 86h200v14H0z" fill="#d97706" opacity="0.5" />
           <path d="M50 40l50-24 50 24z" fill="#b45309" />
           <rect x="54" y="40" width="92" height="8" fill="#fef3c7" stroke="#92400e" strokeWidth="1.5" />
@@ -212,7 +210,6 @@ export function ZoneArt({ skill, className }: { skill: Skill; className?: string
     default:
       return (
         <svg {...common}>
-          <rect width="200" height="100" fill="#fda4af" />
           <path d="M30 0l30 70H40zM170 0l-30 70h20z" fill="#fff" opacity="0.35" />
           <path d="M20 90c0-34 36-54 80-54s80 20 80 54z" fill="#e11d48" />
           <g fill="#fecdd3">

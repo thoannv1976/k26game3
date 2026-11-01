@@ -5,11 +5,7 @@
     "jsx": "react-jsx",
     "types": ["vite/client"],
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "paths": {
-      "@engine/text": ["../../packages/game-engine/src/text.ts"],
-      "@engine/scoring": ["../../packages/game-engine/src/scoring.ts"]
-    }
+    "noUnusedParameters": true
   },
   "include": ["src"]
 }

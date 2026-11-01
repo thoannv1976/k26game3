@@ -8,6 +8,7 @@ import { isTenantUser, type MeUser } from '../api/types';
 import { currentLocale, setLocale, type Locale } from '../i18n';
 import { cx } from './ui';
 import { Avatar } from './Avatar';
+import { ErrorBoundary } from './ErrorBoundary';
 
 interface NavItem {
   to: string;
@@ -190,7 +191,9 @@ export function Layout() {
       </a>
       <AppHeader />
       <main id="main" className={cx('mx-auto w-full min-w-0 flex-1 px-4', workspace ? 'pt-3 pb-16 lg:pb-8' : 'py-5 sm:py-8', wide ? 'max-w-7xl' : 'max-w-6xl')}>
-        <Outlet />
+        <ErrorBoundary resetKey={loc.pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </main>
       {!workspace && <footer className="border-t border-line py-4 text-center text-xs text-muted">VSTEP Quest · {t('footer.note')}</footer>}
     </div>

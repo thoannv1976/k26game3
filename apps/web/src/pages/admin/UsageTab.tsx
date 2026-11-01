@@ -8,7 +8,7 @@ import { downloadBlob, formatUsd, monthKeyNow } from '../../lib/format';
 import { Alert, Button, Card, EmptyState, ErrorBox, Field, Input, PageSkeleton, ProgressBar, SectionTitle, StatCard, Table } from '../../components/ui';
 import { useToast } from '../../components/Toast';
 
-const KINDS = ['character', 'assistant', 'grade', 'generate', 'ping'];
+const KINDS = ['explain', 'grade_writing', 'grade_speaking', 'coach', 'analytics', 'generate', 'stt', 'tts', 'ping'];
 
 interface DayPoint {
   day: string;
@@ -198,7 +198,7 @@ export function UsageTab() {
                       {Object.entries(d.byKind).map(([k, v]) => (
                         <tr key={k}>
                           <td>
-                            {KINDS.includes(k) ? t(`admin.usage.kinds.${k as 'character'}`) : k} <span className="font-mono text-xs text-muted">{k}</span>
+                            {KINDS.includes(k) ? t(`admin.usage.kinds.${k as 'explain'}`) : k} <span className="font-mono text-xs text-muted">{k}</span>
                           </td>
                           <td className="tabular-nums">{v.calls}</td>
                           <td className="tabular-nums">{v.failures}</td>

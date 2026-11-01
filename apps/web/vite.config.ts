@@ -1,17 +1,13 @@
-import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 /**
- * `@engine/<module>` points at single, data-free modules of packages/game-engine (text helpers, achievement labels).
- * Never import the package index in the browser bundle: it bundles the built-in dossiers (answers, sample solutions).
+ * The browser may only import `@vq/game-engine/core` (pure rules, no content). Never import the package root:
+ * it bundles the built-in content with answers, scripts and sample solutions.
  */
-export const engineAlias = { find: /^@engine\/(text|scoring)$/, replacement: fileURLToPath(new URL('../../packages/game-engine/src/$1.ts', import.meta.url)) };
-
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  resolve: { alias: [engineAlias] },
   server: {
     port: 5173,
     strictPort: true,

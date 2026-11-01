@@ -18,11 +18,12 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     locale: 'vi-VN',
     launchOptions: {
-      args: [],
+      // Fake microphone for the speaking test (no real device in CI).
+      args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'],
     },
   },
   projects: [
-    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
+    { name: 'desktop', use: { ...devices['Desktop Chrome'] }, grepInvert: /@mobile/ },
     { name: 'mobile', use: { ...devices['Pixel 7'] }, grep: /@mobile/ },
   ],
   webServer: {

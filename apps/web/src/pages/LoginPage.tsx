@@ -96,18 +96,26 @@ export function LoginPage() {
 
   return (
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4 py-10">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_10%,var(--vq-primary-soft),transparent_45%),radial-gradient(circle_at_80%_90%,var(--vq-manila),transparent_40%)]" />
+      <div className="world-sky pointer-events-none absolute inset-0 -z-10 opacity-70" />
       <div className="absolute top-4 right-4">
         <LanguageToggle />
       </div>
       <div className="w-full max-w-md">
         <div className="mb-6 flex flex-col items-center gap-3 text-center">
           <Logo size={56} />
-          <h1 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">English Detective</h1>
-          <p className="font-mono text-xs font-semibold tracking-[0.3em] text-string uppercase">AI Mystery Challenge</p>
+          <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
+            VSTEP <span className="text-primary">Quest</span>
+          </h1>
+          <p className="font-mono text-xs font-semibold tracking-[0.3em] text-primary uppercase">AI English Championship</p>
+          <div className="flex gap-2 text-2xl" aria-hidden="true">
+            <span>🎧</span>
+            <span>📖</span>
+            <span>✍️</span>
+            <span>🎤</span>
+          </div>
           <p className="text-muted">{t('login.tagline')}</p>
         </div>
-        <form onSubmit={onSubmit} className="paper-plain space-y-4 rounded-2xl border border-line p-5 sm:p-6" noValidate>
+        <form onSubmit={onSubmit} className="space-y-4 rounded-3xl border border-line bg-surface/95 p-5 shadow-lg backdrop-blur sm:p-6" noValidate>
           <h2 className="text-lg font-semibold">{t('login.title')}</h2>
           {error && <Alert tone="danger">{error}</Alert>}
           {info && <Alert tone="success">{info}</Alert>}

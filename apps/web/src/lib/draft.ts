@@ -95,7 +95,7 @@ export function draftReducer(s: DraftState, a: DraftAction): DraftState {
 
 /* ---------------- local backup ---------------- */
 
-export const backupKey = (sessionId: string) => `ed.draft.${sessionId}`;
+export const backupKey = (sessionId: string) => `vq.draft.${sessionId}`;
 
 export function readBackup(sessionId: string): DraftBackup | null {
   const raw = getStored(backupKey(sessionId));

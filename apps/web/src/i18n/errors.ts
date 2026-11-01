@@ -4,7 +4,7 @@ import { ApiError } from '../api/client';
 
 const KNOWN = new Set<string>([...ApiErrorCodes, 'NETWORK']);
 /** Codes whose server message is specific and useful – appended to the localized text. */
-const WITH_DETAIL = new Set(['VALIDATION', 'CONFLICT', 'NOT_FOUND', 'FORBIDDEN', 'INTERVIEW_LIMIT', 'LOCKED']);
+const WITH_DETAIL = new Set(['VALIDATION', 'CONFLICT', 'NOT_FOUND', 'FORBIDDEN', 'LOCKED', 'AUDIO_TOO_LONG']);
 
 /** Localized, user-friendly message for an API (or any) error. */
 export function errorMessage(t: TFunction, e: unknown): string {

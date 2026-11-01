@@ -2,7 +2,7 @@ import { NavLink, Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../auth/AuthProvider';
 import { PageHeader, cx } from '../../components/ui';
-import { CaseBank } from '../cases/CaseBank';
+import { ContentBank } from '../content/ContentBank';
 import { OverviewTab } from './OverviewTab';
 import { UsersTab } from './UsersTab';
 import { CoursesTab } from './CoursesTab';
@@ -11,7 +11,7 @@ import { UsageTab } from './UsageTab';
 import { AuditTab } from './AuditTab';
 import { SchoolTab } from './SchoolTab';
 
-const TABS = ['overview', 'users', 'courses', 'cases', 'ai', 'usage', 'audit', 'school'] as const;
+const TABS = ['overview', 'users', 'courses', 'content', 'ai', 'usage', 'audit', 'school'] as const;
 type Tab = (typeof TABS)[number];
 
 export default function AdminPage() {
@@ -43,7 +43,7 @@ export default function AdminPage() {
       {current === 'overview' && <OverviewTab />}
       {current === 'users' && <UsersTab />}
       {current === 'courses' && <CoursesTab />}
-      {current === 'cases' && <CaseBank canAdmin />}
+      {current === 'content' && <ContentBank />}
       {current === 'ai' && <SettingsTab />}
       {current === 'usage' && <UsageTab />}
       {current === 'audit' && <AuditTab />}

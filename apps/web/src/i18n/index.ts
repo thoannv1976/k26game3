@@ -6,7 +6,7 @@ import { en } from './en';
 import { vi } from './vi';
 
 export type Locale = 'vi' | 'en';
-const KEY = 'ed.locale';
+const KEY = 'vq.locale';
 
 
 export function storedLocale(): Locale {

@@ -148,8 +148,9 @@ export default function PlayPage() {
         </header>
         <Stepper view={view} step={cur} onStep={goto} />
         <div ref={top} tabIndex={-1} className="outline-none" aria-live="polite">
+          <p className="text-xs font-bold tracking-wide text-muted uppercase">{t('play.challengeN', { n: cur + 1, total: steps.length })}</p>
           <h2 className="font-display text-xl font-extrabold" lang="en">
-            {t('play.challengeN', { n: cur + 1, total: steps.length })}: {steps[cur]?.title}
+            {steps[cur]?.title}
           </h2>
         </div>
         {item ? <ChallengeView key={item.id} item={item} /> : <Alert tone="danger">{t('common.notFoundTitle')}</Alert>}
