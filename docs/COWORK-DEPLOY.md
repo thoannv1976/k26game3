@@ -72,28 +72,32 @@ Dùng CÙNG mã trường với Game 1 (hỏi tôi nếu không biết; mặc đ
 BƯỚC 9 – Kiểm tra (trình duyệt)
 1. https://k26-vstep.web.app/api/health → "app":"vstep-quest","ai":"vertex","database":"vstep","env":"production".
 2. Đăng nhập quản trị → Quản trị → AI & hạn mức → "Kiểm tra kết nối AI" → ok.
-3. Đăng nhập student1@demo.edu.vn → Quest World → Listening Island → L01 "Airport Announcements" → Bắt đầu.
+3. Đăng nhập student1@demo.edu.vn (mật khẩu trong bảng ở bước 8) → "Thế giới nhiệm vụ" → Listening Island → L01 → "Bắt đầu nhiệm vụ".
    - Bấm Nghe → phải NGHE được giọng đọc tiếng Anh; số lượt nghe giảm.
    - Trả lời câu hỏi → hiện đúng/sai + giải thích + trích dẫn; bấm "Giải thích bằng AI" → có giải thích.
-   - Làm hết 4 thử thách → Nộp → kết quả, XP; quest L02 được mở khóa.
-4. Writing Academy → W01 → viết 2 bài (~120 từ mỗi bài) → Nộp → sau ~10–30 giây có điểm 4 tiêu chí + nhận xét.
+   - Làm hết 4 thử thách → "Nộp nhiệm vụ" → kết quả, XP; quest L02 được mở khóa.
+4. Writing Academy → W01 → viết 2 bài (~120 từ mỗi bài) → "Nộp nhiệm vụ" → sau ~10–30 giây có điểm 4 tiêu chí + nhận xét.
 5. Speaking Arena → S01 → cho phép micro → đồng ý thông báo ghi âm → ghi 3 phần (mỗi phần ≥ 25 giây) → thấy transcript →
-   Nộp → có điểm, phát âm hiển thị "Chờ giảng viên thẩm định".
-6. Thi thử → MX1 → Bắt đầu phần Nghe → đồng hồ đếm ngược chạy; trả lời 1 câu; "Kết thúc phần" lần lượt các phần → Nộp →
-   kết quả ghi "đáp án chưa được công bố".
-7. Đăng nhập teacher@demo.edu.vn → lớp ENG101 → Hàng chờ thẩm định → mở bài S01 → nghe bản ghi → nhập điểm phát âm → Lưu;
-   công bố đáp án thi thử cho lớp; tạo một giải đấu (Championship) cho ENG101 với quest R01.
-8. Hồ sơ 4 kỹ năng của sinh viên hiện biểu đồ 4 kỹ năng.
+   "Nộp nhiệm vụ" → có điểm; tiêu chí phát âm hiển thị "Chờ giảng viên".
+6. Menu "Thi thử" → MX1 → "Bắt đầu thi thử" → "Bắt đầu phần thi" → đồng hồ đếm ngược chạy; trả lời 1 câu; "Kết thúc phần thi"
+   lần lượt 4 phần → kết quả ghi "Chưa công bố đáp án".
+7. Đăng nhập teacher@demo.edu.vn → "Hàng chờ thẩm định" → mở bài S01 → nghe bản ghi → nhập điểm phát âm → Lưu;
+   lớp ENG101 → tab Kết quả → công bố đáp án thi thử; menu "Giải đấu" → tạo giải cho ENG101 với quest R01.
+8. Sinh viên → "Hồ sơ 4 kỹ năng" → hiện biểu đồ 4 kỹ năng; bài thi thử MX1 giờ hiện đáp án (đã công bố ở mục 7).
 9. Cloud Scheduler → vstep-jobs-tick → "Force run" → Success. Cloud Run → vstep-api → Logs: có "jobs.tick", không có PERMISSION_DENIED.
 10. Mở https://k26game1.web.app bằng cùng tài khoản sinh viên → vẫn đăng nhập và chơi được Game 1.
 
 BƯỚC 10 – Kết nối dữ liệu 3 game (Game 1 và Game 2 cho phép vstep-api đọc minh chứng – chỉ đọc)
 Triển khai lại Game 1 và Game 2 bằng mã mới nhất (cùng model/location ở bước 3; file apps/web/.env.production của mỗi game đã có
 từ lần trước – nếu thiếu, tạo như bước 4):
-  cd ~/k26game1 && git pull && GEMINI_MODEL=<model> VERTEX_LOCATION=<location> bash scripts/deploy.sh
-  cd ~/k26game2 && git pull && GEMINI_MODEL=<model> VERTEX_LOCATION=<location> bash scripts/deploy.sh
-(Nếu chưa có thư mục: git clone https://github.com/thoannv1976/k26game1.git rồi git checkout claude/kind-faraday-0vksvn;
- k26game2: git checkout claude/game2-detective. Nếu Game 2 chưa từng triển khai thì bỏ qua Game 2.)
+  cd ~/k26game1 && git fetch origin && git checkout claude/kind-faraday-0vksvn && git pull origin claude/kind-faraday-0vksvn
+  git log --oneline -1        # phải thấy "LMS: learner evidence endpoint readable by the VSTEP Quest service account (D4)"
+  GEMINI_MODEL=<model> VERTEX_LOCATION=<location> bash scripts/deploy.sh
+  cd ~/k26game2 && git fetch origin && git checkout claude/game2-detective && git pull origin claude/game2-detective
+  git log --oneline -1        # phải thấy cùng dòng "LMS: learner evidence endpoint ... (D4)"
+  GEMINI_MODEL=<model> VERTEX_LOCATION=<location> bash scripts/deploy.sh
+(Nếu chưa có thư mục: cd ~ && git clone https://github.com/thoannv1976/k26game1.git (hoặc k26game2.git) rồi chạy các lệnh trên.
+ Nếu Game 2 chưa từng triển khai thì bỏ qua Game 2.)
 Sau đó triển khai lại Game 3 để nó nhận URL của 2 game:
   cd ~/k26game3 && GEMINI_MODEL=<model> VERTEX_LOCATION=<location> bash scripts/deploy.sh
 Kiểm tra: Game 1 (k26game1.web.app) và Game 2 (k26-detective.web.app) vẫn chạy; trang Hồ sơ 4 kỹ năng của Game 3 hiện phần
