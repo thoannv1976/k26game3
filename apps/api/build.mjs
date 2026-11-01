@@ -1,4 +1,4 @@
-// Bundles the API (and @vq/shared + mission content) into dist/server.js for Cloud Run.
+// Bundles the API (and the workspace packages + quest/exam content) into dist/server.js for Cloud Run.
 import { build } from 'esbuild';
 
 await build({
@@ -15,8 +15,12 @@ await build({
     {
       name: 'bundle-workspace',
       setup(b) {
+        // Root exports and subpath exports (e.g. @vq/game-engine/text → packages/game-engine/src/text.ts).
         for (const pkg of ['shared', 'game-engine', 'ai']) {
-          b.onResolve({ filter: new RegExp(`^@vq/${pkg}$`) }, () => ({ path: new URL(`../../packages/${pkg}/src/index.ts`, import.meta.url).pathname }));
+          b.onResolve({ filter: new RegExp(`^@vq/${pkg}(/[a-z-]+)?$`) }, (args) => {
+            const sub = args.path.slice(`@vq/${pkg}`.length).replace(/^\//, '') || 'index';
+            return { path: new URL(`../../packages/${pkg}/src/${sub}.ts`, import.meta.url).pathname };
+          });
         }
       },
     },

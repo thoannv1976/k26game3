@@ -10,7 +10,7 @@ export function firebaseApp(projectId: string): App {
   return app;
 }
 
-/** English Detective keeps its data in its own Firestore database (default id "detective"). */
+/** VSTEP Quest keeps its data in its own Firestore database (default id "vstep"). */
 export function firestore(projectId: string, databaseId: string): Firestore {
   const db = databaseId === '(default)' ? getFirestore(firebaseApp(projectId)) : getFirestore(firebaseApp(projectId), databaseId);
   try {

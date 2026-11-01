@@ -6,7 +6,7 @@ const config = loadConfig();
 const deps = createDeps(config);
 const app = await buildApp(deps);
 await app.listen({ port: config.port, host: '0.0.0.0' });
-app.log.info(`English Detective API listening on ${config.port} (ai=${deps.ai.name}, db=${config.firestoreDatabase})`);
+app.log.info(`VSTEP Quest API listening on ${config.port} (ai=${deps.ai.name}, db=${config.firestoreDatabase})`);
 
 for (const sig of ['SIGTERM', 'SIGINT'] as const) {
   process.on(sig, () => {
