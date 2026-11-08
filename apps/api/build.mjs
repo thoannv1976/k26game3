@@ -1,4 +1,5 @@
 // Bundles the API (and the workspace packages + quest/exam content) into dist/server.js for Cloud Run.
+import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 
 await build({
@@ -19,7 +20,7 @@ await build({
         for (const pkg of ['shared', 'game-engine', 'ai']) {
           b.onResolve({ filter: new RegExp(`^@vq/${pkg}(/[a-z-]+)?$`) }, (args) => {
             const sub = args.path.slice(`@vq/${pkg}`.length).replace(/^\//, '') || 'index';
-            return { path: new URL(`../../packages/${pkg}/src/${sub}.ts`, import.meta.url).pathname };
+            return { path: fileURLToPath(new URL(`../../packages/${pkg}/src/${sub}.ts`, import.meta.url)) };
           });
         }
       },
