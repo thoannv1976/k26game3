@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { PageSkeleton } from './components/ui';
 import { HomeRedirect, RequireAuth, RequireRole } from './auth/guards';
 import { LoginPage } from './pages/LoginPage';
+import { LtiLaunchPage } from './pages/LtiLaunchPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import WorldPage from './pages/student/WorldPage';
 
@@ -38,6 +39,7 @@ export function App() {
     <Suspense fallback={<div className="mx-auto max-w-6xl p-6"><PageSkeleton /></div>}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/lti-launch" element={<LtiLaunchPage />} />
         <Route element={<RequireAuth />}>
           <Route element={<Layout />}>
             <Route index element={<HomeRedirect />} />

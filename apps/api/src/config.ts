@@ -29,12 +29,29 @@ export interface AppConfig {
   peerDetectiveUrl: string;
   /** Audience of the Google ID token sent to the peers (they accept only this audience + the vstep-api account). */
   peerAudience: string;
+  /** UniGame Hub (LTI 1.3) single sign-on + grade sync. Off unless LTI_ENABLED=true. */
+  ltiEnabled: boolean;
+  ltiHubUrl: string;
+  ltiGameId: string;
+  ltiGameSecret: string;
+  /** Hub tenant id -> this app's tenant id, e.g. {"aiedu2026":"aiedu2026"}. */
+  ltiTenantMap: Record<string, string>;
 }
 
 const str = (name: string, def: string) => {
   const v = process.env[name];
   return v === undefined || v === '' ? def : v;
 };
+
+/** "hubTenant=appTenant;hub2=app2" (deploy-friendly) or a JSON object. */
+export function parseTenantMap(v: string): Record<string, string> {
+  const s = v.trim();
+  if (!s) return {};
+  if (s.startsWith('{')) return JSON.parse(s) as Record<string, string>;
+  return Object.fromEntries(
+    s.split(';').map((pair) => pair.split('=').map((x) => x.trim())).filter((p) => p.length === 2 && p[0] && p[1]) as [string, string][],
+  );
+}
 
 export function loadConfig(overrides: Partial<AppConfig> = {}): AppConfig {
   const env = str('NODE_ENV', 'development') as AppConfig['env'];
@@ -65,6 +82,11 @@ export function loadConfig(overrides: Partial<AppConfig> = {}): AppConfig {
     peerCityUrl: str('PEER_CITY_URL', ''),
     peerDetectiveUrl: str('PEER_DETECTIVE_URL', ''),
     peerAudience: str('PEER_AUDIENCE', 'k26-lms'),
+    ltiEnabled: str('LTI_ENABLED', 'false') === 'true',
+    ltiHubUrl: str('LTI_HUB_URL', '').replace(/\/+$/, ''),
+    ltiGameId: str('LTI_GAME_ID', 'k26game3'),
+    ltiGameSecret: str('LTI_GAME_SECRET', ''),
+    ltiTenantMap: parseTenantMap(str('LTI_TENANT_MAP', '')),
     ...overrides,
   };
   assertSafeConfig(cfg);
@@ -80,4 +102,11 @@ export function assertSafeConfig(cfg: AppConfig): void {
   if (cfg.ttsProvider !== 'google') bad.push('TTS_PROVIDER');
   if (cfg.blobStore !== 'gcs') bad.push('BLOB_STORE');
   if (bad.length) throw new Error(`Refusing to start in production with offline providers: ${bad.join(', ')}`);
+  if (cfg.ltiEnabled) {
+    const missing: string[] = [];
+    if (!cfg.ltiHubUrl.startsWith('https://')) missing.push('LTI_HUB_URL (https)');
+    if (cfg.ltiGameSecret.length < 32) missing.push('LTI_GAME_SECRET');
+    if (Object.keys(cfg.ltiTenantMap).length === 0) missing.push('LTI_TENANT_MAP');
+    if (missing.length) throw new Error(`LTI_ENABLED=true but missing: ${missing.join(', ')}`);
+  }
 }

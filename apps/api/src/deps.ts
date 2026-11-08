@@ -1,5 +1,6 @@
 import type { Auth } from 'firebase-admin/auth';
 import type { Firestore } from 'firebase-admin/firestore';
+import type { JWTVerifyGetKey } from 'jose';
 import { FakeAiProvider, VertexAiProvider, type AiProvider } from '@vq/ai';
 import { GcsBlobStore, LocalBlobStore, MemoryBlobStore, type BlobStore } from './blob.js';
 import type { AppConfig } from './config.js';
@@ -18,6 +19,9 @@ export interface Deps {
   blobs: BlobStore;
   peers: PeerClient;
   now: () => Date;
+  /** Test hooks for the UniGame Hub adapter (default: Hub JWKS over HTTPS / global fetch). */
+  ltiJwks?: JWTVerifyGetKey;
+  ltiFetch?: typeof fetch;
 }
 
 export function createDeps(config: AppConfig, o: Partial<Deps> = {}): Deps {
@@ -31,5 +35,7 @@ export function createDeps(config: AppConfig, o: Partial<Deps> = {}): Deps {
     blobs: o.blobs ?? (config.blobStore === 'gcs' ? new GcsBlobStore(config.audioBucket) : config.blobStore === 'local' ? new LocalBlobStore(config.localDataDir) : new MemoryBlobStore()),
     peers: o.peers ?? (config.peerCityUrl || config.peerDetectiveUrl ? new HttpPeerClient(config.peerCityUrl, config.peerDetectiveUrl, config.peerAudience) : new NoPeerClient()),
     now: o.now ?? (() => new Date()),
+    ltiJwks: o.ltiJwks,
+    ltiFetch: o.ltiFetch,
   };
 }

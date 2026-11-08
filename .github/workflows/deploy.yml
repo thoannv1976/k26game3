@@ -51,7 +51,8 @@ jobs:
             --service-account "${{ vars.RUNTIME_SA }}" --allow-unauthenticated \
             --memory 1Gi --cpu 1 --concurrency 40 --timeout 300 \
             --min-instances "${{ vars.MIN_INSTANCES || '0' }}" --max-instances "${{ vars.MAX_INSTANCES || '10' }}" \
-            --set-env-vars "NODE_ENV=production,GCP_PROJECT_ID=${PROJECT_ID},FIRESTORE_DATABASE=vstep,VERTEX_LOCATION=${{ vars.VERTEX_LOCATION || 'global' }},GEMINI_MODEL=${{ vars.GEMINI_MODEL || 'gemini-3-flash-preview' }},AUDIO_BUCKET=${PROJECT_ID}-vstep-audio,JOBS_INVOKERS=${{ vars.SCHEDULER_SA }},PEER_CITY_URL=${{ vars.PEER_CITY_URL }},PEER_DETECTIVE_URL=${{ vars.PEER_DETECTIVE_URL }},LOG_LEVEL=info"
+            --set-env-vars "NODE_ENV=production,GCP_PROJECT_ID=${PROJECT_ID},FIRESTORE_DATABASE=vstep,VERTEX_LOCATION=${{ vars.VERTEX_LOCATION || 'global' }},GEMINI_MODEL=${{ vars.GEMINI_MODEL || 'gemini-3-flash-preview' }},AUDIO_BUCKET=${PROJECT_ID}-vstep-audio,JOBS_INVOKERS=${{ vars.SCHEDULER_SA }},PEER_CITY_URL=${{ vars.PEER_CITY_URL }},PEER_DETECTIVE_URL=${{ vars.PEER_DETECTIVE_URL }},LOG_LEVEL=info,LTI_ENABLED=${{ vars.LTI_ENABLED || 'false' }},LTI_HUB_URL=${{ vars.LTI_HUB_URL }},LTI_TENANT_MAP=${{ vars.LTI_TENANT_MAP }}" \
+            ${{ vars.LTI_ENABLED == 'true' && format('--update-secrets LTI_GAME_SECRET={0}:latest', vars.LTI_SECRET_NAME || 'unigamehub-secret-k26game3') || '' }}
           RUN_URL="$(gcloud run services describe vstep-api --project "${PROJECT_ID}" --region "${REGION}" --format='value(status.url)')"
           gcloud run services update vstep-api --project "${PROJECT_ID}" --region "${REGION}" --update-env-vars "JOBS_AUDIENCE=${RUN_URL}"
           ARGS=(--project "${PROJECT_ID}" --location "${REGION}" --schedule "*/5 * * * *" --time-zone "Asia/Ho_Chi_Minh" --uri "${RUN_URL}/internal/jobs/tick" --http-method POST --oidc-service-account-email "${{ vars.SCHEDULER_SA }}" --oidc-token-audience "${RUN_URL}" --attempt-deadline 300s)

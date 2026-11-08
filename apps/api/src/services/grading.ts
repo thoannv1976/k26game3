@@ -33,6 +33,7 @@ import { getTenant } from '../tenants.js';
 import type { AssessmentDoc, AttemptDoc, ChampionshipDoc, EntryDoc, ItemFeedback, TeacherReview, WritingDoc } from '../types.js';
 import { canViewStudent } from './access.js';
 import { attemptItems, attemptRef, loadAttempt, tickClock } from './attempts.js';
+import { syncGrade } from '../lti/gradeSync.js';
 import { listApproved } from './content.js';
 import { withRetry } from './retry.js';
 
@@ -229,13 +230,14 @@ export async function ensureGraded(deps: Deps, tenantId: string, attemptId: stri
   if (claim.status !== 'claimed') return { status: claim.status };
 
   const a = claim.attempt!;
+  let graded: { doc: AssessmentDoc; gradedAt: string };
   try {
     const items = await attemptItems(deps, a);
     const { quest, exam } = await attemptRef(deps, a);
     const g = await gradeAi(deps, tenant, a, items, claim.aiAllowed!);
     const allQuests = (await listApproved(deps, tenantId, 'quest')).map((q) => q.content);
 
-    const outcome = await deps.db.runTransaction(async (tx) => {
+    graded = await deps.db.runTransaction(async (tx) => {
       const userRef = p.user(tenantId, a.uid);
       const aRef = p.assessment(tenantId, attemptId);
       const champRef = a.championshipId ? p.championship(tenantId, a.championshipId) : null;
@@ -293,14 +295,16 @@ export async function ensureGraded(deps: Deps, tenantId: string, attemptId: stri
         // Only attempts submitted before the deadline count.
         if (a.submittedAt && a.submittedAt <= c.closesAt && !c.closedAt) tx.set(entryRef, nextEntry(eSnap?.data() as EntryDoc | undefined, c, user, a, doc, now));
       }
-      return doc;
+      return { doc, gradedAt: now.toISOString() };
     });
-    void outcome;
-    return { status: 'graded' };
   } catch (e) {
     await ref.update({ status: 'submitted', lockId: null, lockSince: null }).catch(() => undefined);
     throw e;
   }
+  // Every grading path (results page, background job, teacher regrade) ends here: report LMS-launched attempts.
+  // Outside the try: the assessment is saved, so a sync problem must never reset the attempt (syncGrade never throws).
+  await syncGrade(deps, tenantId, graded.doc, graded.gradedAt);
+  return { status: 'graded' };
 }
 
 export function nextEntry(prev: EntryDoc | undefined, c: ChampionshipDoc, user: UserDoc, a: AttemptDoc, as: AssessmentDoc, now: Date): EntryDoc {
