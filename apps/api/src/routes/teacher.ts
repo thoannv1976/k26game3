@@ -11,6 +11,7 @@ import { getTenant } from '../tenants.js';
 import { audit } from '../audit.js';
 import { canViewStudent, coursesFor } from '../services/access.js';
 import { ensureGraded, getResults, releaseAnswers, reviewAssessment } from '../services/grading.js';
+import { syncGrade } from '../lti/gradeSync.js';
 import { listApproved } from '../services/content.js';
 import { getProfile } from '../services/profile.js';
 import { ChampionshipInputSchema, closeChampionship, createChampionship, leaderboard, listManaged, updateChampionship } from '../services/championships.js';
@@ -244,6 +245,7 @@ export async function teacherRoutes(app: FastifyInstance, deps: Deps) {
     );
     const id = idOf(req);
     const r = await reviewAssessment(deps, m, id, body);
+    await syncGrade(deps, m.tenantId, r, r.teacherReview?.reviewedAt ?? deps.now().toISOString(), req.log);
     await audit(deps, m, m.tenantId, 'assessment.review', id, { status: r.teacherReview?.status, score: r.score });
     return { assessment: r };
   });

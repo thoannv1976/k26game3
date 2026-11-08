@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.1.0 – unreleased (branch feature/lti-sso)
+
+### Added
+- UniGame Hub (LTI 1.3) single sign-on from Moodle, off unless `LTI_ENABLED=true` (game id `k26game3`).
+  - `POST /api/lti/launch {ticket}` verifies the Hub's one-time signed ticket and creates or reuses an `lti-…` Auth user.
+    These users are keyed by the Hub user id, never by e-mail, with the same uid as in Games 1 and 2 (shared Firebase Auth),
+    so a Moodle user has one account in all K26 games. Claims `{tenantId, role}` stay compatible: a school admin is never
+    downgraded and an account of another school is refused.
+  - It creates the VSTEP Quest profile, enrols the user in the course mapped from the Moodle course and creates the assignment
+    for the activity the teacher chose: a quest (`L01`…`W02`) or a mock exam (`mx1`). Content must be approved for the school.
+  - Web page `/lti-launch` signs in with the returned custom token and opens the quest or the exam lobby (students) or the
+    class page (teachers).
+- Grade sync to Moodle through the Hub: when an attempt of an LTI assignment is graded (results page, background job or
+  teacher regrade) and after a teacher review, the assessment `score` (0–100: quest skill score, mock exam overall) is sent
+  with max 100 – `PendingManual` while writing/speaking criteria wait for the teacher, `FullyGraded` otherwise. Attempts
+  without a score yet are sent after the teacher review. Every outcome is logged in `tenants/{t}/lti_outbox`; a failure never
+  blocks grading.
+- Config: `LTI_ENABLED`, `LTI_HUB_URL`, `LTI_GAME_ID` (default `k26game3`), `LTI_TENANT_MAP` (`hubTenant=appTenant;…`) and
+  `LTI_GAME_SECRET` (Secret Manager `unigamehub-secret-k26game3`, override with `LTI_SECRET_NAME`).
+- `scripts/create-tenant.mts` creates an LMS-only school (no admin account) with the built-in content.
+- `scripts/lti-preview.sh` with `firebase.preview.json` deploys a preview (Cloud Run `vstep-api-lti-preview` and Hosting
+  channel `lti` on `k26-vstep`). `scripts/deploy.sh` accepts `FIREBASE_ACCOUNT`.
+
+### Changed
+- Resuming an unfinished quest or mock exam from an assignment link now attaches that assignment to the attempt.
+
 ## 1.0.0 – 2026-11-01
 
 First complete version of VSTEP Quest – AI English Skills Adventure (K26 Game 3).

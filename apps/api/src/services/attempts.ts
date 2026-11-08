@@ -168,6 +168,22 @@ async function resolveAssignment(deps: Deps, m: Member, assignmentId: string | u
   return { courseId: a.courseId, assignmentId: a.id };
 }
 
+/**
+ * An attempt started outside an assignment and resumed from one (e.g. an LMS launch) gets linked to it, so its result
+ * can be reported to that assignment. Invalid or foreign assignments are ignored here (resuming must keep working).
+ */
+async function attachAssignment(deps: Deps, m: Member, a: AttemptDoc, assignmentId: string | undefined, kind: 'quest' | 'exam'): Promise<void> {
+  if (!assignmentId || a.assignmentId || a.championshipId) return;
+  let r: { courseId: string | null; assignmentId: string | null };
+  try {
+    r = await resolveAssignment(deps, m, assignmentId, kind, a.refId);
+  } catch {
+    return;
+  }
+  if (!r.assignmentId) return;
+  await paths(deps.db).attempt(m.tenantId, a.id).update({ assignmentId: r.assignmentId, courseId: r.courseId });
+}
+
 function newDoc(m: Member, fields: Omit<AttemptDoc, 'id' | 'tenantId' | 'uid' | 'status' | 'startedAt' | 'lastActivityAt' | 'submittedAt' | 'gradedAt' | 'lockId' | 'lockSince' | 'gradingAttempts' | 'answersReleased'>, now: Date): AttemptDoc {
   return {
     id: randomUUID(),
@@ -217,7 +233,10 @@ export async function startQuest(deps: Deps, m: Member, input: { questId: string
     if (st?.state === 'locked') throw new ApiError('LOCKED', `Complete ${st.missing.join(', ')} first to unlock this quest`);
     const existing = await p.attempts(m.tenantId).where('uid', '==', m.uid).where('refId', '==', quest.id).where('status', '==', 'active').limit(5).get();
     const own = existing.docs.map((d) => d.data() as AttemptDoc).find((a) => a.mode === 'quest');
-    if (own && !input.restart) return { resumed: true, ...(await getAttempt(deps, m, own.id)) };
+    if (own && !input.restart) {
+      await attachAssignment(deps, m, own, input.assignmentId, 'quest');
+      return { resumed: true, ...(await getAttempt(deps, m, own.id)) };
+    }
     replaced = own?.id ?? null;
   }
 
@@ -258,7 +277,10 @@ export async function startExam(deps: Deps, m: Member, input: { examId: string; 
   const existing = await p.attempts(m.tenantId).where('uid', '==', m.uid).where('status', '==', 'active').get();
   const running = existing.docs.map((d) => d.data() as AttemptDoc).find((a) => a.mode === 'exam');
   if (running) {
-    if (running.refId === content.exam.id) return { resumed: true, ...(await getAttempt(deps, m, running.id)) };
+    if (running.refId === content.exam.id) {
+      await attachAssignment(deps, m, running, input.assignmentId, 'exam');
+      return { resumed: true, ...(await getAttempt(deps, m, running.id)) };
+    }
     throw new ApiError('CONFLICT', 'Finish your other mock exam first');
   }
   const { courseId, assignmentId } = await resolveAssignment(deps, m, input.assignmentId, 'exam', content.exam.id);

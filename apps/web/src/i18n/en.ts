@@ -122,6 +122,12 @@ export const en = {
     disabledTitle: 'Account disabled',
     disabledBody: 'This account has been disabled. Please contact your school administrator.',
   },
+  lti: {
+    signingIn: 'Signing you in with your Moodle account…',
+    noTicket: 'Sign-in information is missing. Please open the activity again from Moodle.',
+    expired: 'The Moodle sign-in has expired or was already used. Go back to Moodle and open the activity again.',
+    failed: 'Could not sign in through Moodle. Please try again or tell your teacher.',
+  },
   login: {
     tagline: 'Practise Listening, Reading, Writing and Speaking (B1–B2, VSTEP format) on quests, mock exams and championships.',
     title: 'Sign in to start your quest',
